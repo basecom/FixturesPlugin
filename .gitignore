@@ -1,0 +1,7 @@
+.idea
+.DS_Store
+/vendor
+.php_cs.cache
+/node_modules
+/coverage
+/public/coverage

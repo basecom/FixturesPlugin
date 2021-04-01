@@ -1,0 +1,52 @@
+{
+    "name": "basecom/sw6-fixtures-plugin",
+    "description": "basecom Fixtures Plugin",
+    "type": "shopware-platform-plugin",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "basecom GmbH & Co. KG",
+            "email": "info@basecom.de",
+            "homepage": "https://basecom.de",
+            "role": "Manufacturer"
+        },
+        {
+            "name": "Jordan Kniest",
+            "email": "j.kniest@basecom.de",
+            "homepage": "https://basecom.de",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Basecom\\FixturePlugin\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "BasecomFixturePlugin",
+        "label": {
+            "de-DE": "basecom Fixture Plugin",
+            "en-GB": "basecom Fixture Plugin"
+        },
+        "copyright": "(c) basecom GmbH & Co. KG",
+        "plugin-icon": "src/Resources/config/plugin.png",
+        "description": {
+            "de-DE": "Erlaubt das Generieren von Demo-Daten",
+            "en-GB": "Allows the generation of demo data"
+        }
+    },
+    "require": {
+        "shopware/core": "6.3.*",
+        "shopware/administration": "6.3.*",
+        "shopware/storefront": "6.3.*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.12.9",
+        "vimeo/psalm": "^4.6",
+        "phpspec/phpspec": "^7.0",
+        "friends-of-phpspec/phpspec-code-coverage": "^6.0",
+        "infection/infection": "^0.21.4",
+        "infection/phpspec-adapter": "^0.1.1"
+    }
+}

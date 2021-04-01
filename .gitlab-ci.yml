@@ -1,0 +1,33 @@
+image:
+  name: '${CI_REGISTRY}/basecom-gmbh/shopware/v6/customer-projects/docker/php-cron-build:latest'
+
+stages:
+  - 'test'
+
+before_script:
+  - 'docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN ${CI_REGISTRY}'
+
+# STAGE TEST
+test lint:
+  stage: 'test'
+  script:
+    - 'composer install --no-interaction --optimize-autoloader --no-suggest'
+    - './vendor/bin/php-cs-fixer fix --allow-risky=yes --config=.php_cs.php --dry-run'
+    - './vendor/bin/phpstan analyse src/ --memory-limit=1G --level 8'
+    - './vendor/bin/psalm'
+
+test code spec:
+  stage: 'test'
+  variables:
+    INFECTION_THREAD_COUNT: 2
+    BASE_BRANCH: master
+  script:
+    - 'composer install --no-interaction --optimize-autoloader --no-suggest'
+    - './gitlab/run-spec-tests.sh'
+    - './gitlab/report-code-coverage.sh'
+  artifacts:
+    when: 'always'
+    paths:
+      - 'public/coverage'
+      - 'coverage'
+      - 'infection-summary.log'
