@@ -23,7 +23,7 @@
         }
     },
     "extra": {
-        "shopware-plugin-class": "BasecomFixturePlugin",
+        "shopware-plugin-class": "Basecom\\FixturePlugin\\BasecomFixturePlugin",
         "label": {
             "de-DE": "basecom Fixture Plugin",
             "en-GB": "basecom Fixture Plugin"
