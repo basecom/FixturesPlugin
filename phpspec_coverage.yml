@@ -14,3 +14,7 @@ extensions:
         output:
             html: public/coverage
             xml: coverage/phpspec-coverage-xml
+        blacklist:
+            - 'src/Command/'
+        blacklist_files:
+            - 'src/Fixture.php' # Abstract class with no logic

@@ -7,3 +7,11 @@ services:
     Basecom\FixturePlugin\:
         resource: '../../*'
         exclude: '../../{DependencyInjection,Entity,Migrations,spec}'
+
+    _instanceof:
+        Basecom\FixturePlugin\Fixture:
+            tags: ['basecom.fixture']
+
+    Basecom\FixturePlugin\FixtureLoader:
+        arguments:
+            - !tagged_iterator basecom.fixture
