@@ -16,23 +16,39 @@ class FixtureHelper
     private EntityRepositoryInterface $paymentMethodRepository;
     private EntityRepositoryInterface $salutationRepository;
     private EntityRepositoryInterface $countryRepository;
+    private EntityRepositoryInterface $categoryRepository;
+    private EntityRepositoryInterface $shippingMethodRepository;
+    private EntityRepositoryInterface $snippetSetRepository;
+    private EntityRepositoryInterface $languageRepository;
+    private EntityRepositoryInterface $cmsPageRepository;
 
     public function __construct(
         EntityRepositoryInterface $currencyRepository,
         EntityRepositoryInterface $paymentMethodRepository,
         EntityRepositoryInterface $salutationRepository,
-        EntityRepositoryInterface $countryRepository
+        EntityRepositoryInterface $countryRepository,
+        EntityRepositoryInterface $categoryRepository,
+        EntityRepositoryInterface $shippingMethodRepository,
+        EntityRepositoryInterface $snippetSetRepository,
+        EntityRepositoryInterface $languageRepository,
+        EntityRepositoryInterface $cmsPageRepository
     ) {
-        $this->currencyRepository      = $currencyRepository;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->salutationRepository    = $salutationRepository;
-        $this->countryRepository       = $countryRepository;
+        $this->currencyRepository       = $currencyRepository;
+        $this->paymentMethodRepository  = $paymentMethodRepository;
+        $this->salutationRepository     = $salutationRepository;
+        $this->countryRepository        = $countryRepository;
+        $this->categoryRepository       = $categoryRepository;
+        $this->shippingMethodRepository = $shippingMethodRepository;
+        $this->snippetSetRepository     = $snippetSetRepository;
+        $this->languageRepository       = $languageRepository;
+        $this->cmsPageRepository        = $cmsPageRepository;
     }
 
     public function getEuroCurrencyId(): ?string
     {
         $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('isoCode', 'EUR'));
+            ->addFilter(new EqualsFilter('isoCode', 'EUR'))
+            ->setLimit(1);
 
         return $this->currencyRepository->searchIds(
             $criteria,
@@ -44,7 +60,7 @@ class FixtureHelper
     {
         $criteria = (new Criteria())->addFilter(
             new EqualsFilter('handlerIdentifier', InvoicePayment::class)
-        );
+        )->setLimit(1);
 
         return $this->paymentMethodRepository->searchIds(
             $criteria,
@@ -56,7 +72,7 @@ class FixtureHelper
     {
         $criteria = (new Criteria())->addFilter(
             new EqualsFilter('salutationKey', 'not_specified')
-        );
+        )->setLimit(1);
 
         return $this->salutationRepository->searchIds(
             $criteria,
@@ -68,11 +84,67 @@ class FixtureHelper
     {
         $criteria = (new Criteria())->addFilter(
             new EqualsFilter('iso', 'DE')
-        );
+        )->setLimit(1);
 
         return $this->countryRepository->searchIds(
             $criteria,
             Context::createDefaultContext()
         )->firstId();
+    }
+
+    public function getFirstCategoryId(): ?string
+    {
+        $criteria = (new Criteria())->addFilter(
+            new EqualsFilter('level', '1')
+        )->setLimit(1);
+
+        return $this->categoryRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
+    }
+
+    public function getFirstShippingMethodId(): ?string
+    {
+        $criteria = (new Criteria())->addFilter(
+            new EqualsFilter('active', '1')
+        )->setLimit(1);
+
+        return $this->shippingMethodRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
+    }
+
+    public function getDeSnippetSetId(): ?string
+    {
+        $criteria = (new Criteria())->addFilter(
+            new EqualsFilter('iso', 'de-DE')
+        )->setLimit(1);
+
+        return $this->snippetSetRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
+    }
+
+    public function getGermanLanguageId(): ?string
+    {
+        $criteria = (new Criteria())->addFilter(
+            new EqualsFilter('name', 'Deutsch')
+        )->setLimit(1);
+
+        return $this->languageRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
+    }
+
+    public function getDefaultCategoryLayoutId(): ?string
+    {
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('locked', '1'))
+            ->addFilter(new EqualsFilter('translations.name', 'Default category layout'))
+            ->setLimit(1);
+
+        return $this->cmsPageRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
     }
 }
