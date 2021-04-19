@@ -20,13 +20,23 @@ class FixtureHelperSpec extends ObjectBehavior
         EntityRepositoryInterface $currencyRepository,
         EntityRepositoryInterface $paymentMethodRepository,
         EntityRepositoryInterface $salutationRepository,
-        EntityRepositoryInterface $countryRepository
+        EntityRepositoryInterface $countryRepository,
+        EntityRepositoryInterface $categoryRepository,
+        EntityRepositoryInterface $shippingMethodRepository,
+        EntityRepositoryInterface $snippetSetRepository,
+        EntityRepositoryInterface $languageRepository,
+        EntityRepositoryInterface $cmsPageRepository
     ): void {
         $this->beConstructedWith(
             $currencyRepository,
             $paymentMethodRepository,
             $salutationRepository,
-            $countryRepository
+            $countryRepository,
+            $categoryRepository,
+            $shippingMethodRepository,
+            $snippetSetRepository,
+            $languageRepository,
+            $cmsPageRepository
         );
     }
 
@@ -39,7 +49,7 @@ class FixtureHelperSpec extends ObjectBehavior
         EntityRepositoryInterface $currencyRepository,
         IdSearchResult $searchResult
     ): void {
-        $criteria = (new Criteria())->addFilter(new EqualsFilter('isoCode', 'EUR'));
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('isoCode', 'EUR'))->setLimit(1);
 
         $currencyRepository->searchIds(
             $criteria,
@@ -55,7 +65,9 @@ class FixtureHelperSpec extends ObjectBehavior
         EntityRepositoryInterface $paymentMethodRepository,
         IdSearchResult $searchResult
     ): void {
-        $criteria = (new Criteria())->addFilter(new EqualsFilter('handlerIdentifier', InvoicePayment::class));
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('handlerIdentifier', InvoicePayment::class))
+            ->setLimit(1);
 
         $paymentMethodRepository->searchIds(
             $criteria,
@@ -71,7 +83,9 @@ class FixtureHelperSpec extends ObjectBehavior
         EntityRepositoryInterface $salutationRepository,
         IdSearchResult $searchResult
     ): void {
-        $criteria = (new Criteria())->addFilter(new EqualsFilter('salutationKey', 'not_specified'));
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('salutationKey', 'not_specified'))
+            ->setLimit(1);
 
         $salutationRepository->searchIds(
             $criteria,
@@ -87,7 +101,7 @@ class FixtureHelperSpec extends ObjectBehavior
         EntityRepositoryInterface $countryRepository,
         IdSearchResult $searchResult
     ): void {
-        $criteria = (new Criteria())->addFilter(new EqualsFilter('iso', 'DE'));
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('iso', 'DE'))->setLimit(1);
 
         $countryRepository->searchIds(
             $criteria,
@@ -97,5 +111,88 @@ class FixtureHelperSpec extends ObjectBehavior
         $searchResult->firstId()->willReturn('germany-123');
 
         $this->getGermanCountryId()->shouldBe('germany-123');
+    }
+
+    public function it_can_return_the_first_category_id(
+        EntityRepositoryInterface $categoryRepository,
+        IdSearchResult $searchResult
+    ): void {
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('level', '1'))->setLimit(1);
+
+        $categoryRepository->searchIds(
+            $criteria,
+            Argument::type(Context::class)
+        )->shouldBeCalledOnce()->willReturn($searchResult);
+
+        $searchResult->firstId()->willReturn('category-123');
+
+        $this->getFirstCategoryId()->shouldBe('category-123');
+    }
+
+    public function it_can_return_the_first_shipping_method_id(
+        EntityRepositoryInterface $shippingMethodRepository,
+        IdSearchResult $searchResult
+    ): void {
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('active', '1'))->setLimit(1);
+
+        $shippingMethodRepository->searchIds(
+            $criteria,
+            Argument::type(Context::class)
+        )->shouldBeCalledOnce()->willReturn($searchResult);
+
+        $searchResult->firstId()->willReturn('shipping-123');
+
+        $this->getFirstShippingMethodId()->shouldBe('shipping-123');
+    }
+
+    public function it_can_return_the_de_snippet_set_id(
+        EntityRepositoryInterface $snippetSetRepository,
+        IdSearchResult $searchResult
+    ): void {
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('iso', 'de-DE'))->setLimit(1);
+
+        $snippetSetRepository->searchIds(
+            $criteria,
+            Argument::type(Context::class)
+        )->shouldBeCalledOnce()->willReturn($searchResult);
+
+        $searchResult->firstId()->willReturn('snippet-123');
+
+        $this->getDeSnippetSetId()->shouldBe('snippet-123');
+    }
+
+    public function it_can_return_the_german_language_id(
+        EntityRepositoryInterface $languageRepository,
+        IdSearchResult $searchResult
+    ): void {
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('name', 'Deutsch'))->setLimit(1);
+
+        $languageRepository->searchIds(
+            $criteria,
+            Argument::type(Context::class)
+        )->shouldBeCalledOnce()->willReturn($searchResult);
+
+        $searchResult->firstId()->willReturn('lang-123');
+
+        $this->getGermanLanguageId()->shouldBe('lang-123');
+    }
+
+    public function it_can_return_the_default_category_layout_id(
+        EntityRepositoryInterface $cmsPageRepository,
+        IdSearchResult $searchResult
+    ): void {
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('locked', '1'))
+            ->addFilter(new EqualsFilter('translations.name', 'Default category layout'))
+            ->setLimit(1);
+
+        $cmsPageRepository->searchIds(
+            $criteria,
+            Argument::type(Context::class)
+        )->shouldBeCalledOnce()->willReturn($searchResult);
+
+        $searchResult->firstId()->willReturn('cms-123');
+
+        $this->getDefaultCategoryLayoutId()->shouldBe('cms-123');
     }
 }
