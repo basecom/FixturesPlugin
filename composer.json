@@ -36,9 +36,9 @@
         }
     },
     "require": {
-        "shopware/core": "6.3.*",
-        "shopware/administration": "6.3.*",
-        "shopware/storefront": "6.3.*"
+        "shopware/core": "6.3.* || 6.4.*" ,
+        "shopware/administration": "6.3.* || 6.4.*",
+        "shopware/storefront": "6.3.* || 6.4.*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
