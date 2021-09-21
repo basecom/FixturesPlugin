@@ -82,14 +82,7 @@ class FixtureHelper
 
     public function getGermanCountryId(): ?string
     {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('iso', 'DE')
-        )->setLimit(1);
-
-        return $this->countryRepository->searchIds(
-            $criteria,
-            Context::createDefaultContext()
-        )->firstId();
+        return $this->getCountryId('DE');
     }
 
     public function getFirstCategoryId(): ?string
@@ -116,22 +109,44 @@ class FixtureHelper
 
     public function getDeSnippetSetId(): ?string
     {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('iso', 'de-DE')
-        )->setLimit(1);
-
-        return $this->snippetSetRepository
-            ->searchIds($criteria, Context::createDefaultContext())
-            ->firstId();
+        return $this->getSnippetSetId('de-DE');
     }
 
     public function getGermanLanguageId(): ?string
     {
+        return $this->getLanguageId('Deutsch');
+    }
+
+    public function getLanguageId(string $languageName): ?string
+    {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('name', 'Deutsch')
+            new EqualsFilter('name', $languageName)
         )->setLimit(1);
 
         return $this->languageRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
+    }
+
+    public function getCountryId(string $countryCodeUpperCase): ?string
+    {
+        $criteria = (new Criteria())->addFilter(
+            new EqualsFilter('iso', $countryCodeUpperCase)
+        )->setLimit(1);
+
+        return $this->countryRepository->searchIds(
+            $criteria,
+            Context::createDefaultContext()
+        )->firstId();
+    }
+
+    public function getSnippetSetId(string $countryCodeLowerAndUppercase): ?string
+    {
+        $criteria = (new Criteria())->addFilter(
+            new EqualsFilter('iso', $countryCodeLowerAndUppercase)
+        )->setLimit(1);
+
+        return $this->snippetSetRepository
             ->searchIds($criteria, Context::createDefaultContext())
             ->firstId();
     }
