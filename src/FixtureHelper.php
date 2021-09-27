@@ -128,10 +128,10 @@ class FixtureHelper
             ->firstId();
     }
 
-    public function getCountryId(string $countryCodeUpperCase): ?string
+    public function getCountryId(string $countryIso): ?string
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('iso', $countryCodeUpperCase)
+            new EqualsFilter('iso', $countryIso)
         )->setLimit(1);
 
         return $this->countryRepository->searchIds(
@@ -140,10 +140,10 @@ class FixtureHelper
         )->firstId();
     }
 
-    public function getSnippetSetId(string $countryCodeLowerAndUppercase): ?string
+    public function getSnippetSetId(string $countryCodeIso): ?string
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('iso', $countryCodeLowerAndUppercase)
+            new EqualsFilter('iso', $countryCodeIso)
         )->setLimit(1);
 
         return $this->snippetSetRepository
