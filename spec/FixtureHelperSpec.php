@@ -113,6 +113,22 @@ class FixtureHelperSpec extends ObjectBehavior
         $this->getGermanCountryId()->shouldBe('germany-123');
     }
 
+    public function it_can_return_the_country_id(
+        EntityRepositoryInterface $countryRepository,
+        IdSearchResult $searchResult
+    ): void {
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('iso', 'EN'))->setLimit(1);
+
+        $countryRepository->searchIds(
+            $criteria,
+            Argument::type(Context::class)
+        )->shouldBeCalledOnce()->willReturn($searchResult);
+
+        $searchResult->firstId()->willReturn('english-123');
+
+        $this->getCountryId('EN')->shouldBe('english-123');
+    }
+
     public function it_can_return_the_first_category_id(
         EntityRepositoryInterface $categoryRepository,
         IdSearchResult $searchResult
@@ -161,6 +177,22 @@ class FixtureHelperSpec extends ObjectBehavior
         $this->getDeSnippetSetId()->shouldBe('snippet-123');
     }
 
+    public function it_can_return_the_snippet_set_id(
+        EntityRepositoryInterface $snippetSetRepository,
+        IdSearchResult $searchResult
+    ): void {
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('iso', 'en-EN'))->setLimit(1);
+
+        $snippetSetRepository->searchIds(
+            $criteria,
+            Argument::type(Context::class)
+        )->shouldBeCalledOnce()->willReturn($searchResult);
+
+        $searchResult->firstId()->willReturn('snippet-en-321');
+
+        $this->getSnippetSetId('en-EN')->shouldBe('snippet-en-321');
+    }
+
     public function it_can_return_the_german_language_id(
         EntityRepositoryInterface $languageRepository,
         IdSearchResult $searchResult
@@ -172,9 +204,26 @@ class FixtureHelperSpec extends ObjectBehavior
             Argument::type(Context::class)
         )->shouldBeCalledOnce()->willReturn($searchResult);
 
-        $searchResult->firstId()->willReturn('lang-123');
+        $searchResult->firstId()->willReturn('lang-id-deutsch');
 
-        $this->getGermanLanguageId()->shouldBe('lang-123');
+        $this->getGermanLanguageId()->shouldBe('lang-id-deutsch');
+    }
+
+    public function it_can_return_the_language_id(
+        EntityRepositoryInterface $languageRepository,
+        IdSearchResult $searchResult
+    ): void {
+        $criteria = (new Criteria())->addFilter(new EqualsFilter('name', 'English'))->setLimit(1);
+
+        $languageRepository->searchIds(
+            $criteria,
+            Argument::type(Context::class)
+        )->shouldBeCalledOnce()->willReturn($searchResult);
+
+        $searchResult->firstId()->willReturn('lang-id-english');
+
+        $this->getLanguageId('English')
+            ->shouldBe('lang-id-english');
     }
 
     public function it_can_return_the_default_category_layout_id(
