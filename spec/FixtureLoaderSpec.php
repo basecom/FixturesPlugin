@@ -56,6 +56,50 @@ class FixtureLoaderSpec extends ObjectBehavior
             new \LogicException('Circular dependency tree detected. Please check your dependsOn methods')
         )->during('runAll', [$io]);
     }
+
+    public function it_can_run_single_fixture(SymfonyStyle $io): void
+    {
+        $fixtureName = 'FakeFixture1';
+        $io->note('Fixture '.$fixtureName.' found and will be loaded.')->shouldBeCalledOnce();
+
+        $this->runSingle($io, $fixtureName);
+    }
+
+    public function it_does_not_run_single_fixture_if_no_found(SymfonyStyle $io): void
+    {
+        $fixtureName = 'NotExistingFixture';
+        $io->comment('No Fixture with name '. $fixtureName. ' found')->shouldBeCalledOnce();
+        $this->runSingle($io, $fixtureName);
+    }
+
+    public function it_can_run_fixtures_in_group(SymfonyStyle $io): void
+    {
+        $groupName = 'testGroup';
+
+        $this->runFixtureGroup($io, $groupName);
+    }
+
+    public function it_runs_nothing_if_no_group_members_available(SymfonyStyle $io): void
+    {
+        $groupName = 'notExistingGroup';
+
+        $io->note('No fixtures in group notExistingGroup')->shouldBeCalledOnce();
+        $this->runFixtureGroup($io, $groupName);
+    }
+
+    public function it_detects_group_with_missing_dependency(SymfonyStyle $io): void
+    {
+        $groupName = 'missingDependencyGroup';
+
+        $io->error('Dependency ' . FakeFixture3::class . ' of fixture ' . FakeFixture2::class . ' is not in the same group. Please add dependant fixture ' . FakeFixture3::class. ' to group ' . $groupName)->shouldBeCalledOnce();
+        $this->runFixtureGroup($io, $groupName);
+    }
+
+    public function it_runs_fixture_group_in_dependency_order(SymfonyStyle $io): void
+    {
+        $groupName = 'dependencyGroup';
+        $this->runFixtureGroup($io, $groupName);
+    }
 }
 
 class FakeFixture1 extends Fixture
@@ -71,6 +115,14 @@ class FakeFixture1 extends Fixture
     public function priority(): int
     {
         return 1;
+    }
+
+    public function groups(): array
+    {
+        return [
+            'testGroup',
+            'dependencyGroup'
+        ];
     }
 }
 
@@ -88,6 +140,13 @@ class FakeFixture2 extends Fixture
     {
         return [
             FakeFixture3::class,
+        ];
+    }
+
+    public function groups(): array
+    {
+        return [
+            'missingDependencyGroup'
         ];
     }
 }
@@ -111,6 +170,7 @@ class FakeFixture3 extends Fixture
     {
         return [FakeFixture4::class];
     }
+
 }
 
 class FakeFixture4 extends Fixture
@@ -132,6 +192,13 @@ class FakeFixture4 extends Fixture
     {
         return [FakeFixture1::class];
     }
+
+    public function groups(): array
+    {
+        return ['dependencyGroup'];
+    }
+
+
 }
 
 class FakeFixtureCircular1 extends Fixture
