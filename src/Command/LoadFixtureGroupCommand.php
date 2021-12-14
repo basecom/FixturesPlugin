@@ -31,13 +31,21 @@ class LoadFixtureGroupCommand extends Command
             ->addArgument('groupName', InputArgument::REQUIRED, 'Name of fixture group');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         $io->title('Running a group of fixtures');
 
-        $this->loader->runFixtureGroup($io, $input->getArgument('groupName'));
+        $groupNameInput = $input->getArgument('groupName');
+
+        if (!\is_string($groupNameInput)) {
+            $io->error('Please make sure that your argument is of type string');
+
+            return Command::FAILURE;
+        }
+
+        $this->loader->runFixtureGroup($io, $groupNameInput);
 
         $io->success('Done!');
 

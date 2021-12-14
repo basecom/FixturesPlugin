@@ -30,13 +30,21 @@ class LoadSingleFixtureCommand extends Command
             ->addArgument('fixtureName', InputArgument::REQUIRED, 'Name of Fixture to load');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         $io->title('Running a single fixture');
 
-        $this->loader->runSingle($io, $input->getArgument('fixtureName'));
+        $groupNameInput = $input->getArgument('groupName');
+
+        if (!\is_string($groupNameInput)) {
+            $io->error('Please make sure that your argument is of type string');
+
+            return Command::FAILURE;
+        }
+
+        $this->loader->runSingle($io, $groupNameInput);
 
         $io->success('Done!');
 
