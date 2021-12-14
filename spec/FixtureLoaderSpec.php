@@ -60,7 +60,7 @@ class FixtureLoaderSpec extends ObjectBehavior
     public function it_can_run_single_fixture(SymfonyStyle $io): void
     {
         $fixtureName = 'FakeFixture1';
-        $io->note('Fixture '.$fixtureName.' found and will be loaded.')->shouldBeCalledOnce();
+        $io->note('Fixture spec\Basecom\FixturePlugin\FakeFixture1 found and will be loaded.')->shouldBeCalledOnce();
 
         $this->runSingle($io, $fixtureName);
     }

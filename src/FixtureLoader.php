@@ -26,10 +26,9 @@ class FixtureLoader
     public function runSingle(SymfonyStyle $io, string $fixtureName): void
     {
         foreach ($this->fixtures as $fixture) {
-            $fullClassName = \get_class($fixture);
-            $className     = \substr($fullClassName, \strrpos($fullClassName, '\\') + 1);
+            $className = \get_class($fixture);
 
-            if (\strtolower($className) !== \strtolower($fixtureName)) {
+            if (!\str_contains(\strtolower($className), \strtolower($fixtureName))) {
                 continue;
             }
 
