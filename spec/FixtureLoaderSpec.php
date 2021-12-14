@@ -170,7 +170,6 @@ class FakeFixture3 extends Fixture
     {
         return [FakeFixture4::class];
     }
-
 }
 
 class FakeFixture4 extends Fixture
