@@ -21,3 +21,4 @@ Just add it to your project via composer: "**composer require basecom/sw6-fixtur
     - E.g. fixture class is named "DummyFixture.php", run **bin/console fixture:load:single dummyFixture (it´s case-insensitive).
 - To run a group of fixture, run "**bin/console fixture:load:group <name>**" with group name as parameter (specified via **groups()** method). It´s also case-insensitive.
 - To run all fixtures, run "**bin/console fixture:load**".
+
