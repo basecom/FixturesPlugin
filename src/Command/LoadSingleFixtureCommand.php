@@ -36,7 +36,7 @@ class LoadSingleFixtureCommand extends Command
 
         $io->title('Running a single fixture');
 
-        $groupNameInput = $input->getArgument('groupName');
+        $groupNameInput = $input->getArgument('fixtureName');
 
         if (!\is_string($groupNameInput)) {
             $io->error('Please make sure that your argument is of type string');
