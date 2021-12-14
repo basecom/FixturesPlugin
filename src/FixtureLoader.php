@@ -25,21 +25,22 @@ class FixtureLoader
 
     public function runSingle(SymfonyStyle $io, string $fixtureName): void
     {
-        foreach($this->fixtures as $fixture) {
+        foreach ($this->fixtures as $fixture) {
             $fullClassName = \get_class($fixture);
-            $className = \substr($fullClassName, \strrpos($fullClassName, '\\')+1);
+            $className     = \substr($fullClassName, \strrpos($fullClassName, '\\') + 1);
 
-            if(\strtolower($className) !== \strtolower($fixtureName)) {
+            if (\strtolower($className) !== \strtolower($fixtureName)) {
                 continue;
             }
 
             $io->note('Fixture '.$className.' found and will be loaded.');
             $bag = new FixtureBag();
             $fixture->load($bag);
+
             return;
         }
 
-        $io->comment('No Fixture with name '. $fixtureName. ' found');
+        $io->comment('No Fixture with name '.$fixtureName.' found');
     }
 
     public function runFixtureGroup(SymfonyStyle $io, string $groupName): void
@@ -47,15 +48,15 @@ class FixtureLoader
         $fixturesInGroup = [];
 
         /** @var Fixture $fixture */
-        foreach($this->fixtures as $fixture) {
+        foreach ($this->fixtures as $fixture) {
             //Check if fixture has been assigned to any group, if not stop the iteration
-            if(\count($fixture->groups()) <= 0) {
+            if (\count($fixture->groups()) <= 0) {
                 continue;
             }
 
-            foreach($fixture->groups() as $group) {
+            foreach ($fixture->groups() as $group) {
                 //Check if fixture is in affected group(from the command parameter). If not, skip the iteration.
-                if(\strtolower($group) !== \strtolower($groupName)) {
+                if (\strtolower($group) !== \strtolower($groupName)) {
                     continue;
                 }
 
@@ -65,23 +66,23 @@ class FixtureLoader
         }
 
         //If no fixture was found for the group, return.
-        if(\count($fixturesInGroup) <= 0) {
-            $io->note('No fixtures in group ' . $groupName);
+        if (\count($fixturesInGroup) <= 0) {
+            $io->note('No fixtures in group '.$groupName);
+
             return;
         }
 
         //Build the references, they are needed in dependency check.
         $this->fixtureReference = $this->buildFixtureReference($this->fixtures);
 
-        foreach($fixturesInGroup as $fixture) {
-
+        foreach ($fixturesInGroup as $fixture) {
             //If fixture doesn´t has any dependencies, skip the check.
-            if(\count($fixture->dependsOn()) <= 0) {
+            if (\count($fixture->dependsOn()) <= 0) {
                 continue;
             }
 
             //Check if dependencies of fixture are in the same group.
-            if(!$this->checkDependenciesAreInSameGroup($io, $fixture, $groupName)) {
+            if (!$this->checkDependenciesAreInSameGroup($io, $fixture, $groupName)) {
                 return;
             }
         }
@@ -96,15 +97,17 @@ class FixtureLoader
     {
         $dependencies = $fixture->dependsOn();
 
-        foreach($dependencies as $dependency) {
+        foreach ($dependencies as $dependency) {
             /** @var Fixture $fixtureReference */
-            $fixtureReference = $this->fixtureReference[$dependency];
+            $fixtureReference      = $this->fixtureReference[$dependency];
             $lowerCaseDependencies = \array_map('strtolower', $fixtureReference->groups());
-            if(!\in_array(\strtolower($groupName), $lowerCaseDependencies, true)) {
-                $io->error('Dependency '. $dependency . ' of fixture ' . \get_class($fixture) . ' is not in the same group. Please add dependant fixture ' . $dependency . ' to group ' . $groupName);
+            if (!\in_array(\strtolower($groupName), $lowerCaseDependencies, true)) {
+                $io->error('Dependency '.$dependency.' of fixture '.\get_class($fixture).' is not in the same group. Please add dependant fixture '.$dependency.' to group '.$groupName);
+
                 return false;
             }
         }
+
         return true;
     }
 

@@ -68,7 +68,7 @@ class FixtureLoaderSpec extends ObjectBehavior
     public function it_does_not_run_single_fixture_if_no_found(SymfonyStyle $io): void
     {
         $fixtureName = 'NotExistingFixture';
-        $io->comment('No Fixture with name '. $fixtureName. ' found')->shouldBeCalledOnce();
+        $io->comment('No Fixture with name '.$fixtureName.' found')->shouldBeCalledOnce();
         $this->runSingle($io, $fixtureName);
     }
 
@@ -91,7 +91,7 @@ class FixtureLoaderSpec extends ObjectBehavior
     {
         $groupName = 'missingDependencyGroup';
 
-        $io->error('Dependency ' . FakeFixture3::class . ' of fixture ' . FakeFixture2::class . ' is not in the same group. Please add dependant fixture ' . FakeFixture3::class. ' to group ' . $groupName)->shouldBeCalledOnce();
+        $io->error('Dependency '.FakeFixture3::class.' of fixture '.FakeFixture2::class.' is not in the same group. Please add dependant fixture '.FakeFixture3::class.' to group '.$groupName)->shouldBeCalledOnce();
         $this->runFixtureGroup($io, $groupName);
     }
 
@@ -121,7 +121,7 @@ class FakeFixture1 extends Fixture
     {
         return [
             'testGroup',
-            'dependencyGroup'
+            'dependencyGroup',
         ];
     }
 }
@@ -146,7 +146,7 @@ class FakeFixture2 extends Fixture
     public function groups(): array
     {
         return [
-            'missingDependencyGroup'
+            'missingDependencyGroup',
         ];
     }
 }
@@ -196,8 +196,6 @@ class FakeFixture4 extends Fixture
     {
         return ['dependencyGroup'];
     }
-
-
 }
 
 class FakeFixtureCircular1 extends Fixture

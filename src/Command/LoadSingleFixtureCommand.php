@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Basecom\FixturePlugin\Command;
-
 
 use Basecom\FixturePlugin\FixtureLoader;
 use Symfony\Component\Console\Command\Command;
@@ -23,7 +23,7 @@ class LoadSingleFixtureCommand extends Command
         parent::__construct(null);
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setHelp('This command allows you to run only one specific fixture')
