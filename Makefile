@@ -27,7 +27,7 @@ help:
 
 ## Run a command within a php docker environment
 docker:
-	docker run -it --rm --user root -v "${PWD}:/var/www/shopware" -v "${HOME}/.composer:/root/.composer" -v "${PWD}/Makefile_Container:/var/www/shopware/Makefile" registry.gitlab.com/basecom-gmbh/shopware/v6/customer-projects/docker/php-cron-build:latest ${COMMAND}
+	docker run -it --rm --user root -v "${PWD}:/var/www/shopware" -v "${HOME}/.composer:/root/.composer" -v "${PWD}/Makefile_Container:/var/www/shopware/Makefile" registry.gitlab.com/basecom-gmbh/shopware/v6/customer-projects/docker/php-cron-build:3 ${COMMAND}
 
 ## Start a bash shell within a php docker environment
 shell:
