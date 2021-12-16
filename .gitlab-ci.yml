@@ -1,5 +1,5 @@
 image:
-  name: '${CI_REGISTRY}/basecom-gmbh/shopware/v6/customer-projects/docker/php-cron-build:latest'
+  name: '${CI_REGISTRY}/basecom-gmbh/shopware/v6/customer-projects/docker/php-cron-build:3'
 
 stages:
   - 'test'

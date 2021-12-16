@@ -18,4 +18,10 @@ abstract class Fixture
     {
         return 0;
     }
+
+    /** @return string[] */
+    public function groups(): array
+    {
+        return [];
+    }
 }
