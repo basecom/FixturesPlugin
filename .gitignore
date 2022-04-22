@@ -1,7 +1,8 @@
 .idea
 .DS_Store
 /vendor
-.php_cs.cache
+.php-cs-fixer.cache
 /node_modules
 /coverage
 /public/coverage
+/src/Resources/app/storefront/node_modules/

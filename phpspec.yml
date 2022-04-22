@@ -1,6 +1,0 @@
-suites:
-    plugins:
-        namespace: Basecom\FixturePlugin
-        psr4_prefix: Basecom\FixturePlugin
-formatter.name: pretty
-extensions: [] #empty so the parsing doesn't fail

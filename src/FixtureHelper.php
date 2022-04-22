@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Basecom\FixturePlugin;
 
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\InvoicePayment;
+use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\System\SalesChannel\SalesChannelEntity;
 
 class FixtureHelper
 {
@@ -21,6 +23,8 @@ class FixtureHelper
     private EntityRepositoryInterface $snippetSetRepository;
     private EntityRepositoryInterface $languageRepository;
     private EntityRepositoryInterface $cmsPageRepository;
+    private EntityRepositoryInterface $taxRepository;
+    private EntityRepositoryInterface $salesChannelRepository;
 
     public function __construct(
         EntityRepositoryInterface $currencyRepository,
@@ -31,7 +35,9 @@ class FixtureHelper
         EntityRepositoryInterface $shippingMethodRepository,
         EntityRepositoryInterface $snippetSetRepository,
         EntityRepositoryInterface $languageRepository,
-        EntityRepositoryInterface $cmsPageRepository
+        EntityRepositoryInterface $cmsPageRepository,
+        EntityRepositoryInterface $taxRepository,
+        EntityRepositoryInterface $salesChannelRepository
     ) {
         $this->currencyRepository       = $currencyRepository;
         $this->paymentMethodRepository  = $paymentMethodRepository;
@@ -42,6 +48,8 @@ class FixtureHelper
         $this->snippetSetRepository     = $snippetSetRepository;
         $this->languageRepository       = $languageRepository;
         $this->cmsPageRepository        = $cmsPageRepository;
+        $this->taxRepository            = $taxRepository;
+        $this->salesChannelRepository   = $salesChannelRepository;
     }
 
     public function getEuroCurrencyId(): ?string
@@ -161,5 +169,27 @@ class FixtureHelper
         return $this->cmsPageRepository
             ->searchIds($criteria, Context::createDefaultContext())
             ->firstId();
+    }
+
+    public function get19TaxId(): ?string
+    {
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('taxRate', 19))
+            ->setLimit(1);
+
+        return $this->taxRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
+    }
+
+    public function getStorefrontSalesChannel(): ?SalesChannelEntity
+    {
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('typeId', Defaults::SALES_CHANNEL_TYPE_STOREFRONT))
+            ->setLimit(1);
+
+        return $this->salesChannelRepository
+            ->search($criteria, Context::createDefaultContext())
+            ->first();
     }
 }

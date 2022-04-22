@@ -1,0 +1,10 @@
+{
+  "name": "bsc-template-plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "Standard copyright",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
+}
