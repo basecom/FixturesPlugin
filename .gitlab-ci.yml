@@ -1,33 +1,50 @@
-image:
-  name: '${CI_REGISTRY}/basecom-gmbh/shopware/v6/customer-projects/docker/php-cron-build:3'
-
 stages:
   - 'test'
 
-before_script:
-  - 'docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN ${CI_REGISTRY}'
+variables:
+  COMPOSER_COMMAND: '/var/www/html/composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
+  BASE_PHP_VERSION: '8.1'
+  PLUGIN_NAME: 'BasecomFixturePlugin'
+  PLUGIN_COMPOSER_NAME: 'basecom/sw6-fixtures-plugin'
 
 # STAGE TEST
-test lint:
+test php cs fixer:
   stage: 'test'
+  image: 'dockware/flex:latest'
+  before_script:
+    - '(cd /var/www && make switch-php version=${BASE_PHP_VERSION})'
+    - 'php -v'
+    - 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
   script:
-    - 'composer install --no-interaction --optimize-autoloader --no-suggest'
-    - './vendor/bin/php-cs-fixer fix --allow-risky=yes --config=.php_cs.php --dry-run'
-    - './vendor/bin/phpstan analyse src/ --memory-limit=1G --level 8'
-    - './vendor/bin/psalm'
+    - './vendor/bin/php-cs-fixer fix --dry-run'
 
-test code spec:
+test phpstan:
   stage: 'test'
-  variables:
-    INFECTION_THREAD_COUNT: 2
-    BASE_BRANCH: master
+  image: 'dockware/flex:latest'
+  parallel:
+    matrix:
+      - PHP_VERSION: ['7.4', '8.0', '8.1']
+  before_script:
+    - '(cd /var/www && make switch-php version=${PHP_VERSION})'
+    - 'php -v'
+    - 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
   script:
-    - 'composer install --no-interaction --optimize-autoloader --no-suggest'
-    - './gitlab/run-spec-tests.sh'
-    - './gitlab/report-code-coverage.sh'
-  artifacts:
-    when: 'always'
-    paths:
-      - 'public/coverage'
-      - 'coverage'
-      - 'infection-summary.log'
+    - './vendor/bin/phpstan analyse --memory-limit=1G'
+
+test psalm:
+  stage: 'test'
+  image: 'dockware/flex:latest'
+  before_script:
+    - '(cd /var/www && make switch-php version=${BASE_PHP_VERSION})'
+    - 'php -v'
+    - 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
+  script:
+    - './vendor/bin/psalm --show-info=false'
+
+test prettier:
+  stage: 'test'
+  image: 'dockware/flex:latest'
+  before_script:
+    - 'npm ci'
+  script:
+    - './node_modules/.bin/prettier --check "src/**/*.{js,scss,yaml,yml,json,md,ts}"'

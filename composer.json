@@ -9,17 +9,16 @@
             "email": "info@basecom.de",
             "homepage": "https://basecom.de",
             "role": "Manufacturer"
-        },
-        {
-            "name": "Jordan Kniest",
-            "email": "j.kniest@basecom.de",
-            "homepage": "https://basecom.de",
-            "role": "Developer"
         }
     ],
     "autoload": {
         "psr-4": {
             "Basecom\\FixturePlugin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Basecom\\FixturePlugin\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -36,17 +35,13 @@
         }
     },
     "require": {
-        "shopware/core": "6.3.* || 6.4.*" ,
-        "shopware/administration": "6.3.* || 6.4.*",
-        "shopware/storefront": "6.3.* || 6.4.*"
+        "shopware/core": "6.3.*|6.4.*",
+        "shopware/administration": "6.3.*|6.4.*",
+        "shopware/storefront": "6.3.*|6.4.*"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "phpstan/phpstan": "^0.12.9",
-        "vimeo/psalm": "^4.6",
-        "phpspec/phpspec": "^7.0",
-        "friends-of-phpspec/phpspec-code-coverage": "^6.0",
-        "infection/infection": "^0.21.4",
-        "infection/phpspec-adapter": "^0.1.1"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^1.4",
+        "vimeo/psalm": "^4.18"
     }
 }

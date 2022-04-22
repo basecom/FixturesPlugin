@@ -22,3 +22,37 @@ Just add it to your project via composer: "**composer require basecom/sw6-fixtur
 - To run a group of fixture, run "**bin/console fixture:load:group <name>**" with group name as parameter (specified via **groups()** method). It´s also case-insensitive.
 - To run all fixtures, run "**bin/console fixture:load**".
 
+### Start developing
+This template uses a full-featured Dockware docker image. It already comes with a pre-installed Shopware 6 instance and everything you need to start developing.
+
+Please see the [Dockware documentation](https://dockware.io/docs).
+
+To start developing, simply start the container:
+```bash
+> docker compose up -d
+```
+
+Access the container:
+```bash
+> make shell
+```
+
+Install the dependencies and make everything ready (defined in composer.json and package.json). This command needs to be
+executed from the host-system (not in shell)
+```bash
+> make install
+```
+
+### Linting
+Before committing, please run the linting and static analysis tools. This command also needs to be executed from the
+host machine (not in shell):
+```bash
+> make lint
+```
+
+
+### GitLab pipeline
+The GitLab pipeline is already pre-configured. It contains multiple jobs for all linting, static analysis and testing tools.
+
+The pipeline runs all tests for the latest stable Shopware 6 version. But you have several options for the PHPUnit tests:
+

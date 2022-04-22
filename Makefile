@@ -24,22 +24,33 @@ help:
 ##########
 # Docker #
 ##########
-
-## Run a command within a php docker environment
+## Run a command within the docker container (plugin directory)
 docker:
-	docker run -it --rm --user root -v "${PWD}:/var/www/shopware" -v "${HOME}/.composer:/root/.composer" -v "${PWD}/Makefile_Container:/var/www/shopware/Makefile" registry.gitlab.com/basecom-gmbh/shopware/v6/customer-projects/docker/php-cron-build:3 ${COMMAND}
+	docker compose exec -w "/var/www/html/custom/static-plugins/plugin" shopware ${COMMAND}
+
+## Run a command within the docker container (base directory)
+docker-base:
+	docker compose exec shopware ${COMMAND}
+
 
 ## Start a bash shell within a php docker environment
 shell:
-	make docker COMMAND="bash"
+	make docker-base COMMAND="bash"
 
 ############
 # Building #
 ############
 
-## Install all composer prod and dev dependencies
-build-composer-dev:
+## Install all dependencies
+dependencies:
 	make docker COMMAND="composer install --no-interaction --optimize-autoloader --no-suggest"
+	make docker COMMAND="npm ci"
+
+## Install all dependencies and prepare everything
+install:
+	make dependencies
+	make docker-base COMMAND="composer config minimum-stability dev"
+	make docker-base COMMAND="composer require basecom/sw6-fixtures-plugin:*"
 
 ###########
 # Linting #
@@ -47,39 +58,23 @@ build-composer-dev:
 
 ## Run all linting and static code analysis tools
 lint:
-	make lint-cs-fixer
+	make lint-php-cs-fixer
 	make lint-phpstan
 	make lint-psalm
+	make lint-prettier
 
 ## PHP CS fixer
-lint-cs-fixer:
-	make docker COMMAND="./vendor/bin/php-cs-fixer fix --allow-risky=yes --config=.php_cs.php"
+lint-php-cs-fixer:
+	make docker COMMAND="./vendor/bin/php-cs-fixer fix"
 
 ## PHPStan
 lint-phpstan:
-	make docker COMMAND="./vendor/bin/phpstan analyse src/ --memory-limit=1G --level 8"
+	make docker COMMAND="./vendor/bin/phpstan analyse --memory-limit=1G"
 
 ## Psaml
 lint-psalm:
 	make docker COMMAND="./vendor/bin/psalm --show-info=false"
 
-########
-# Test #
-########
-
-## Run all tests
-test:
-	make test-spec
-
-## Run all phpspec tests
-test-spec:
-	make docker COMMAND="vendor/bin/phpspec run -vvv"
-
-## Run phpspec with code coverage
-test-coverage-no-infections:
-	make docker COMMAND="phpdbg -qrr vendor/bin/phpspec --config=phpspec_coverage.yml run"
-
-## Run phpspec with code coverage and infection
-test-coverage:
-	make docker COMMAND="phpdbg -qrr vendor/bin/phpspec --config=phpspec_coverage.yml run"
-	make docker COMMAND="vendor/bin/infection --test-framework=phpspec --coverage=coverage --only-covered --min-msi=100  --threads=${INFECTION_THREAD_COUNT} --show-mutations $$INFECTION_FILTER"
+## Prettier
+lint-prettier:
+	make docker COMMAND="./node_modules/.bin/prettier --write \"src/**/*.{js,scss,yaml,yml,json,md,ts}\""

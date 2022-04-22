@@ -14,7 +14,7 @@ class FixtureLoader
 
     public function __construct(Traversable $fixtures)
     {
-        $this->fixtures = \iterator_to_array($fixtures);
+        $this->fixtures = iterator_to_array($fixtures);
     }
 
     public function runAll(SymfonyStyle $io): void
@@ -26,9 +26,9 @@ class FixtureLoader
     public function runSingle(SymfonyStyle $io, string $fixtureName): void
     {
         foreach ($this->fixtures as $fixture) {
-            $className = \get_class($fixture);
+            $className = \get_class($fixture) ?: '';
 
-            if (!\str_contains(\strtolower($className), \strtolower($fixtureName))) {
+            if (!str_contains(strtolower($className), strtolower($fixtureName))) {
                 continue;
             }
 
@@ -55,7 +55,7 @@ class FixtureLoader
 
             foreach ($fixture->groups() as $group) {
                 //Check if fixture is in affected group(from the command parameter). If not, skip the iteration.
-                if (\strtolower($group) !== \strtolower($groupName)) {
+                if (strtolower($group) !== strtolower($groupName)) {
                     continue;
                 }
 
@@ -99,8 +99,8 @@ class FixtureLoader
         foreach ($dependencies as $dependency) {
             /** @var Fixture $fixtureReference */
             $fixtureReference      = $this->fixtureReference[$dependency];
-            $lowerCaseDependencies = \array_map('strtolower', $fixtureReference->groups());
-            if (!\in_array(\strtolower($groupName), $lowerCaseDependencies, true)) {
+            $lowerCaseDependencies = array_map('strtolower', $fixtureReference->groups());
+            if (!\in_array(strtolower($groupName), $lowerCaseDependencies, true)) {
                 $io->error('Dependency '.$dependency.' of fixture '.\get_class($fixture).' is not in the same group. Please add dependant fixture '.$dependency.' to group '.$groupName);
 
                 return false;
@@ -139,7 +139,7 @@ class FixtureLoader
     /** @return Fixture[] */
     private function sortAllByPriority(array $fixtures): array
     {
-        \usort(
+        usort(
             $fixtures,
             static fn (Fixture $fixture1, Fixture $fixture2): int => $fixture2->priority() <=> $fixture1->priority()
         );
@@ -165,9 +165,9 @@ class FixtureLoader
                     }
 
                     /** @var int $sortIndex */
-                    $sortIndex = \array_search($sort, $sorted, true);
+                    $sortIndex = array_search($sort, $sorted, true);
 
-                    \array_splice($sorted, $sortIndex, 0, [$fixture]);
+                    array_splice($sorted, $sortIndex, 0, [$fixture]);
                     continue 3;
                 }
             }
