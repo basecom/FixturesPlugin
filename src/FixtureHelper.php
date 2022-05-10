@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Basecom\FixturePlugin;
 
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\InvoicePayment;
+use Shopware\Core\Content\Media\Aggregate\MediaDefaultFolder\MediaDefaultFolderEntity;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -25,6 +26,7 @@ class FixtureHelper
     private EntityRepositoryInterface $cmsPageRepository;
     private EntityRepositoryInterface $taxRepository;
     private EntityRepositoryInterface $salesChannelRepository;
+    private EntityRepositoryInterface $mediaFolderRepository;
 
     public function __construct(
         EntityRepositoryInterface $currencyRepository,
@@ -37,7 +39,8 @@ class FixtureHelper
         EntityRepositoryInterface $languageRepository,
         EntityRepositoryInterface $cmsPageRepository,
         EntityRepositoryInterface $taxRepository,
-        EntityRepositoryInterface $salesChannelRepository
+        EntityRepositoryInterface $salesChannelRepository,
+        EntityRepositoryInterface $mediaFolderRepository
     ) {
         $this->currencyRepository       = $currencyRepository;
         $this->paymentMethodRepository  = $paymentMethodRepository;
@@ -50,6 +53,7 @@ class FixtureHelper
         $this->cmsPageRepository        = $cmsPageRepository;
         $this->taxRepository            = $taxRepository;
         $this->salesChannelRepository   = $salesChannelRepository;
+        $this->mediaFolderRepository    = $mediaFolderRepository;
     }
 
     public function getEuroCurrencyId(): ?string
@@ -191,5 +195,23 @@ class FixtureHelper
         return $this->salesChannelRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+    }
+
+    /**
+     * Copied from "vendor/shopware/core/Content/Media/MediaService.php".
+     */
+    public function getMediaDefaultFolderId(string $folderName): ?string
+    {
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('media_folder.defaultFolder.entity', $folderName))
+            ->addAssociation('defaultFolder')
+            ->setLimit(1);
+
+        $defaultFolderResult = $this->mediaFolderRepository->search($criteria, Context::createDefaultContext());
+
+        /** @var MediaDefaultFolderEntity|null $defaultFolder */
+        $defaultFolder = $defaultFolderResult->first();
+
+        return $defaultFolder ? $defaultFolder->getId() : null;
     }
 }
