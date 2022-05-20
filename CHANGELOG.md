@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2022-05-20
+### Added
+- Added more helper functions:
+  - `getCatalogueRootCategoryId`
+
+### Fixed
+- Fixed helper `getDefaultCategoryLayoutId`: It wasn't working in newer shopware versions, because shopware changed the labeling
+
 ## [1.6.0] - 2022-05-09
 ### Added
 - Added more helper functions:
@@ -73,6 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `getNotSpecifiedSalutationId`
   - `getGermanCountryId`
 
+[1.7.0]: https://gitlab.com/basecom-gmbh/shopware/v6/plugins/FixturePlugin/-/compare/1.6.0...1.7.0
 [1.6.0]: https://gitlab.com/basecom-gmbh/shopware/v6/plugins/FixturePlugin/-/compare/1.5.0...1.6.0
 [1.5.0]: https://gitlab.com/basecom-gmbh/shopware/v6/plugins/FixturePlugin/-/compare/1.4.0...1.5.0
 [1.4.0]: https://gitlab.com/basecom-gmbh/shopware/v6/plugins/FixturePlugin/-/compare/1.3.0...1.4.0
