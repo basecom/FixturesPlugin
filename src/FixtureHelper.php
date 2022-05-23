@@ -10,6 +10,7 @@ use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelEntity;
 
@@ -167,7 +168,7 @@ class FixtureHelper
     {
         $criteria = (new Criteria())
             ->addFilter(new EqualsFilter('locked', '1'))
-            ->addFilter(new EqualsFilter('translations.name', 'Default category layout'))
+            ->addFilter(new EqualsAnyFilter('translations.name', ['Default category layout', 'Default listing layout']))
             ->setLimit(1);
 
         return $this->cmsPageRepository
@@ -213,5 +214,17 @@ class FixtureHelper
         $defaultFolder = $defaultFolderResult->first();
 
         return $defaultFolder ? $defaultFolder->getId() : null;
+    }
+
+    public function getCatalogueRootCategoryId(): ?string
+    {
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('autoIncrement', 1))
+            ->addFilter(new EqualsFilter('level', 1))
+            ->setLimit(1);
+
+        return $this->categoryRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
     }
 }
