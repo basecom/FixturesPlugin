@@ -16,7 +16,7 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v3
 
-            - run: 'pwd'
+            - run: 'cd /var/www/html && pwd'
 
             #- name: Switch PHP version
             #  run: '(cd /var/www && make switch-php version=${{ matrix.php-version }}'
