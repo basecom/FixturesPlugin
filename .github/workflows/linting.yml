@@ -7,24 +7,31 @@ jobs:
             image: dockware/flex:latest
             options: --user root
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: '/var/www'
 
         strategy:
             matrix:
                 php-version: [7.4, 8.0, 8.1]
 
         steps:
+            - name: Set up PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+
             - name: Check out code
               uses: actions/checkout@v3
-              with:
-                  path: '/var/www'
 
-            #- name: Switch PHP version
-            #  run: '(cd /var/www && make switch-php version=${{ matrix.php-version }}'
+            -   name: Cache Composer packages
+                id: composer-cache
+                uses: actions/cache@v2
+                with:
+                    path: vendor
+                    key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-php-
 
             - name: Install dependencies
               run: 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
 
-            - run: './vendor/bin/php-cs-fixer fix --dry-run'
+            - name: Run PHP CS Fixer
+              run: './vendor/bin/php-cs-fixer fix --dry-run'
