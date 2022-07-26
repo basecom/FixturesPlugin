@@ -6,7 +6,7 @@ jobs:
         container:
             image: dockware/flex:latest
             options: --user root
-        runs-on: ubuntu-latest
+        runs-on: ubuntu:18.04
 
         strategy:
             matrix:
@@ -16,12 +16,10 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v3
 
-            - run: 'cd /var/www/html && pwd'
-
             #- name: Switch PHP version
             #  run: '(cd /var/www && make switch-php version=${{ matrix.php-version }}'
 
             - name: Install dependencies
-              uses: php-actions/composer@v6
+              run: 'cd /var/www/ && composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
 
             - run: './vendor/bin/php-cs-fixer fix --dry-run'
