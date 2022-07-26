@@ -231,9 +231,6 @@ class FixtureHelper
     /**
      * Gets the first ID of the first found category
      * with the provided name.
-     *
-     * @param string $name
-     * @return string|null
      */
     public function getCategoryIdByName(string $name): ?string
     {
@@ -245,5 +242,4 @@ class FixtureHelper
             ->searchIds($criteria, Context::createDefaultContext())
             ->firstId();
     }
-
 }
