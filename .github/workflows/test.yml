@@ -1,0 +1,23 @@
+name: Tests
+on: [push]
+jobs:
+    php-cs-fixer:
+        name: PHP-CS-Fixer
+        container: dockware/flex:latest
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                php-version: [7.4, 8.0, 8.1]
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v3
+
+            - name: Switch PHP version
+              run: '(cd /var/www && make switch-php version=${{ matrix.php-version }}'
+
+            - name: Install dependencies
+              uses: php-actions/composer@v6
+
+            - run: './vendor/bin/php-cs-fixer fix --dry-run'
