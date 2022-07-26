@@ -3,7 +3,9 @@ on: [push]
 jobs:
     php-cs-fixer:
         name: PHP-CS-Fixer
-        container: dockware/flex:latest
+        container:
+            image: dockware/flex:latest
+            options: --user root
         runs-on: ubuntu-latest
 
         strategy:
