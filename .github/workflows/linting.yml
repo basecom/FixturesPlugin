@@ -1,0 +1,112 @@
+name: Linting
+on: [push]
+jobs:
+    php-cs-fixer:
+        name: PHP-CS-Fixer
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                php-version: [ 7.4, 8.0, 8.1 ]
+
+        steps:
+            -   name: Set up PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-version }}
+
+            -   name: Check out code
+                uses: actions/checkout@v3
+
+            -   name: Cache Composer packages
+                id: composer-cache
+                uses: actions/cache@v2
+                with:
+                    path: vendor
+                    key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-php-
+
+            -   name: Install dependencies
+                run: 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
+
+            -   name: Run PHP CS Fixer
+                run: './vendor/bin/php-cs-fixer fix --dry-run'
+
+    phpstan:
+        name: PHPStan
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                php-version: [ 7.4, 8.0, 8.1 ]
+
+        steps:
+            -   name: Set up PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-version }}
+
+            -   name: Check out code
+                uses: actions/checkout@v3
+
+            -   name: Cache Composer packages
+                id: composer-cache
+                uses: actions/cache@v2
+                with:
+                    path: vendor
+                    key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-php-
+
+            -   name: Install dependencies
+                run: 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
+
+            -   name: Run PHP CS Fixer
+                run: './vendor/bin/phpstan analyse --memory-limit=1G'
+
+    psalm:
+        name: Psalm
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                php-version: [ 7.4, 8.0, 8.1 ]
+
+        steps:
+            -   name: Set up PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-version }}
+
+            -   name: Check out code
+                uses: actions/checkout@v3
+
+            -   name: Cache Composer packages
+                id: composer-cache
+                uses: actions/cache@v2
+                with:
+                    path: vendor
+                    key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-php-
+
+            -   name: Install dependencies
+                run: 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
+
+            -   name: Run PHP CS Fixer
+                run: './vendor/bin/psalm --show-info=false'
+
+    prettier:
+        name: Prettier
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Check out code
+                uses: actions/checkout@v3
+
+            -   name: Install dependencies
+                run: npm ci
+
+            -   name: Run Prettier
+                run: './node_modules/.bin/prettier --check "src/**/*.{js,scss,yaml,yml,json,md,ts}"'
