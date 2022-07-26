@@ -7,6 +7,9 @@ jobs:
             image: dockware/flex:latest
             options: --user root
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: /var/www
 
         strategy:
             matrix:
