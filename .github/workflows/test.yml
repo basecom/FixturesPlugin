@@ -16,8 +16,8 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v3
 
-            - name: Switch PHP version
-              run: '(cd /var/www && make switch-php version=${{ matrix.php-version }}'
+            #- name: Switch PHP version
+            #  run: '(cd /var/www && make switch-php version=${{ matrix.php-version }}'
 
             - name: Install dependencies
               uses: php-actions/composer@v6
