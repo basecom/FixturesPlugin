@@ -1,4 +1,4 @@
-name: Tests
+name: Linting
 on: [push]
 jobs:
     php-cs-fixer:
@@ -15,6 +15,8 @@ jobs:
         steps:
             - name: Check out code
               uses: actions/checkout@v3
+
+            - run: 'pwd'
 
             #- name: Switch PHP version
             #  run: '(cd /var/www && make switch-php version=${{ matrix.php-version }}'
