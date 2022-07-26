@@ -6,7 +6,7 @@ jobs:
         container:
             image: dockware/flex:latest
             options: --user root
-        runs-on: ubuntu:18.04
+        runs-on: ubuntu-latest
 
         strategy:
             matrix:
