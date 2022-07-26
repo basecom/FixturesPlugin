@@ -227,4 +227,23 @@ class FixtureHelper
             ->searchIds($criteria, Context::createDefaultContext())
             ->firstId();
     }
+
+    /**
+     * Gets the first ID of the first found category
+     * with the provided name.
+     *
+     * @param string $name
+     * @return string|null
+     */
+    public function getCategoryIdByName(string $name): ?string
+    {
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('name', $name));
+        $criteria->setLimit(1);
+
+        return $this->categoryRepository
+            ->searchIds($criteria, Context::createDefaultContext())
+            ->firstId();
+    }
+
 }
