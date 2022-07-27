@@ -53,7 +53,7 @@ public function groups(): array
 
 ## Register Fixtures
 If you're using service autowiring, then nothing needs to be done to register your fixtures.
-If you're not using autowiring, then pelase register your fixtures with the tag `basecom.fixture`.
+If you're not using autowiring, then please register your fixtures with the tag `basecom.fixture`.
 
 
 ```xml
