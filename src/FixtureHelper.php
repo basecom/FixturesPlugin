@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin;
 
+use Basecom\FixturePlugin\Utils\MediaUtils;
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\InvoicePayment;
 use Shopware\Core\Content\Media\Aggregate\MediaDefaultFolder\MediaDefaultFolderEntity;
 use Shopware\Core\Defaults;
@@ -28,6 +29,7 @@ class FixtureHelper
     private EntityRepositoryInterface $taxRepository;
     private EntityRepositoryInterface $salesChannelRepository;
     private EntityRepositoryInterface $mediaFolderRepository;
+    private MediaUtils $mediaUtils;
 
     public function __construct(
         EntityRepositoryInterface $currencyRepository,
@@ -41,7 +43,8 @@ class FixtureHelper
         EntityRepositoryInterface $cmsPageRepository,
         EntityRepositoryInterface $taxRepository,
         EntityRepositoryInterface $salesChannelRepository,
-        EntityRepositoryInterface $mediaFolderRepository
+        EntityRepositoryInterface $mediaFolderRepository,
+        MediaUtils $mediaUtils
     ) {
         $this->currencyRepository       = $currencyRepository;
         $this->paymentMethodRepository  = $paymentMethodRepository;
@@ -55,6 +58,7 @@ class FixtureHelper
         $this->taxRepository            = $taxRepository;
         $this->salesChannelRepository   = $salesChannelRepository;
         $this->mediaFolderRepository    = $mediaFolderRepository;
+        $this->mediaUtils               = $mediaUtils;
     }
 
     public function getEuroCurrencyId(): ?string
@@ -241,5 +245,14 @@ class FixtureHelper
         return $this->categoryRepository
             ->searchIds($criteria, Context::createDefaultContext())
             ->firstId();
+    }
+
+    /**
+     * Use this to access the media related features
+     * of the fixture helper class.
+     */
+    public function Media(): MediaUtils
+    {
+        return $this->mediaUtils;
     }
 }
