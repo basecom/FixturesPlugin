@@ -57,9 +57,6 @@ If you're not using autowiring, then please register your fixtures with the tag 
 
 
 ```xml
-<service id="Basecom\FixturePlugin\FixtureHelper">
-</service>
-
 <service id="MyNamespace\Fixtures\Customer\CustomerFixture">
     <argument type="service" id="Basecom\FixturePlugin\FixtureHelper"/>
     <argument type="service" id="customer.repository"/>
