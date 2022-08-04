@@ -5,7 +5,7 @@
 First have a look at the changes in the CHANGELOG.md
 
 ### Helper methods have been split
-Instead of calling the helper methods like `$helper->getInvoicePaymentMethod`, you now need to call the
+Instead of calling the helper methods like `$helper->getInvoicePaymentMethod()`, you now need to call the
 sub util class: `$helper->PaymentMethod()->getInvoicePaymentMethod()`.
 
 The following util classes have been added:
