@@ -5,8 +5,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+> **Please see the UPGRADE.md guide for instructions**
+
 ### Added
-- Added new helper method `getCategoryIdByName()`
+- Added new helper method `Category()->getByName()`
+- Added new helper method `Media()->upload()`
+- Added examples in the repository. See the `_examples` folder
+
+### Changed
+- The helper methods in the `FixtureHelper` service are now split into multiple smaller units
+  - `Media` now holds all media-related helpers
+  - `Category` now holds all category-related helpers
+  - `SalesChannel` now holds all sales-channel-related helpers
+  - `Customer` now holds all customer-related helpers
+  - `Cms` now holds all CMS-page-related helpers
+  - `PaymentMethod` now holds all payment-method-related helpers
+  - `ShippingMethod` now holds all shipping-method-related helpers
+- This is the first licensed version. See LICENSE file
 
 ## [1.8.0] - 2022-06-03
 ### Added

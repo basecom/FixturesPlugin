@@ -4,7 +4,17 @@ The fixture plugin is really helpful if you want to create some static demo data
 
 ## Installation
 
-Just add it to your project via composer: "**composer require basecom/sw6-fixtures-plugin**" (or add entry in psh dependency).
+Just add it to your project via composer:
+
+```shell
+composer require basecom/sw6-fixtures-plugin
+```
+
+Afterwards you can install the plugin, like any other Shopware Plugin using the administration or console command:
+
+```shell
+./bin/console plugin:install --activate BasecomFixturePlugin
+```
 
 
 ## Create Fixtures
