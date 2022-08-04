@@ -62,7 +62,7 @@ jobs:
             -   name: Install dependencies
                 run: 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
 
-            -   name: Run PHP CS Fixer
+            -   name: Run PHPStan
                 run: './vendor/bin/phpstan analyse --memory-limit=1G'
 
     psalm:
@@ -94,7 +94,7 @@ jobs:
             -   name: Install dependencies
                 run: 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
 
-            -   name: Run PHP CS Fixer
+            -   name: Run Psalm
                 run: './vendor/bin/psalm --show-info=false'
 
     prettier:

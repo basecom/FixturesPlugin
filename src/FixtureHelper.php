@@ -4,227 +4,95 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin;
 
-use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\InvoicePayment;
-use Shopware\Core\Content\Media\Aggregate\MediaDefaultFolder\MediaDefaultFolderEntity;
-use Shopware\Core\Defaults;
-use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\System\SalesChannel\SalesChannelEntity;
+use Basecom\FixturePlugin\Utils\CategoryUtils;
+use Basecom\FixturePlugin\Utils\CmsUtils;
+use Basecom\FixturePlugin\Utils\CustomerUtils;
+use Basecom\FixturePlugin\Utils\MediaUtils;
+use Basecom\FixturePlugin\Utils\PaymentMethodUtils;
+use Basecom\FixturePlugin\Utils\SalesChannelUtils;
+use Basecom\FixturePlugin\Utils\ShippingMethodUtils;
 
 class FixtureHelper
 {
-    private EntityRepositoryInterface $currencyRepository;
-    private EntityRepositoryInterface $paymentMethodRepository;
-    private EntityRepositoryInterface $salutationRepository;
-    private EntityRepositoryInterface $countryRepository;
-    private EntityRepositoryInterface $categoryRepository;
-    private EntityRepositoryInterface $shippingMethodRepository;
-    private EntityRepositoryInterface $snippetSetRepository;
-    private EntityRepositoryInterface $languageRepository;
-    private EntityRepositoryInterface $cmsPageRepository;
-    private EntityRepositoryInterface $taxRepository;
-    private EntityRepositoryInterface $salesChannelRepository;
-    private EntityRepositoryInterface $mediaFolderRepository;
+    private MediaUtils $mediaUtils;
+    private CategoryUtils $categoryUtils;
+    private SalesChannelUtils $salesChannelUtils;
+    private CmsUtils $cmsUtils;
+    private PaymentMethodUtils $paymentMethodUtils;
+    private ShippingMethodUtils $shippingMethodUtils;
+    private CustomerUtils $customerUtils;
 
-    public function __construct(
-        EntityRepositoryInterface $currencyRepository,
-        EntityRepositoryInterface $paymentMethodRepository,
-        EntityRepositoryInterface $salutationRepository,
-        EntityRepositoryInterface $countryRepository,
-        EntityRepositoryInterface $categoryRepository,
-        EntityRepositoryInterface $shippingMethodRepository,
-        EntityRepositoryInterface $snippetSetRepository,
-        EntityRepositoryInterface $languageRepository,
-        EntityRepositoryInterface $cmsPageRepository,
-        EntityRepositoryInterface $taxRepository,
-        EntityRepositoryInterface $salesChannelRepository,
-        EntityRepositoryInterface $mediaFolderRepository
-    ) {
-        $this->currencyRepository       = $currencyRepository;
-        $this->paymentMethodRepository  = $paymentMethodRepository;
-        $this->salutationRepository     = $salutationRepository;
-        $this->countryRepository        = $countryRepository;
-        $this->categoryRepository       = $categoryRepository;
-        $this->shippingMethodRepository = $shippingMethodRepository;
-        $this->snippetSetRepository     = $snippetSetRepository;
-        $this->languageRepository       = $languageRepository;
-        $this->cmsPageRepository        = $cmsPageRepository;
-        $this->taxRepository            = $taxRepository;
-        $this->salesChannelRepository   = $salesChannelRepository;
-        $this->mediaFolderRepository    = $mediaFolderRepository;
-    }
-
-    public function getEuroCurrencyId(): ?string
+    public function __construct(MediaUtils $mediaUtils, CategoryUtils $categoryUtils, SalesChannelUtils $salesChannelUtils, CmsUtils $cmsUtils, PaymentMethodUtils $paymentMethodUtils, ShippingMethodUtils $shippingMethodUtils, CustomerUtils $customerUtils)
     {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('isoCode', 'EUR'))
-            ->setLimit(1);
-
-        return $this->currencyRepository->searchIds(
-            $criteria,
-            Context::createDefaultContext()
-        )->firstId();
-    }
-
-    public function getInvoicePaymentMethodId(): ?string
-    {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('handlerIdentifier', InvoicePayment::class)
-        )->setLimit(1);
-
-        return $this->paymentMethodRepository->searchIds(
-            $criteria,
-            Context::createDefaultContext()
-        )->firstId();
-    }
-
-    public function getNotSpecifiedSalutationId(): ?string
-    {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('salutationKey', 'not_specified')
-        )->setLimit(1);
-
-        return $this->salutationRepository->searchIds(
-            $criteria,
-            Context::createDefaultContext()
-        )->firstId();
-    }
-
-    public function getGermanCountryId(): ?string
-    {
-        return $this->getCountryId('DE');
-    }
-
-    public function getFirstCategoryId(): ?string
-    {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('level', '1')
-        )->setLimit(1);
-
-        return $this->categoryRepository
-            ->searchIds($criteria, Context::createDefaultContext())
-            ->firstId();
-    }
-
-    public function getFirstShippingMethodId(): ?string
-    {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('active', '1')
-        )->setLimit(1);
-
-        return $this->shippingMethodRepository
-            ->searchIds($criteria, Context::createDefaultContext())
-            ->firstId();
-    }
-
-    public function getDeSnippetSetId(): ?string
-    {
-        return $this->getSnippetSetId('de-DE');
-    }
-
-    public function getGermanLanguageId(): ?string
-    {
-        return $this->getLanguageId('Deutsch');
-    }
-
-    public function getLanguageId(string $languageName): ?string
-    {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('name', $languageName)
-        )->setLimit(1);
-
-        return $this->languageRepository
-            ->searchIds($criteria, Context::createDefaultContext())
-            ->firstId();
-    }
-
-    public function getCountryId(string $countryIso): ?string
-    {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('iso', $countryIso)
-        )->setLimit(1);
-
-        return $this->countryRepository->searchIds(
-            $criteria,
-            Context::createDefaultContext()
-        )->firstId();
-    }
-
-    public function getSnippetSetId(string $countryCodeIso): ?string
-    {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('iso', $countryCodeIso)
-        )->setLimit(1);
-
-        return $this->snippetSetRepository
-            ->searchIds($criteria, Context::createDefaultContext())
-            ->firstId();
-    }
-
-    public function getDefaultCategoryLayoutId(): ?string
-    {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('locked', '1'))
-            ->addFilter(new EqualsAnyFilter('translations.name', ['Default category layout', 'Default listing layout']))
-            ->setLimit(1);
-
-        return $this->cmsPageRepository
-            ->searchIds($criteria, Context::createDefaultContext())
-            ->firstId();
-    }
-
-    public function get19TaxId(): ?string
-    {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('taxRate', 19))
-            ->setLimit(1);
-
-        return $this->taxRepository
-            ->searchIds($criteria, Context::createDefaultContext())
-            ->firstId();
-    }
-
-    public function getStorefrontSalesChannel(): ?SalesChannelEntity
-    {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('typeId', Defaults::SALES_CHANNEL_TYPE_STOREFRONT))
-            ->setLimit(1);
-
-        return $this->salesChannelRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
+        $this->mediaUtils          = $mediaUtils;
+        $this->categoryUtils       = $categoryUtils;
+        $this->salesChannelUtils   = $salesChannelUtils;
+        $this->cmsUtils            = $cmsUtils;
+        $this->paymentMethodUtils  = $paymentMethodUtils;
+        $this->shippingMethodUtils = $shippingMethodUtils;
+        $this->customerUtils       = $customerUtils;
     }
 
     /**
-     * Copied from "vendor/shopware/core/Content/Media/MediaService.php".
+     * Use this to access the media related features
+     * of the fixture helper class.
      */
-    public function getMediaDefaultFolderId(string $folderName): ?string
+    public function Media(): MediaUtils
     {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('media_folder.defaultFolder.entity', $folderName))
-            ->addAssociation('defaultFolder')
-            ->setLimit(1);
-
-        $defaultFolderResult = $this->mediaFolderRepository->search($criteria, Context::createDefaultContext());
-
-        /** @var MediaDefaultFolderEntity|null $defaultFolder */
-        $defaultFolder = $defaultFolderResult->first();
-
-        return $defaultFolder ? $defaultFolder->getId() : null;
+        return $this->mediaUtils;
     }
 
-    public function getCatalogueRootCategoryId(): ?string
+    /**
+     * Use this to access the category related features
+     * of the fixture helper class.
+     */
+    public function Category(): CategoryUtils
     {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('autoIncrement', 1))
-            ->addFilter(new EqualsFilter('level', 1))
-            ->setLimit(1);
+        return $this->categoryUtils;
+    }
 
-        return $this->categoryRepository
-            ->searchIds($criteria, Context::createDefaultContext())
-            ->firstId();
+    /**
+     * Use this to access the sales channel related features
+     * of the fixture helper class.
+     */
+    public function SalesChannel(): SalesChannelUtils
+    {
+        return $this->salesChannelUtils;
+    }
+
+    /**
+     * Use this to access the customer related features
+     * of the fixture helper class.
+     */
+    public function Customer(): CustomerUtils
+    {
+        return $this->customerUtils;
+    }
+
+    /**
+     * Use this to access the cms related features
+     * of the fixture helper class.
+     */
+    public function Cms(): CmsUtils
+    {
+        return $this->cmsUtils;
+    }
+
+    /**
+     * Use this to access the payment method related features
+     * of the fixture helper class.
+     */
+    public function PaymentMethod(): PaymentMethodUtils
+    {
+        return $this->paymentMethodUtils;
+    }
+
+    /**
+     * Use this to access the shipping method related features
+     * of the fixture helper class.
+     */
+    public function ShippingMethod(): ShippingMethodUtils
+    {
+        return $this->shippingMethodUtils;
     }
 }
