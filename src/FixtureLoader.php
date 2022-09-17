@@ -23,7 +23,7 @@ class FixtureLoader
         $this->runFixtures($io, $this->fixtures);
     }
 
-    public function runSingle(SymfonyStyle $io, string $fixtureName): void
+    public function runSingle(SymfonyStyle $io, string $fixtureName, bool $withDependencies = false): void
     {
         foreach ($this->fixtures as $fixture) {
             $className = \get_class($fixture) ?: '';
@@ -33,8 +33,14 @@ class FixtureLoader
             }
 
             $io->note('Fixture '.$className.' found and will be loaded.');
-            $bag = new FixtureBag();
-            $fixture->load($bag);
+
+            if (!$withDependencies) {
+                $bag = new FixtureBag();
+                $fixture->load($bag);
+                return;
+            }
+
+            dd("deps");
 
             return;
         }
