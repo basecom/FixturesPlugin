@@ -47,7 +47,7 @@ class LoadSingleFixtureCommand extends Command
         }
 
         $withDependencies = $input->getOption('with-dependencies');
-        if (!is_bool($withDependencies)) {
+        if (!\is_bool($withDependencies)) {
             $io->error('Please make sure that your argument is of type boolean');
 
             return Command::FAILURE;
