@@ -37,11 +37,13 @@ class FixtureLoader
             if (!$withDependencies) {
                 $bag = new FixtureBag();
                 $fixture->load($bag);
+
                 return;
             }
 
             $this->fixtureReference = $this->buildFixtureReference($this->fixtures);
-            $this->runFixtures($io, $this->buildFixtureReference(
+            $this->runFixtures($io, array_map(
+                fn (string $fixtureClass) => $this->fixtureReference[$fixtureClass],
                 $this->recursiveGetAllDependenciesOfFixture($fixture)
             ));
 
