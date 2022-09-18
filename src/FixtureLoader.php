@@ -41,7 +41,7 @@ class FixtureLoader
             }
 
             $this->fixtureReference = $this->buildFixtureReference($this->fixtures);
-            dd($this->recursiveGetAllDependenciesOfFixture($fixture));
+            $this->runFixtures($io, $this->recursiveGetAllDependenciesOfFixture($fixture));
 
             return;
         }
