@@ -40,7 +40,7 @@ class FixtureLoader
                 return;
             }
 
-            dd("deps");
+            dd($this->recursiveGetAllDependenciesOfFixture($fixture));
 
             return;
         }
@@ -129,6 +129,13 @@ class FixtureLoader
             $io->note('Running '.\get_class($fixture));
             $fixture->load($bag);
         }
+    }
+
+    private function recursiveGetAllDependenciesOfFixture(Fixture $fixture): array
+    {
+        return array_unique(array_merge($fixture->dependsOn(), array_reduce($fixture->dependsOn(), function ($carry, $item) {
+            return array_merge($carry, $this->recursiveGetAllDependenciesOfFixture($this->fixtureReference[$item]));
+        }, [])));
     }
 
     private function buildFixtureReference(array $fixtures): array
