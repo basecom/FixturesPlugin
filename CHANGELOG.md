@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2022-09-19
+### Added
+- Added the option `--with-dependencies` / `-w` to the `fixture:run:single` command
+   - This command recursively runs all fixtures that are required by the given fixture
+- Added new method to the fixture trait: `runSingleFixtureWithDependencies()`
+
 ## [2.0.0] - 2022-08-04
 > **Please see the UPGRADE.md guide for instructions**
 

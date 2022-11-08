@@ -43,7 +43,7 @@ shell:
 
 ## Install all dependencies
 dependencies:
-	make docker COMMAND="composer install --no-interaction --optimize-autoloader --no-suggest"
+	make docker COMMAND="composer install --no-interaction --optimize-autoloader"
 	make docker COMMAND="npm ci"
 
 ## Install all dependencies and prepare everything
@@ -51,6 +51,8 @@ install:
 	make dependencies
 	make docker-base COMMAND="composer config minimum-stability dev"
 	make docker-base COMMAND="composer require basecom/sw6-fixtures-plugin:*"
+	make docker-base COMMAND="./bin/console plugin:refresh"
+	make docker-base COMMAND="./bin/console plugin:install --activate BasecomFixturePlugin"
 
 ###########
 # Linting #

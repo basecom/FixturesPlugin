@@ -50,4 +50,23 @@ trait FixtureTrait
             }
         }
     }
+
+    private function runSingleFixtureWithDependencies(string $fixture): void
+    {
+        $application = new Application(KernelLifecycleManager::getKernel());
+
+        $fixtureCommand = $application->find('fixture:load:single');
+
+        $returnCode = $fixtureCommand->run(
+            new ArrayInput(
+                ['fixtureName' => $fixture, '--with-dependencies' => true],
+                $fixtureCommand->getDefinition()
+            ),
+            new BufferedOutput()
+        );
+
+        if ($returnCode !== 0) {
+            throw new \RuntimeException('fixture:single');
+        }
+    }
 }

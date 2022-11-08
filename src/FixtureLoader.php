@@ -23,7 +23,7 @@ class FixtureLoader
         $this->runFixtures($io, $this->fixtures);
     }
 
-    public function runSingle(SymfonyStyle $io, string $fixtureName): void
+    public function runSingle(SymfonyStyle $io, string $fixtureName, bool $withDependencies = false): void
     {
         foreach ($this->fixtures as $fixture) {
             $className = \get_class($fixture) ?: '';
@@ -33,8 +33,19 @@ class FixtureLoader
             }
 
             $io->note('Fixture '.$className.' found and will be loaded.');
-            $bag = new FixtureBag();
-            $fixture->load($bag);
+
+            if (!$withDependencies) {
+                $bag = new FixtureBag();
+                $fixture->load($bag);
+
+                return;
+            }
+
+            $this->fixtureReference = $this->buildFixtureReference($this->fixtures);
+            $this->runFixtures($io, array_merge(array_map(
+                fn (string $fixtureClass) => $this->fixtureReference[$fixtureClass],
+                $this->recursiveGetAllDependenciesOfFixture($fixture)
+            ), [$fixture]));
 
             return;
         }
@@ -123,6 +134,13 @@ class FixtureLoader
             $io->note('Running '.\get_class($fixture));
             $fixture->load($bag);
         }
+    }
+
+    private function recursiveGetAllDependenciesOfFixture(Fixture $fixture): array
+    {
+        return array_unique(array_merge($fixture->dependsOn(), array_reduce($fixture->dependsOn(), function ($carry, $item) {
+            return array_merge($carry, $this->recursiveGetAllDependenciesOfFixture($this->fixtureReference[$item]));
+        }, [])));
     }
 
     private function buildFixtureReference(array $fixtures): array
