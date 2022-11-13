@@ -110,6 +110,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `getNotSpecifiedSalutationId`
   - `getGermanCountryId`
 
+[2.1.0]: https://github.com/basecom/FixturesPlugin/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/basecom/FixturesPlugin/compare/1.8.0...2.0.0
 [1.8.0]: https://github.com/basecom/FixturesPlugin/compare/1.7.0...1.8.0
 [1.7.0]: https://github.com/basecom/FixturesPlugin/compare/1.6.0...1.7.0

@@ -6,3 +6,4 @@
 /coverage
 /public/coverage
 /src/Resources/app/storefront/node_modules/
+composer.lock
