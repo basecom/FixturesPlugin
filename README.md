@@ -93,14 +93,22 @@ bin/console fixture:load:single <name>
 bin/console fixture:load:single dummyFixture
 ```
 
+By default, if you run a single fixture it will ignore all its dependencies. If you want to run the single fixture, 
+including all dependencies recursively, use the `--with-dependencies` option.
+
+```bash
+bin/console fixture:load:single --with-dependencies <name>
+
+# fixture class is named "DummyFixture.php", (it´s case-insensitive)
+bin/console fixture:load:single --with-dependencies dummyFixture
+```
+
 ### Run group
 To run a group of fixture, run this command with group name as parameter (specified via **groups()** method). It´s also case-insensitive.
 
 ```bash
 bin/console fixture:load:group <name>
 ```
-
-
 
 
 ## Best Practices
@@ -171,8 +179,5 @@ host machine (not in shell):
 ```
 
 
-### GitLab pipeline
-The GitLab pipeline is already pre-configured. It contains multiple jobs for all linting, static analysis and testing tools.
-
-The pipeline runs all tests for the latest stable Shopware 6 version. But you have several options for the PHPUnit tests:
-
+### Github Actions
+The Github actions pipeline is already pre-configured. It contains multiple jobs for all linting, static analysis and testing tools.
