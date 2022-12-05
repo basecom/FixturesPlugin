@@ -82,15 +82,19 @@ class FixtureLoader
             return;
         }
 
-
         //Build the references, they are needed in dependency check.
         $this->fixtureReference = $this->buildFixtureReference($this->fixtures);
 
         if ($withDependencies) {
-            $this->runFixtures($io, array_merge(array_map(
-                fn (string $fixtureClass) => $this->fixtureReference[$fixtureClass],
-                $this->recursiveGetAllDependenciesOfFixture($fixture)
-            ), $fixturesInGroup));
+            $fixturesWithDependencies = array_merge(
+                $fixturesInGroup,
+                ...array_map(
+                    fn (Fixture $fixture) => $this->recursiveGetAllDependenciesOfFixture($fixture),
+                    $fixturesInGroup
+                )
+            );
+
+            $this->runFixtures($io, $fixturesWithDependencies);
 
             return;
         }
