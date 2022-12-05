@@ -100,8 +100,13 @@ To run a group of fixture, run this command with group name as parameter (specif
 bin/console fixture:load:group <name>
 ```
 
+By default, it will only run a group if all the recursive dependencies are also in the same group.
+If you want to run a fixture group with all dependencies, regardless if they are in the actual same group,
+you can use the `--with-dependencies` option:
 
-
+```bash
+bin/console fixture:load:group --with-dependencies <GroupNname>
+```
 
 ## Best Practices
 

@@ -69,4 +69,23 @@ trait FixtureTrait
             throw new \RuntimeException('fixture:single');
         }
     }
+
+    private function runFixtureGroupWithDependencies(string $groupName): void
+    {
+        $application = new Application(KernelLifecycleManager::getKernel());
+
+        $fixtureCommand = $application->find('fixture:load:group');
+
+        $returnCode = $fixtureCommand->run(
+            new ArrayInput(
+                ['groupName' => $groupName, '--with-dependencies' => true],
+                $fixtureCommand->getDefinition()
+            ),
+            new BufferedOutput()
+        );
+
+        if ($returnCode !== 0) {
+            throw new \RuntimeException('fixture:load:group');
+        }
+    }
 }

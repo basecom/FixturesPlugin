@@ -53,7 +53,7 @@ class FixtureLoader
         $io->comment('No Fixture with name '.$fixtureName.' found');
     }
 
-    public function runFixtureGroup(SymfonyStyle $io, string $groupName): void
+    public function runFixtureGroup(SymfonyStyle $io, string $groupName, bool $withDependencies = false): void
     {
         $fixturesInGroup = [];
 
@@ -84,6 +84,23 @@ class FixtureLoader
 
         //Build the references, they are needed in dependency check.
         $this->fixtureReference = $this->buildFixtureReference($this->fixtures);
+
+        if ($withDependencies) {
+            $fixturesWithDependencies = array_merge(
+                $fixturesInGroup,
+                ...array_map(
+                    fn (Fixture $fixture) => $this->recursiveGetAllDependenciesOfFixture($fixture),
+                    $fixturesInGroup
+                )
+            );
+
+            $this->runFixtures($io, array_map(
+                fn (string $fixtureClass) => $this->fixtureReference[$fixtureClass],
+                $fixturesWithDependencies
+            ));
+
+            return;
+        }
 
         foreach ($fixturesInGroup as $fixture) {
             //If fixture doesn´t has any dependencies, skip the check.
