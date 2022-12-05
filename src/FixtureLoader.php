@@ -94,7 +94,10 @@ class FixtureLoader
                 )
             );
 
-            $this->runFixtures($io, $fixturesWithDependencies);
+            $this->runFixtures($io, array_map(
+                fn (string $fixtureClass) => $this->fixtureReference[$fixtureClass],
+                $fixturesWithDependencies
+            ));
 
             return;
         }
