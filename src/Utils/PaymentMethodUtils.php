@@ -7,15 +7,15 @@ namespace Basecom\FixturePlugin\Utils;
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\InvoicePayment;
 use Shopware\Core\Checkout\Payment\PaymentMethodEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class PaymentMethodUtils
 {
-    private EntityRepositoryInterface $paymentMethodRepository;
+    private EntityRepository $paymentMethodRepository;
 
-    public function __construct(EntityRepositoryInterface $paymentMethodRepository)
+    public function __construct(EntityRepository $paymentMethodRepository)
     {
         $this->paymentMethodRepository = $paymentMethodRepository;
     }

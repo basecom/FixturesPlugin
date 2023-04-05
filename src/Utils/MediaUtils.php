@@ -8,18 +8,18 @@ use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
 use Shopware\Core\Content\Media\File\FileFetcher;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class MediaUtils
 {
-    private EntityRepositoryInterface $mediaRepository;
-    private EntityRepositoryInterface $mediaFolderRepository;
+    private EntityRepository $mediaRepository;
+    private EntityRepository $mediaFolderRepository;
     private FileSaver $fileSaver;
     private FileFetcher $fileFetcher;
 
-    public function __construct(EntityRepositoryInterface $mediaRepository, EntityRepositoryInterface $mediaFolderRepository, FileSaver $fileSaver, FileFetcher $fileFetcher)
+    public function __construct(EntityRepository $mediaRepository, EntityRepository $mediaFolderRepository, FileSaver $fileSaver, FileFetcher $fileFetcher)
     {
         $this->mediaRepository       = $mediaRepository;
         $this->mediaFolderRepository = $mediaFolderRepository;

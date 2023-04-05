@@ -6,15 +6,15 @@ namespace Basecom\FixturePlugin\Utils;
 
 use Shopware\Core\Checkout\Shipping\ShippingMethodEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class ShippingMethodUtils
 {
-    private EntityRepositoryInterface $shippingMethodRepository;
+    private EntityRepository $shippingMethodRepository;
 
-    public function __construct(EntityRepositoryInterface $shippingMethodRepository)
+    public function __construct(EntityRepository $shippingMethodRepository)
     {
         $this->shippingMethodRepository = $shippingMethodRepository;
     }
