@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [2.2.0] - 2023-05-09
+### Added
+- Added tests for PHP 8.2
 ### Changed
 - Switched from **EntityRepositoryInterface** to **EntityRepository** in util classes to support Shopware 6.5
 
@@ -48,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.6.0] - 2022-05-09
 ### Added
 - Added more helper functions:
-  - `getMediaDefaultFolderId` 
+  - `getMediaDefaultFolderId`
 
 ## [1.5.0] - 2022-04-20
 ### Added
