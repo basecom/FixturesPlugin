@@ -7,7 +7,7 @@ jobs:
 
         strategy:
             matrix:
-                php-version: [ 8.0, 8.1, 8.2 ]
+                php-version: [ 8.1, 8.2 ]
 
         steps:
             -   name: Set up PHP
@@ -39,7 +39,7 @@ jobs:
 
         strategy:
             matrix:
-                php-version: [ 8.0, 8.1, 8.2 ]
+                php-version: [ 8.1, 8.2 ]
 
         steps:
             -   name: Set up PHP
@@ -71,7 +71,7 @@ jobs:
 
         strategy:
             matrix:
-                php-version: [ 8.0, 8.1, 8.2 ]
+                php-version: [ 8.1, 8.2 ]
 
         steps:
             -   name: Set up PHP
