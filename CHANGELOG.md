@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.2.0] - 2023-05-09
 ### Added
 - Added tests for PHP 8.2
+
 ### Changed
 - Switched from **EntityRepositoryInterface** to **EntityRepository** in util classes to support Shopware 6.5
+
+## Removed
+- Dropped support for PHP 7.4
 
 ## [2.1.0] - 2022-09-19
 ### Added
