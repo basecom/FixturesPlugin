@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Basecom\FixturePlugin;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Traversable;
 
 class FixtureLoader
 {
     private array $fixtures;
     private array $fixtureReference;
 
-    public function __construct(Traversable $fixtures)
+    public function __construct(\Traversable $fixtures)
     {
         $this->fixtures = iterator_to_array($fixtures);
     }
@@ -59,13 +58,13 @@ class FixtureLoader
 
         /** @var Fixture $fixture */
         foreach ($this->fixtures as $fixture) {
-            //Check if fixture has been assigned to any group, if not stop the iteration
+            // Check if fixture has been assigned to any group, if not stop the iteration
             if (\count($fixture->groups()) <= 0) {
                 continue;
             }
 
             foreach ($fixture->groups() as $group) {
-                //Check if fixture is in affected group(from the command parameter). If not, skip the iteration.
+                // Check if fixture is in affected group(from the command parameter). If not, skip the iteration.
                 if (strtolower($group) !== strtolower($groupName)) {
                     continue;
                 }
@@ -75,23 +74,23 @@ class FixtureLoader
             }
         }
 
-        //If no fixture was found for the group, return.
+        // If no fixture was found for the group, return.
         if (\count($fixturesInGroup) <= 0) {
             $io->note('No fixtures in group '.$groupName);
 
             return;
         }
 
-        //Build the references, they are needed in dependency check.
+        // Build the references, they are needed in dependency check.
         $this->fixtureReference = $this->buildFixtureReference($this->fixtures);
 
         foreach ($fixturesInGroup as $fixture) {
-            //If fixture doesn´t has any dependencies, skip the check.
+            // If fixture doesn´t has any dependencies, skip the check.
             if (\count($fixture->dependsOn()) <= 0) {
                 continue;
             }
 
-            //Check if dependencies of fixture are in the same group.
+            // Check if dependencies of fixture are in the same group.
             if (!$this->checkDependenciesAreInSameGroup($io, $fixture, $groupName)) {
                 return;
             }
