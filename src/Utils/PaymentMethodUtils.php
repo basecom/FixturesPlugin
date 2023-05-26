@@ -13,9 +13,21 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class PaymentMethodUtils
 {
-    private EntityRepository $paymentMethodRepository;
+    /**
+     * @TODO Replace with real typehint when Shopware 6.4 support is dropped.
+     *
+     * @var EntityRepository
+     */
+    private $paymentMethodRepository;
 
-    public function __construct(EntityRepository $paymentMethodRepository)
+    /**
+     * @TODO Replace with real typehint when Shopware 6.4 support is dropped.
+     *
+     * @param EntityRepository $paymentMethodRepository
+     *
+     * @noinspection PhpMissingParamTypeInspection We can not use typehints until PaymentMethodRepositoryDecorator is removed (Shopware 6.5).
+     */
+    public function __construct($paymentMethodRepository)
     {
         $this->paymentMethodRepository = $paymentMethodRepository;
     }

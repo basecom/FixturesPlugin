@@ -14,12 +14,31 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class MediaUtils
 {
-    private EntityRepository $mediaRepository;
-    private EntityRepository $mediaFolderRepository;
+    /**
+     * @TODO Replace with real typehint when Shopware 6.4 support is dropped.
+     *
+     * @var EntityRepository
+     */
+    private $mediaRepository;
+
+    /**
+     * @TODO Replace with real typehint when Shopware 6.4 support is dropped.
+     *
+     * @var EntityRepository
+     */
+    private $mediaFolderRepository;
     private FileSaver $fileSaver;
     private FileFetcher $fileFetcher;
 
-    public function __construct(EntityRepository $mediaRepository, EntityRepository $mediaFolderRepository, FileSaver $fileSaver, FileFetcher $fileFetcher)
+    /**
+     * @TODO Replace with real typehints when Shopware 6.4 support is dropped.
+     *
+     * @param EntityRepository $mediaRepository
+     * @param EntityRepository $mediaFolderRepository
+     *
+     * @noinspection PhpMissingParamTypeInspection We can not use typehints until repository decorators are removed (Shopware 6.5).
+     */
+    public function __construct($mediaRepository, $mediaFolderRepository, FileSaver $fileSaver, FileFetcher $fileFetcher)
     {
         $this->mediaRepository       = $mediaRepository;
         $this->mediaFolderRepository = $mediaFolderRepository;
