@@ -6,15 +6,15 @@ namespace Basecom\FixturePlugin\Utils;
 
 use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class CategoryUtils
 {
-    private EntityRepositoryInterface $categoryRepository;
+    private EntityRepository $categoryRepository;
 
-    public function __construct(EntityRepositoryInterface $categoryRepository)
+    public function __construct(EntityRepository $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }

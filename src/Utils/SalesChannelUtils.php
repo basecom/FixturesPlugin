@@ -6,7 +6,7 @@ namespace Basecom\FixturePlugin\Utils;
 
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\Country\CountryEntity;
@@ -18,14 +18,14 @@ use Shopware\Core\System\Tax\TaxEntity;
 
 class SalesChannelUtils
 {
-    private EntityRepositoryInterface $salesChannelRepository;
-    private EntityRepositoryInterface $snippetSetRepository;
-    private EntityRepositoryInterface $taxRepository;
-    private EntityRepositoryInterface $countryRepository;
-    private EntityRepositoryInterface $languageRepository;
-    private EntityRepositoryInterface $currencyRepository;
+    private EntityRepository $salesChannelRepository;
+    private EntityRepository $snippetSetRepository;
+    private EntityRepository $taxRepository;
+    private EntityRepository $countryRepository;
+    private EntityRepository $languageRepository;
+    private EntityRepository $currencyRepository;
 
-    public function __construct(EntityRepositoryInterface $salesChannelRepository, EntityRepositoryInterface $snippetSetRepository, EntityRepositoryInterface $taxRepository, EntityRepositoryInterface $countryRepository, EntityRepositoryInterface $languageRepository, EntityRepositoryInterface $currencyRepository)
+    public function __construct(EntityRepository $salesChannelRepository, EntityRepository $snippetSetRepository, EntityRepository $taxRepository, EntityRepository $countryRepository, EntityRepository $languageRepository, EntityRepository $currencyRepository)
     {
         $this->salesChannelRepository = $salesChannelRepository;
         $this->snippetSetRepository   = $snippetSetRepository;

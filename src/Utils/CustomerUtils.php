@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Basecom\FixturePlugin\Utils;
 
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\Salutation\SalutationEntity;
 
 class CustomerUtils
 {
-    private EntityRepositoryInterface $salutationRepository;
+    private EntityRepository $salutationRepository;
 
-    public function __construct(EntityRepositoryInterface $salutationRepository)
+    public function __construct(EntityRepository $salutationRepository)
     {
         $this->salutationRepository = $salutationRepository;
     }
