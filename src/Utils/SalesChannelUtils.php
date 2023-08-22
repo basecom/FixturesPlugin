@@ -104,4 +104,15 @@ class SalesChannelUtils
             ->search($criteria, Context::createDefaultContext())
             ->first();
     }
+
+    public function getTax(int $taxValue): ?TaxEntity
+    {
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsFilter('taxRate', $taxValue))
+            ->setLimit(1);
+
+        return $this->taxRepository
+            ->search($criteria, Context::createDefaultContext())
+            ->first();
+    }
 }
