@@ -37,8 +37,23 @@ class SalesChannelUtils
 
     public function getStorefrontSalesChannel(): ?SalesChannelEntity
     {
+        return $this->getSalesChannelByType(Defaults::SALES_CHANNEL_TYPE_STOREFRONT);
+    }
+
+    public function getHeadlessSalesChannel(): ?SalesChannelEntity
+    {
+        return $this->getSalesChannelByType(Defaults::SALES_CHANNEL_TYPE_API);
+    }
+
+    public function getProductComparisonSalesChannel(): ?SalesChannelEntity
+    {
+        return $this->getSalesChannelByType(Defaults::SALES_CHANNEL_TYPE_PRODUCT_COMPARISON);
+    }
+
+    public function getSalesChannelByType(string $salesChannelType): ?SalesChannelEntity
+    {
         $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('typeId', Defaults::SALES_CHANNEL_TYPE_STOREFRONT))
+            ->addFilter(new EqualsFilter('typeId', $salesChannelType))
             ->setLimit(1);
 
         $salesChannel = $this->salesChannelRepository

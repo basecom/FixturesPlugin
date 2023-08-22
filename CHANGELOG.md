@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Add new helper method to load a TaxEntity by its value.
+- Added new helper method to load a TaxEntity by its value.
+- Added new helper methods to get headless and product comparison sales channels
 
 ## [2.2.1] - 2023-05-26
 ### Fixed
