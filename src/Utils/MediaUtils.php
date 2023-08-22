@@ -56,9 +56,11 @@ class MediaUtils
             ->addAssociation('defaultFolder')
             ->setLimit(1);
 
-        return $this->mediaFolderRepository
+        $mediaFolder = $this->mediaFolderRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $mediaFolder instanceof MediaFolderEntity ? $mediaFolder : null;
     }
 
     public function upload(string $mediaId, string $folderId, string $filename, string $extension, string $contentType): void

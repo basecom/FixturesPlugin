@@ -41,9 +41,11 @@ class SalesChannelUtils
             ->addFilter(new EqualsFilter('typeId', Defaults::SALES_CHANNEL_TYPE_STOREFRONT))
             ->setLimit(1);
 
-        return $this->salesChannelRepository
+        $salesChannel = $this->salesChannelRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $salesChannel instanceof SalesChannelEntity ? $salesChannel : null;
     }
 
     public function getCurrencyEuro(): ?CurrencyEntity
@@ -52,11 +54,11 @@ class SalesChannelUtils
             ->addFilter(new EqualsFilter('isoCode', 'EUR'))
             ->setLimit(1);
 
-        return $this->currencyRepository
-            ->search(
-                $criteria,
-                Context::createDefaultContext()
-            )->first();
+        $currency = $this->currencyRepository
+            ->search($criteria, Context::createDefaultContext())
+            ->first();
+
+        return $currency instanceof CurrencyEntity ? $currency : null;
     }
 
     public function getLanguage(string $languageName): ?LanguageEntity
@@ -65,9 +67,11 @@ class SalesChannelUtils
             new EqualsFilter('name', $languageName)
         )->setLimit(1);
 
-        return $this->languageRepository
+        $language = $this->languageRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $language instanceof LanguageEntity ? $language : null;
     }
 
     public function getCountry(string $countryIso): ?CountryEntity
@@ -76,11 +80,11 @@ class SalesChannelUtils
             new EqualsFilter('iso', $countryIso)
         )->setLimit(1);
 
-        return $this->countryRepository
-            ->search(
-                $criteria,
-                Context::createDefaultContext()
+        $country = $this->countryRepository
+            ->search($criteria, Context::createDefaultContext()
             )->first();
+
+        return $country instanceof CountryEntity ? $country : null;
     }
 
     public function getSnippetSet(string $countryCodeIso): ?SnippetSetEntity
@@ -89,9 +93,11 @@ class SalesChannelUtils
             new EqualsFilter('iso', $countryCodeIso)
         )->setLimit(1);
 
-        return $this->snippetSetRepository
+        $snippetSet = $this->snippetSetRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $snippetSet instanceof SnippetSetEntity ? $snippetSet : null;
     }
 
     public function getTax19(): ?TaxEntity
@@ -100,9 +106,11 @@ class SalesChannelUtils
             ->addFilter(new EqualsFilter('taxRate', 19))
             ->setLimit(1);
 
-        return $this->taxRepository
+        $tax = $this->taxRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $tax instanceof TaxEntity ? $tax : null;
     }
 
     public function getTax(int $taxValue): ?TaxEntity
@@ -111,8 +119,10 @@ class SalesChannelUtils
             ->addFilter(new EqualsFilter('taxRate', $taxValue))
             ->setLimit(1);
 
-        return $this->taxRepository
+        $tax = $this->taxRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $tax instanceof TaxEntity ? $tax : null;
     }
 }

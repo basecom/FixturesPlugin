@@ -26,9 +26,11 @@ class CategoryUtils
             ->addFilter(new EqualsFilter('level', 1))
             ->setLimit(1);
 
-        return $this->categoryRepository
+        $category = $this->categoryRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $category instanceof CategoryEntity ? $category : null;
     }
 
     public function getFirst(): ?CategoryEntity
@@ -37,9 +39,11 @@ class CategoryUtils
             new EqualsFilter('level', '1')
         )->setLimit(1);
 
-        return $this->categoryRepository
+        $category = $this->categoryRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $category instanceof CategoryEntity ? $category : null;
     }
 
     /**
@@ -51,8 +55,10 @@ class CategoryUtils
         $criteria->addFilter(new EqualsFilter('name', $name));
         $criteria->setLimit(1);
 
-        return $this->categoryRepository
+        $category = $this->categoryRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $category instanceof CategoryEntity ? $category : null;
     }
 }

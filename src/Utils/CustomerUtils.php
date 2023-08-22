@@ -25,10 +25,10 @@ class CustomerUtils
             new EqualsFilter('salutationKey', 'not_specified')
         )->setLimit(1);
 
-        return $this->salutationRepository
-            ->search(
-                $criteria,
-                Context::createDefaultContext()
-            )->first();
+        $salutation = $this->salutationRepository
+            ->search($criteria, Context::createDefaultContext())
+            ->first();
+
+        return $salutation instanceof SalutationEntity ? $salutation : null;
     }
 }
