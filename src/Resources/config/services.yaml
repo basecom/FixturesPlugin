@@ -15,3 +15,12 @@ services:
     Basecom\FixturePlugin\FixtureLoader:
         arguments:
             - !tagged_iterator basecom.fixture
+
+    Basecom\FixturePlugin\Utils\MediaUtils:
+        arguments:
+            $mediaRepository: '@media.repository'
+            $mediaFolderRepository: '@media_folder.repository'
+
+    Basecom\FixturePlugin\Utils\PaymentMethodUtils:
+        arguments:
+            $paymentMethodRepository: '@payment_method.repository'
