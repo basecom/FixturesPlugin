@@ -2,7 +2,7 @@ version: "3"
 
 services:
   shopware:
-    image: 'dockware/dev:6.5.0.0'
+    image: 'dockware/dev:6.5.4.1'
     ports:
       - "80:80"       # Webserver / Apache
       - "3306:3306"   # MySQL database
@@ -12,7 +12,7 @@ services:
       - "9998:9998"   # Storefront watcher (background)
     environment:
       - 'XDEBUG_ENABLED=1'
-      - 'PHP_VERSION=8.1'
+      - 'PHP_VERSION=8.2'
     volumes:
       - "./:/var/www/html/custom/static-plugins/plugin"
       - "db:/var/lib/mysql"

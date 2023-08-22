@@ -27,8 +27,10 @@ class CmsUtils
             ->addFilter(new EqualsAnyFilter('translations.name', ['Default category layout', 'Default listing layout']))
             ->setLimit(1);
 
-        return $this->cmsPageRepository
+        $cmsPage = $this->cmsPageRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $cmsPage instanceof CmsPageEntity ? $cmsPage : null;
     }
 }

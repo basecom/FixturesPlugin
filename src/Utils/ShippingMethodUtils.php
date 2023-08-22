@@ -25,8 +25,10 @@ class ShippingMethodUtils
             new EqualsFilter('active', '1')
         )->setLimit(1);
 
-        return $this->shippingMethodRepository
+        $shippingMethod = $this->shippingMethodRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $shippingMethod instanceof ShippingMethodEntity ? $shippingMethod : null;
     }
 }

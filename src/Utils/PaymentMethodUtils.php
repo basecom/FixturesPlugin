@@ -38,10 +38,10 @@ class PaymentMethodUtils
             new EqualsFilter('handlerIdentifier', InvoicePayment::class)
         )->setLimit(1);
 
-        return $this->paymentMethodRepository
-            ->search(
-                $criteria,
-                Context::createDefaultContext()
-            )->first();
+        $paymentMethod = $this->paymentMethodRepository
+            ->search($criteria, Context::createDefaultContext())
+            ->first();
+
+        return $paymentMethod instanceof PaymentMethodEntity ? $paymentMethod : null;
     }
 }

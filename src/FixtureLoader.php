@@ -25,7 +25,7 @@ class FixtureLoader
     public function runSingle(SymfonyStyle $io, string $fixtureName, bool $withDependencies = false): void
     {
         foreach ($this->fixtures as $fixture) {
-            $className = \get_class($fixture) ?: '';
+            $className = $fixture::class ?: '';
 
             if (!str_contains(strtolower($className), strtolower($fixtureName))) {
                 continue;
@@ -111,7 +111,7 @@ class FixtureLoader
             $fixtureReference      = $this->fixtureReference[$dependency];
             $lowerCaseDependencies = array_map('strtolower', $fixtureReference->groups());
             if (!\in_array(strtolower($groupName), $lowerCaseDependencies, true)) {
-                $io->error('Dependency '.$dependency.' of fixture '.\get_class($fixture).' is not in the same group. Please add dependant fixture '.$dependency.' to group '.$groupName);
+                $io->error('Dependency '.$dependency.' of fixture '.$fixture::class.' is not in the same group. Please add dependant fixture '.$dependency.' to group '.$groupName);
 
                 return false;
             }
@@ -130,7 +130,7 @@ class FixtureLoader
 
         $bag = new FixtureBag();
         foreach ($fixtures as $fixture) {
-            $io->note('Running '.\get_class($fixture));
+            $io->note('Running '.$fixture::class);
             $fixture->load($bag);
         }
     }
@@ -147,7 +147,7 @@ class FixtureLoader
         $result = [];
 
         foreach ($fixtures as $fixture) {
-            $result[\get_class($fixture)] = $fixture;
+            $result[$fixture::class] = $fixture;
         }
 
         return $result;
@@ -177,7 +177,7 @@ class FixtureLoader
         foreach ($fixtures as $fixture) {
             foreach ($sorted as $sort) {
                 foreach ($sort->dependsOn() as $dependent) {
-                    if ($dependent !== \get_class($fixture)) {
+                    if ($dependent !== $fixture::class) {
                         continue;
                     }
 
