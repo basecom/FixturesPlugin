@@ -8,18 +8,37 @@ use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
 use Shopware\Core\Content\Media\File\FileFetcher;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 class MediaUtils
 {
-    private EntityRepositoryInterface $mediaRepository;
-    private EntityRepositoryInterface $mediaFolderRepository;
+    /**
+     * @TODO Replace with real typehint when Shopware 6.4 support is dropped.
+     *
+     * @var EntityRepository
+     */
+    private $mediaRepository;
+
+    /**
+     * @TODO Replace with real typehint when Shopware 6.4 support is dropped.
+     *
+     * @var EntityRepository
+     */
+    private $mediaFolderRepository;
     private FileSaver $fileSaver;
     private FileFetcher $fileFetcher;
 
-    public function __construct(EntityRepositoryInterface $mediaRepository, EntityRepositoryInterface $mediaFolderRepository, FileSaver $fileSaver, FileFetcher $fileFetcher)
+    /**
+     * @TODO Replace with real typehints when Shopware 6.4 support is dropped.
+     *
+     * @param EntityRepository $mediaRepository
+     * @param EntityRepository $mediaFolderRepository
+     *
+     * @noinspection PhpMissingParamTypeInspection We can not use typehints until repository decorators are removed (Shopware 6.5).
+     */
+    public function __construct($mediaRepository, $mediaFolderRepository, FileSaver $fileSaver, FileFetcher $fileFetcher)
     {
         $this->mediaRepository       = $mediaRepository;
         $this->mediaFolderRepository = $mediaFolderRepository;
@@ -37,9 +56,11 @@ class MediaUtils
             ->addAssociation('defaultFolder')
             ->setLimit(1);
 
-        return $this->mediaFolderRepository
+        $mediaFolder = $this->mediaFolderRepository
             ->search($criteria, Context::createDefaultContext())
             ->first();
+
+        return $mediaFolder instanceof MediaFolderEntity ? $mediaFolder : null;
     }
 
     public function upload(string $mediaId, string $folderId, string $filename, string $extension, string $contentType): void
