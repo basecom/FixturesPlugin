@@ -12,6 +12,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\Country\CountryEntity;
 use Shopware\Core\System\Currency\CurrencyEntity;
 use Shopware\Core\System\Language\LanguageEntity;
+use Shopware\Core\System\Locale\LocaleEntity;
 use Shopware\Core\System\SalesChannel\SalesChannelEntity;
 use Shopware\Core\System\Snippet\Aggregate\SnippetSet\SnippetSetEntity;
 use Shopware\Core\System\Tax\TaxEntity;
@@ -24,8 +25,9 @@ class SalesChannelUtils
     private EntityRepository $countryRepository;
     private EntityRepository $languageRepository;
     private EntityRepository $currencyRepository;
+    private EntityRepository $localeRepository;
 
-    public function __construct(EntityRepository $salesChannelRepository, EntityRepository $snippetSetRepository, EntityRepository $taxRepository, EntityRepository $countryRepository, EntityRepository $languageRepository, EntityRepository $currencyRepository)
+    public function __construct(EntityRepository $salesChannelRepository, EntityRepository $snippetSetRepository, EntityRepository $taxRepository, EntityRepository $countryRepository, EntityRepository $languageRepository, EntityRepository $currencyRepository, EntityRepository $localeRepository)
     {
         $this->salesChannelRepository = $salesChannelRepository;
         $this->snippetSetRepository   = $snippetSetRepository;
@@ -33,6 +35,7 @@ class SalesChannelUtils
         $this->countryRepository      = $countryRepository;
         $this->languageRepository     = $languageRepository;
         $this->currencyRepository     = $currencyRepository;
+        $this->localeRepository       = $localeRepository;
     }
 
     public function getStorefrontSalesChannel(): ?SalesChannelEntity
@@ -87,6 +90,19 @@ class SalesChannelUtils
             ->first();
 
         return $language instanceof LanguageEntity ? $language : null;
+    }
+
+    public function getLocale(string $code): ?LocaleEntity
+    {
+        $criteria = (new Criteria())->addFilter(
+            new EqualsFilter('code', $code)
+        )->setLimit(1);
+
+        $locale = $this->localeRepository
+            ->search($criteria, Context::createDefaultContext())
+            ->first();
+
+        return $locale instanceof LocaleEntity ? $locale : null;
     }
 
     public function getCountry(string $countryIso): ?CountryEntity
