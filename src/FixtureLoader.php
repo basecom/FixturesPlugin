@@ -34,8 +34,7 @@ class FixtureLoader
             $io->note('Fixture '.$className.' found and will be loaded.');
 
             if (!$withDependencies) {
-                $bag = new FixtureBag();
-                $fixture->load($bag);
+                $fixture->load();
 
                 return;
             }
@@ -128,10 +127,9 @@ class FixtureLoader
         $fixtures = $this->buildDependencyTree($fixtures);
         $fixtures = $this->runCorrectionLoop($fixtures, 10);
 
-        $bag = new FixtureBag();
         foreach ($fixtures as $fixture) {
             $io->note('Running '.$fixture::class);
-            $fixture->load($bag);
+            $fixture->load();
         }
     }
 
