@@ -12,25 +12,17 @@ use Basecom\FixturePlugin\Utils\PaymentMethodUtils;
 use Basecom\FixturePlugin\Utils\SalesChannelUtils;
 use Basecom\FixturePlugin\Utils\ShippingMethodUtils;
 
-class FixtureHelper
+readonly class FixtureHelper
 {
-    private MediaUtils $mediaUtils;
-    private CategoryUtils $categoryUtils;
-    private SalesChannelUtils $salesChannelUtils;
-    private CmsUtils $cmsUtils;
-    private PaymentMethodUtils $paymentMethodUtils;
-    private ShippingMethodUtils $shippingMethodUtils;
-    private CustomerUtils $customerUtils;
-
-    public function __construct(MediaUtils $mediaUtils, CategoryUtils $categoryUtils, SalesChannelUtils $salesChannelUtils, CmsUtils $cmsUtils, PaymentMethodUtils $paymentMethodUtils, ShippingMethodUtils $shippingMethodUtils, CustomerUtils $customerUtils)
-    {
-        $this->mediaUtils          = $mediaUtils;
-        $this->categoryUtils       = $categoryUtils;
-        $this->salesChannelUtils   = $salesChannelUtils;
-        $this->cmsUtils            = $cmsUtils;
-        $this->paymentMethodUtils  = $paymentMethodUtils;
-        $this->shippingMethodUtils = $shippingMethodUtils;
-        $this->customerUtils       = $customerUtils;
+    public function __construct(
+        private MediaUtils $mediaUtils,
+        private CategoryUtils $categoryUtils,
+        private SalesChannelUtils $salesChannelUtils,
+        private CmsUtils $cmsUtils,
+        private PaymentMethodUtils $paymentMethodUtils,
+        private ShippingMethodUtils $shippingMethodUtils,
+        private CustomerUtils $customerUtils
+    ) {
     }
 
     /**

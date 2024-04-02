@@ -17,25 +17,17 @@ use Shopware\Core\System\SalesChannel\SalesChannelEntity;
 use Shopware\Core\System\Snippet\Aggregate\SnippetSet\SnippetSetEntity;
 use Shopware\Core\System\Tax\TaxEntity;
 
-class SalesChannelUtils
+readonly class SalesChannelUtils
 {
-    private EntityRepository $salesChannelRepository;
-    private EntityRepository $snippetSetRepository;
-    private EntityRepository $taxRepository;
-    private EntityRepository $countryRepository;
-    private EntityRepository $languageRepository;
-    private EntityRepository $currencyRepository;
-    private EntityRepository $localeRepository;
-
-    public function __construct(EntityRepository $salesChannelRepository, EntityRepository $snippetSetRepository, EntityRepository $taxRepository, EntityRepository $countryRepository, EntityRepository $languageRepository, EntityRepository $currencyRepository, EntityRepository $localeRepository)
-    {
-        $this->salesChannelRepository = $salesChannelRepository;
-        $this->snippetSetRepository   = $snippetSetRepository;
-        $this->taxRepository          = $taxRepository;
-        $this->countryRepository      = $countryRepository;
-        $this->languageRepository     = $languageRepository;
-        $this->currencyRepository     = $currencyRepository;
-        $this->localeRepository       = $localeRepository;
+    public function __construct(
+        private EntityRepository $salesChannelRepository,
+        private EntityRepository $snippetSetRepository,
+        private EntityRepository $taxRepository,
+        private EntityRepository $countryRepository,
+        private EntityRepository $languageRepository,
+        private EntityRepository $currencyRepository,
+        private EntityRepository $localeRepository
+    ) {
     }
 
     public function getStorefrontSalesChannel(): ?SalesChannelEntity

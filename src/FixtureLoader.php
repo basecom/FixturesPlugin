@@ -8,7 +8,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class FixtureLoader
 {
-    private array $fixtures;
+    private readonly array $fixtures;
     private array $fixtureReference;
 
     public function __construct(\Traversable $fixtures)
