@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Basecom\FixturePlugin\Command;
 
 use Basecom\FixturePlugin\FixtureLoader;
+use Basecom\FixturePlugin\FixtureOption;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -25,6 +26,7 @@ class LoadSingleFixtureCommand extends Command
     protected function configure(): void
     {
         $this->addOption('with-dependencies', 'w', InputOption::VALUE_NONE, 'Run fixture with dependencies')
+            ->addOption('dry', description: 'Only list fixtures that would run without executing them')
             ->addArgument('fixtureName', InputArgument::REQUIRED, 'Name of Fixture to load');
     }
 
@@ -32,24 +34,32 @@ class LoadSingleFixtureCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $io->title('Running a single fixture');
+        /** @var string $fixtureName */
+        $fixtureName      = $input->getArgument('fixtureName');
+        $dry              = (bool) ($input->getOption('dry') ?? false);
+        $withDependencies = (bool) ($input->getOption('with-dependencies') ?? false);
 
-        $groupNameInput = $input->getArgument('fixtureName');
-
-        if (!\is_string($groupNameInput)) {
+        if (!\is_string($fixtureName)) {
             $io->error('Please make sure that your argument is of type string');
 
             return Command::FAILURE;
         }
 
-        $withDependencies = $input->getOption('with-dependencies');
-        if (!\is_bool($withDependencies)) {
-            $io->error('Please make sure that your argument is of type boolean');
+        $io->title("Running single fixture: {$fixtureName}");
 
-            return Command::FAILURE;
+        if ($dry) {
+            $io->note('[INFO] Dry run mode enabled. No fixtures will be executed.');
         }
 
-        $this->loader->runSingle($io, $groupNameInput, $withDependencies);
+        $options = new FixtureOption(
+            dryMode: $dry,
+            fixtureNames: [$fixtureName],
+            withDependencies: $withDependencies
+        );
+
+        if (!$this->loader->run($options, $io)) {
+            return Command::FAILURE;
+        }
 
         $io->success('Done!');
 

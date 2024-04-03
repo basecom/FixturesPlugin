@@ -8,7 +8,9 @@ readonly class FixtureOption
 {
     public function __construct(
         public bool $dryMode = false,
-        public ?string $groupName = null
+        public ?string $groupName = null,
+        public array $fixtureNames = [],
+        public bool $withDependencies = false,
     ) {
     }
 }

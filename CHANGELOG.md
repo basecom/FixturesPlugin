@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added support for PHP 8.3
 - Added support for Shopware 6.6
+- Added `--dry` option to all fixture load commands
+  - This option will prevent the fixtures from being executed but still prints all fixtures it would execute
 
 ### Removed
 - Dropped support for PHP 8.1
