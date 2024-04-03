@@ -50,12 +50,6 @@ class FixtureLoader
         return $fixtures;
     }
 
-    public function runAll(SymfonyStyle $io): void
-    {
-        $this->fixtureReference = $this->buildFixtureReference($this->fixtures);
-        $this->runFixtures(new FixtureOption(), $this->fixtures, $io);
-    }
-
     public function runSingle(SymfonyStyle $io, string $fixtureName, bool $withDependencies = false): void
     {
         foreach ($this->fixtures as $fixture) {
