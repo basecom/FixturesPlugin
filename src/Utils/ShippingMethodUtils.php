@@ -10,13 +10,11 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
-class ShippingMethodUtils
+readonly class ShippingMethodUtils
 {
-    private EntityRepository $shippingMethodRepository;
-
-    public function __construct(EntityRepository $shippingMethodRepository)
-    {
-        $this->shippingMethodRepository = $shippingMethodRepository;
+    public function __construct(
+        private EntityRepository $shippingMethodRepository
+    ) {
     }
 
     public function getFirstShippingMethod(): ?ShippingMethodEntity

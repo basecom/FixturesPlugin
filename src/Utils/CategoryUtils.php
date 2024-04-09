@@ -10,13 +10,11 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
-class CategoryUtils
+readonly class CategoryUtils
 {
-    private EntityRepository $categoryRepository;
-
-    public function __construct(EntityRepository $categoryRepository)
-    {
-        $this->categoryRepository = $categoryRepository;
+    public function __construct(
+        private EntityRepository $categoryRepository
+    ) {
     }
 
     public function getRootCategory(): ?CategoryEntity

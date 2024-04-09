@@ -6,4 +6,6 @@ namespace Basecom\FixturePlugin;
 
 use Shopware\Core\Framework\Plugin;
 
-class BasecomFixturePlugin extends Plugin {}
+class BasecomFixturePlugin extends Plugin
+{
+}

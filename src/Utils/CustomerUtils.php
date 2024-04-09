@@ -10,13 +10,11 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\Salutation\SalutationEntity;
 
-class CustomerUtils
+readonly class CustomerUtils
 {
-    private EntityRepository $salutationRepository;
-
-    public function __construct(EntityRepository $salutationRepository)
-    {
-        $this->salutationRepository = $salutationRepository;
+    public function __construct(
+        private EntityRepository $salutationRepository
+    ) {
     }
 
     public function getNotSpecifiedSalutation(): ?SalutationEntity

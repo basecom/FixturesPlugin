@@ -6,4 +6,6 @@ namespace Basecom\FixturePlugin;
 
 use Shopware\Core\Framework\Validation\DataBag\DataBag;
 
-class FixtureBag extends DataBag {}
+class FixtureBag extends DataBag
+{
+}

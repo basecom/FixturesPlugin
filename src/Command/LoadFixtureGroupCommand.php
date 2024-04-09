@@ -5,30 +5,25 @@ declare(strict_types=1);
 namespace Basecom\FixturePlugin\Command;
 
 use Basecom\FixturePlugin\FixtureLoader;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand('fixture:load:group', 'Run a specific fixture group')]
 class LoadFixtureGroupCommand extends Command
 {
-    protected static $defaultName = 'fixture:load:group';
-
-    private FixtureLoader $loader;
-
-    public function __construct(FixtureLoader $loader)
-    {
-        $this->loader = $loader;
-
-        parent::__construct(null);
+    public function __construct(
+        private readonly FixtureLoader $loader
+    ) {
+        parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this
-            ->setHelp('This command allows you to run a group of fixtures')
-            ->addArgument('groupName', InputArgument::REQUIRED, 'Name of fixture group');
+        $this->addArgument('groupName', InputArgument::REQUIRED, 'Name of fixture group');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
