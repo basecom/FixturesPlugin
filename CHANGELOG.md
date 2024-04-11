@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Dropped support for PHP 8.1
 - Dropped support for Shopware 6.3 & 6.4
+- Removed FixtureBag
 
 ## [2.4.0] - 2023-11-15
 ### Added

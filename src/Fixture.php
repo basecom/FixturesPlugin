@@ -6,7 +6,7 @@ namespace Basecom\FixturePlugin;
 
 abstract readonly class Fixture
 {
-    abstract public function load(FixtureBag $bag): void;
+    abstract public function load(): void;
 
     /** @return string[] */
     public function dependsOn(): array
