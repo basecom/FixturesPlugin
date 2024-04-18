@@ -53,5 +53,6 @@
 
         <MoreSpecificImplementedParamType errorLevel="info" />
         <ImplementedReturnTypeMismatch errorLevel="info" />
+        <RiskyTruthyFalsyComparison errorLevel="info" />
     </issueHandlers>
 </psalm>
