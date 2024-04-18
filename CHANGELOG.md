@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added support for PHP 8.3
 - Added support for Shopware 6.6
 - Added `--dry` option to all fixture load commands
-  - This option will prevent the fixtures from being executed but still prints all fixtures it would execute
+    - This option will prevent the fixtures from being executed but still prints all fixtures it would execute
 
 ### Removed
 - Dropped support for PHP 8.1
 - Dropped support for Shopware 6.3 & 6.4
+- Removed FixtureBag
 
 ## [2.4.0] - 2023-11-15
 ### Added

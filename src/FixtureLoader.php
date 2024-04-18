@@ -152,7 +152,6 @@ class FixtureLoader
         $fixtures = $this->buildDependencyTree($fixtures);
         $fixtures = $this->runCorrectionLoop($fixtures, 10);
 
-        $bag = new FixtureBag();
         foreach ($fixtures as $fixture) {
             $io?->note('Running '.$fixture::class);
 
@@ -160,7 +159,7 @@ class FixtureLoader
                 continue;
             }
 
-            $fixture->load($bag);
+            $fixture->load();
         }
     }
 
