@@ -25,7 +25,8 @@ class LoadFixtureGroupCommand extends Command
     protected function configure(): void
     {
         $this->addArgument('groupName', InputArgument::REQUIRED, 'Name of fixture group')
-            ->addOption('dry', description: 'Only list fixtures that would run without executing them');
+            ->addOption('dry', description: 'Only list fixtures that would run without executing them')
+            ->addOption('vendor', description: 'Include fixtures from vendor packages');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -35,6 +36,7 @@ class LoadFixtureGroupCommand extends Command
         /** @var string $groupNameInput */
         $groupNameInput = $input->getArgument('groupName');
         $dry            = (bool) ($input->getOption('dry') ?? false);
+        $vendor         = (bool) ($input->getOption('vendor') ?? false);
 
         if (!\is_string($groupNameInput)) {
             $io->error('Please make sure that your argument is of type string');
@@ -48,9 +50,14 @@ class LoadFixtureGroupCommand extends Command
             $io->note('[INFO] Dry run mode enabled. No fixtures will be executed.');
         }
 
+        if ($vendor) {
+            $io->note('[INFO] Including fixtures from vendor packages.');
+        }
+
         $options = new FixtureOption(
             dryMode: $dry,
-            groupName: $groupNameInput
+            groupName: $groupNameInput,
+            withVendor: $vendor
         );
 
         if (!$this->loader->run($options, $io)) {

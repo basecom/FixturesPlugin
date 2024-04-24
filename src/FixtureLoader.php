@@ -24,6 +24,7 @@ class FixtureLoader
      * - $groupName: If set, only fixtures with the given group name will be executed
      * - $fixtureNames: If set, only fixtures with the given class name will be executed
      * - $withDependencies: If set to true, all dependencies of the fixtures will be executed as well
+     * - $withVendor: If set to true, all fixtures found in vendor directory will be executed as well
      */
     public function run(FixtureOption $option, ?SymfonyStyle $io = null): bool
     {
@@ -78,6 +79,17 @@ class FixtureLoader
                     $className = substr(strrchr($fqcn, '\\') ?: '', 1);
 
                     return \in_array($className, $option->fixtureNames, true);
+                }
+            );
+        }
+
+        if (!$option->withVendor) {
+            $fixtures = array_filter(
+                $fixtures,
+                static function (Fixture $fixture) {
+                    $reflectionClass = new \ReflectionClass($fixture::class);
+
+                    return !str_contains($reflectionClass->getFileName() ?: '', '/vendor/');
                 }
             );
         }
