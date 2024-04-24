@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - This option will prevent the fixtures from being executed but still prints all fixtures it would execute
 
 ### Changed
+- Changed argument type on `SalesChannelUtils::getTax()` from `int` to `float`
 - `Breaking` By default no fixtures in the vendor directory are loaded. Added option `--vendor` to load them
 
 ### Removed

@@ -136,7 +136,7 @@ readonly class SalesChannelUtils
         return $tax instanceof TaxEntity ? $tax : null;
     }
 
-    public function getTax(int $taxValue): ?TaxEntity
+    public function getTax(float $taxValue): ?TaxEntity
     {
         $criteria = (new Criteria())
             ->addFilter(new EqualsFilter('taxRate', $taxValue))
