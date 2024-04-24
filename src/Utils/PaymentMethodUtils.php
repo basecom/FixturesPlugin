@@ -14,14 +14,14 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 readonly class PaymentMethodUtils
 {
     public function __construct(
-        private EntityRepository $paymentMethodRepository
+        private EntityRepository $paymentMethodRepository,
     ) {
     }
 
     public function getInvoicePaymentMethod(): ?PaymentMethodEntity
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('handlerIdentifier', InvoicePayment::class)
+            new EqualsFilter('handlerIdentifier', InvoicePayment::class),
         )->setLimit(1);
 
         $paymentMethod = $this->paymentMethodRepository

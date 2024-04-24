@@ -13,14 +13,14 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 readonly class ShippingMethodUtils
 {
     public function __construct(
-        private EntityRepository $shippingMethodRepository
+        private EntityRepository $shippingMethodRepository,
     ) {
     }
 
     public function getFirstShippingMethod(): ?ShippingMethodEntity
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('active', '1')
+            new EqualsFilter('active', '1'),
         )->setLimit(1);
 
         $shippingMethod = $this->shippingMethodRepository

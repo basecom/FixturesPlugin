@@ -21,9 +21,9 @@ trait FixtureTrait
             $returnCode = $fixtureCommand->run(
                 new ArrayInput(
                     $fixtures,
-                    $fixtureCommand->getDefinition()
+                    $fixtureCommand->getDefinition(),
                 ),
-                new BufferedOutput() // use new ConsoleOutput() if you don't want to hide output, new BufferedOutput()
+                new BufferedOutput(), // use new ConsoleOutput() if you don't want to hide output, new BufferedOutput()
             );
 
             if ($returnCode !== 0) {
@@ -41,9 +41,9 @@ trait FixtureTrait
             $returnCode = $fixtureCommand->run(
                 new ArrayInput(
                     ['fixtureName' => $fixture],
-                    $fixtureCommand->getDefinition()
+                    $fixtureCommand->getDefinition(),
                 ),
-                new BufferedOutput() // use new ConsoleOutput() if you don't want to hide output, new BufferedOutput()
+                new BufferedOutput(), // use new ConsoleOutput() if you don't want to hide output, new BufferedOutput()
             );
             if ($returnCode !== 0) {
                 throw new \RuntimeException('fixture:single');
@@ -60,9 +60,9 @@ trait FixtureTrait
         $returnCode = $fixtureCommand->run(
             new ArrayInput(
                 ['fixtureName' => $fixture, '--with-dependencies' => true],
-                $fixtureCommand->getDefinition()
+                $fixtureCommand->getDefinition(),
             ),
-            new BufferedOutput()
+            new BufferedOutput(),
         );
 
         if ($returnCode !== 0) {

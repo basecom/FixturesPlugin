@@ -15,7 +15,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 readonly class CategoryUtils
 {
     public function __construct(
-        private EntityRepository $categoryRepository
+        private EntityRepository $categoryRepository,
     ) {
     }
 
@@ -36,7 +36,7 @@ readonly class CategoryUtils
     public function getFirst(): ?CategoryEntity
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('level', '1')
+            new EqualsFilter('level', '1'),
         )->setLimit(1);
 
         $category = $this->categoryRepository

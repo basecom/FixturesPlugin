@@ -17,7 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class LoadFixtureGroupCommand extends Command
 {
     public function __construct(
-        private readonly FixtureLoader $loader
+        private readonly FixtureLoader $loader,
     ) {
         parent::__construct();
     }
@@ -57,7 +57,7 @@ class LoadFixtureGroupCommand extends Command
         $options = new FixtureOption(
             dryMode: $dry,
             groupName: $groupNameInput,
-            withVendor: $vendor
+            withVendor: $vendor,
         );
 
         if (!$this->loader->run($options, $io)) {

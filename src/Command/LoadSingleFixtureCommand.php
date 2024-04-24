@@ -18,7 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class LoadSingleFixtureCommand extends Command
 {
     public function __construct(
-        private readonly FixtureLoader $loader
+        private readonly FixtureLoader $loader,
     ) {
         parent::__construct();
     }
@@ -61,7 +61,7 @@ class LoadSingleFixtureCommand extends Command
             dryMode: $dry,
             fixtureNames: [$fixtureName],
             withDependencies: $withDependencies,
-            withVendor: $vendor
+            withVendor: $vendor,
         );
 
         if (!$this->loader->run($options, $io)) {

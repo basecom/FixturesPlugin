@@ -21,7 +21,7 @@ readonly class FixtureHelper
         private CmsUtils $cmsUtils,
         private PaymentMethodUtils $paymentMethodUtils,
         private ShippingMethodUtils $shippingMethodUtils,
-        private CustomerUtils $customerUtils
+        private CustomerUtils $customerUtils,
     ) {
     }
 

@@ -67,7 +67,7 @@ class FixtureLoader
         if (!empty($group)) {
             $fixtures = array_filter(
                 $fixtures,
-                static fn (Fixture $fixture) => \in_array(strtolower($group), array_map('strtolower', $fixture->groups()), true)
+                static fn (Fixture $fixture) => \in_array(strtolower($group), array_map('strtolower', $fixture->groups()), true),
             );
         }
 
@@ -79,7 +79,7 @@ class FixtureLoader
                     $className = substr(strrchr($fqcn, '\\') ?: '', 1);
 
                     return \in_array($className, $option->fixtureNames, true);
-                }
+                },
             );
         }
 
@@ -90,7 +90,7 @@ class FixtureLoader
                     $reflectionClass = new \ReflectionClass($fixture::class);
 
                     return !str_contains($reflectionClass->getFileName() ?: '', '/vendor/');
-                }
+                },
             );
         }
 
@@ -110,7 +110,7 @@ class FixtureLoader
     private function checkThatAllDependenciesAreInGroup(
         array $fixtureReferences,
         string $groupName,
-        ?SymfonyStyle $io = null
+        ?SymfonyStyle $io = null,
     ): bool {
         foreach ($fixtureReferences as $fixture) {
             if (\count($fixture->dependsOn()) <= 0) {
@@ -132,7 +132,7 @@ class FixtureLoader
         Fixture $fixture,
         array $references,
         string $groupName,
-        ?SymfonyStyle $io = null
+        ?SymfonyStyle $io = null,
     ): bool {
         $dependencies = $fixture->dependsOn();
         $inGroup      = array_map('strtolower', array_keys($references));
@@ -201,8 +201,8 @@ class FixtureLoader
             $fixtures,
             array_map(
                 static fn (string $key) => $allFixtures[$key],
-                $keys
-            )
+                $keys,
+            ),
         );
     }
 
@@ -251,7 +251,7 @@ class FixtureLoader
     {
         uasort(
             $fixtures,
-            static fn (Fixture $fixture1, Fixture $fixture2): int => $fixture2->priority() <=> $fixture1->priority()
+            static fn (Fixture $fixture1, Fixture $fixture2): int => $fixture2->priority() <=> $fixture1->priority(),
         );
 
         return $fixtures;
@@ -269,7 +269,7 @@ class FixtureLoader
     {
         uasort(
             $fixtures,
-            fn (Fixture $a, Fixture $b) => $this->compareDependencies($a, $b)
+            fn (Fixture $a, Fixture $b) => $this->compareDependencies($a, $b),
         );
 
         return $fixtures;
