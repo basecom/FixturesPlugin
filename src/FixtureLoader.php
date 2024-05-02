@@ -20,11 +20,11 @@ class FixtureLoader
      * can be configured using the FixtureOption object.
      *
      * Generally speaking the following options are available:
-     * - $dryMode: If set to true, the fixtures will not be executed (only printed)
-     * - $groupName: If set, only fixtures with the given group name will be executed
-     * - $fixtureNames: If set, only fixtures with the given class name will be executed
-     * - $withDependencies: If set to true, all dependencies of the fixtures will be executed as well
-     * - $withVendor: If set to true, all fixtures found in vendor directory will be executed as well
+     * - `$dryMode`: If set to true, the fixtures will not be executed (only printed)
+     * - `$groupName`: If set, only fixtures with the given group name will be executed
+     * - `$fixtureNames`: If set, only fixtures with the given class name will be executed
+     * - `$withDependencies`: If set to true, all dependencies of the fixtures will be executed as well
+     * - `$withVendor`: If set to true, all fixtures found in vendor directory will be executed as well
      */
     public function run(FixtureOption $option, ?SymfonyStyle $io = null): bool
     {
