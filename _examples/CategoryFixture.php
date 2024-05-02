@@ -7,7 +7,7 @@ namespace Basecom\FixturePlugin;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 
-class CategoryFixture extends Fixture
+readonly class CategoryFixture extends Fixture
 {
     private FixtureHelper $helper;
     private EntityRepositoryInterface $categoryRepository;
@@ -18,7 +18,7 @@ class CategoryFixture extends Fixture
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function load(FixtureBag $bag): void
+    public function load(): void
     {
         $this->categoryRepository->upsert([
             [

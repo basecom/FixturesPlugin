@@ -56,7 +56,7 @@ class FixtureLoader
      * include only those whose class names match the provided fixture names. The method returns
      * the filtered array of fixtures.
      *
-     * @return array<int, Fixture>
+     * @return array<int, FixtureInterface>
      */
     private function prefilterFixtures(FixtureOption $option): array
     {
@@ -66,14 +66,14 @@ class FixtureLoader
         if (!empty($group)) {
             $fixtures = array_filter(
                 $fixtures,
-                static fn (Fixture $fixture) => \in_array(strtolower($group), array_map('strtolower', $fixture->groups()), true)
+                static fn (FixtureInterface $fixture) => \in_array(strtolower($group), array_map('strtolower', $fixture->groups()), true)
             );
         }
 
         if (!empty($option->fixtureNames)) {
             $fixtures = array_filter(
                 $fixtures,
-                static function (Fixture $fixture) use ($option) {
+                static function (FixtureInterface $fixture) use ($option) {
                     $fqcn      = $fixture::class;
                     $className = substr(strrchr($fqcn, '\\') ?: '', 1);
 
@@ -93,7 +93,7 @@ class FixtureLoader
      * If not, it returns false, indicating that not all dependencies are in the same group.
      * If all dependencies are in the same group, it returns true.
      *
-     * @param array<string, Fixture> $fixtureReferences
+     * @param array<string, FixtureInterface> $fixtureReferences
      */
     private function checkThatAllDependenciesAreInGroup(
         array $fixtureReferences,
@@ -117,7 +117,7 @@ class FixtureLoader
      * Check if dependencies of fixture are also in the same group. If not, show error and stop process.
      */
     private function checkDependenciesAreInSameGroup(
-        Fixture $fixture,
+        FixtureInterface $fixture,
         array $references,
         string $groupName,
         ?SymfonyStyle $io = null
@@ -142,7 +142,7 @@ class FixtureLoader
      *
      * If the dryMode option is set to true, the fixtures will not be executed, only printed.
      *
-     * @param array<string, Fixture> $fixtures
+     * @param array<string, FixtureInterface> $fixtures
      */
     private function runFixtures(FixtureOption $option, array $fixtures, ?SymfonyStyle $io = null): void
     {
@@ -170,9 +170,9 @@ class FixtureLoader
      * It uses the `recursiveGetAllDependenciesOfFixture` method to get the dependencies of each individual fixture.
      * The result is a unique array of all dependencies for the entire set of fixtures.
      *
-     * @param array<int, Fixture> $fixtures
+     * @param array<int, FixtureInterface> $fixtures
      *
-     * @return array<int, Fixture>
+     * @return array<int, FixtureInterface>
      */
     private function recursiveGetAllDependenciesOfFixtures(array $fixtures): array
     {
@@ -198,11 +198,11 @@ class FixtureLoader
      * Recursively retrieves all dependencies of the given fixture and returns them as an array.
      * The array contains the FQCN of all the dependency fixtures.
      *
-     * @param array<string, Fixture> $allFixtures
+     * @param array<string, FixtureInterface> $allFixtures
      *
      * @return array<string>
      */
-    private function recursiveGetAllDependenciesOfFixture(Fixture $fixture, array $allFixtures): array
+    private function recursiveGetAllDependenciesOfFixture(FixtureInterface $fixture, array $allFixtures): array
     {
         return array_unique(array_merge($fixture->dependsOn(), array_reduce($fixture->dependsOn(), function ($carry, $item) use ($allFixtures) {
             return array_merge($carry, $this->recursiveGetAllDependenciesOfFixture($allFixtures[$item], $allFixtures));
@@ -213,9 +213,9 @@ class FixtureLoader
      * Restructures a normal array with numeric keys to an associative array with the class name as key
      * and the fixture object as value.
      *
-     * @param array<int, Fixture> $fixtures
+     * @param array<int, FixtureInterface> $fixtures
      *
-     * @return array<string, Fixture>
+     * @return array<string, FixtureInterface>
      */
     private function buildFixtureReference(array $fixtures): array
     {
@@ -231,15 +231,15 @@ class FixtureLoader
     /**
      * Sort all fixtures by priority.
      *
-     * @param array<string, Fixture> $fixtures
+     * @param array<string, FixtureInterface> $fixtures
      *
-     * @return array<string, Fixture>
+     * @return array<string, FixtureInterface>
      */
     private function sortAllByPriority(array $fixtures): array
     {
         uasort(
             $fixtures,
-            static fn (Fixture $fixture1, Fixture $fixture2): int => $fixture2->priority() <=> $fixture1->priority()
+            static fn (FixtureInterface $fixture1, FixtureInterface $fixture2): int => $fixture2->priority() <=> $fixture1->priority()
         );
 
         return $fixtures;
@@ -249,15 +249,15 @@ class FixtureLoader
      * Sort all fixtures by dependencies. This makes sure that fixtures with dependencies are executed after their
      * dependencies.
      *
-     * @param array<string, Fixture> $fixtures
+     * @param array<string, FixtureInterface> $fixtures
      *
-     * @return array<string, Fixture>
+     * @return array<string, FixtureInterface>
      */
     private function buildDependencyTree(array $fixtures): array
     {
         uasort(
             $fixtures,
-            fn (Fixture $a, Fixture $b) => $this->compareDependencies($a, $b)
+            fn (FixtureInterface $a, FixtureInterface $b) => $this->compareDependencies($a, $b)
         );
 
         return $fixtures;
@@ -267,7 +267,7 @@ class FixtureLoader
      * A comparison function to sort fixtures by dependencies. This function is used in the uasort function
      * to sort fixtures by dependencies.
      */
-    private function compareDependencies(Fixture $a, Fixture $b): int
+    private function compareDependencies(FixtureInterface $a, FixtureInterface $b): int
     {
         $aDependsOnB = \in_array($b::class, $a->dependsOn(), true);
         $bDependsOnA = \in_array($a::class, $b->dependsOn(), true);
@@ -289,9 +289,9 @@ class FixtureLoader
      * to prevent an infinite loop in case of a circular dependency. If the number of tries reaches zero, the method
      * throws an exception. (Indicating that a circular dependency was detected)
      *
-     * @param array<string, Fixture> $fixtures
+     * @param array<string, FixtureInterface> $fixtures
      *
-     * @return array<string, Fixture>
+     * @return array<string, FixtureInterface>
      */
     private function runCorrectionLoop(array $fixtures, int $tries): array
     {
@@ -299,7 +299,7 @@ class FixtureLoader
             throw new \LogicException('Circular dependency tree detected. Please check your dependsOn methods');
         }
 
-        /** @var array<string, Fixture> $existing */
+        /** @var array<string, FixtureInterface> $existing */
         $existing = [];
         $failed   = false;
 

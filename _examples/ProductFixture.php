@@ -7,7 +7,7 @@ namespace Basecom\FixturePlugin;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 
-class ProductFixture extends Fixture
+readonly class ProductFixture extends Fixture
 {
     private const MEDIA_ID   = '0d2ccefd6d22436385580e2ff42431b9';
     private const PRODUCT_ID = '0d8ffedd6d22436385580e2ff42431b9';
@@ -22,7 +22,7 @@ class ProductFixture extends Fixture
         $this->repoProducts = $repoProducts;
     }
 
-    public function load(FixtureBag $bag): void
+    public function load(): void
     {
         $this->helper->Media()->upload(
             self::MEDIA_ID,

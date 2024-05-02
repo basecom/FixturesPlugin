@@ -35,13 +35,12 @@ Create a new file in the specific folder of your project for the fixtures and ex
 Then just implement the "**load()**" method with fixture logic.
 
 ```php 
-class CustomerFixture extends Fixture
+readonly class CustomerFixture extends Fixture
 {
     /**
-     * @param FixtureBag $bag
      * @return void
      */
-    public function load(FixtureBag $bag): void
+    public function load(): void
     {
         // custom code 
     }

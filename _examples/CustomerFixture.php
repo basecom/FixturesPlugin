@@ -7,7 +7,7 @@ namespace Basecom\FixturePlugin;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 
-class CustomerFixture extends Fixture
+readonly class CustomerFixture extends Fixture
 {
     private const CUSTOMER_ID = '0d8eefdd6d32456385580e2ff42431b9';
     private const ADDRESS_ID  = 'e27dc2b4e85f4a0f9a912a09f07701b0';
@@ -21,7 +21,7 @@ class CustomerFixture extends Fixture
         $this->customerRepository = $customerRepository;
     }
 
-    public function load(FixtureBag $bag): void
+    public function load(): void
     {
         $salesChannel = $this->helper->SalesChannel()->getStorefrontSalesChannel();
 
