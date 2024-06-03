@@ -267,10 +267,7 @@ class FixtureLoader
      */
     private function buildDependencyTree(array $fixtures): array
     {
-        uasort(
-            $fixtures,
-            fn (Fixture $a, Fixture $b) => $this->compareDependencies($a, $b),
-        );
+        uasort($fixtures, $this->compareDependencies(...));
 
         return $fixtures;
     }
