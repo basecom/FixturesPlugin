@@ -14,7 +14,10 @@ class FixtureLoader
     /**
      * @param \Traversable<Fixture> $fixtures
      */
-    public function __construct(\Traversable $fixtures)
+    public function __construct(
+        \Traversable $fixtures,
+        private readonly FixtureHelper $helper,
+    )
     {
         $this->fixtures = iterator_to_array($fixtures);
     }
@@ -177,6 +180,7 @@ class FixtureLoader
                 continue;
             }
 
+            $fixture->setHelper($this->helper);
             $fixture->load();
         }
     }

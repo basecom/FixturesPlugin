@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added support for Shopware 6.6
 - Added `--dry` option to all fixture load commands
     - This option will prevent the fixtures from being executed but still prints all fixtures it would execute
+- Added new DatabaseUtils with a few helpful methods:
+  - `deleteEntities` takes an entity name and criteria and deletes all entities which match the criteria
 
 ### Changed
 - Changed argument type on `SalesChannelUtils::getTax()` from `int` to `float`
@@ -19,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `FixtureTrait::runSpecificFixtures` is an alias to run specific fixtures with optionally dependencies
   - `FixtureTrait::runSingleFixture` (before `FixtureTrait::runSingleFixtureWithDependencies`) with dependencies can now be configured as the second parameter
   - `FixtureTrait::runFixtureGroup` is a new function to execute whole fixture groups with optionally dependencies
+- Each fixture now has direct access to the FixtureHelper using `$this->helper`
+  - **Breaking** If you have the helper (or any other helper) previously assigned to `$this->helper` it will either fail or override the FixturePlugin helper
 
 ### Removed
 - Dropped support for PHP 8.1
