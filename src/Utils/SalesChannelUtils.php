@@ -9,8 +9,6 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\System\Currency\CurrencyCollection;
-use Shopware\Core\System\Currency\CurrencyEntity;
 use Shopware\Core\System\SalesChannel\SalesChannelCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelEntity;
 use Shopware\Core\System\Tax\TaxCollection;
@@ -30,12 +28,10 @@ readonly class SalesChannelUtils
     /**
      * @param EntityRepository<SalesChannelCollection> $salesChannelRepository
      * @param EntityRepository<TaxCollection>          $taxRepository
-     * @param EntityRepository<CurrencyCollection>     $currencyRepository
      */
     public function __construct(
         private EntityRepository $salesChannelRepository,
         private EntityRepository $taxRepository,
-        private EntityRepository $currencyRepository,
     ) {
     }
 
@@ -78,20 +74,6 @@ readonly class SalesChannelUtils
 
             return $salesChannel instanceof SalesChannelEntity ? $salesChannel : null;
         });
-    }
-
-    // TODO: Move to CurrencyUtils
-    public function getCurrencyEuro(): ?CurrencyEntity
-    {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('isoCode', 'EUR'))
-            ->setLimit(1);
-
-        $currency = $this->currencyRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
-
-        return $currency instanceof CurrencyEntity ? $currency : null;
     }
 
     // TODO: Move to TaxUtils

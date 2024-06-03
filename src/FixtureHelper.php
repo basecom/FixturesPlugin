@@ -6,6 +6,7 @@ namespace Basecom\FixturePlugin;
 
 use Basecom\FixturePlugin\Utils\CategoryUtils;
 use Basecom\FixturePlugin\Utils\CmsUtils;
+use Basecom\FixturePlugin\Utils\CurrencyUtils;
 use Basecom\FixturePlugin\Utils\DatabaseUtils;
 use Basecom\FixturePlugin\Utils\LanguageAndLocaleUtils;
 use Basecom\FixturePlugin\Utils\MediaUtils;
@@ -26,6 +27,7 @@ readonly class FixtureHelper
         private SalutationUtils $salutationUtils,
         private DatabaseUtils $databaseUtils,
         private LanguageAndLocaleUtils $languageAndLocaleUtils,
+        private CurrencyUtils $currencyUtils,
     ) {
     }
 
@@ -99,6 +101,15 @@ readonly class FixtureHelper
     public function LanguageAndLocale(): LanguageAndLocaleUtils
     {
         return $this->languageAndLocaleUtils;
+    }
+
+    /**
+     * Use this to access the currency related features
+     * of the fixture helper class.
+     */
+    public function Currency(): CurrencyUtils
+    {
+        return $this->currencyUtils;
     }
 
     /**

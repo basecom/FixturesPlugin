@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking** Moved `SalesChannelUtils::getLocale()` to `LanguageAndLocaleUtils::getLocale()`
 - **Breaking** Moved `SalesChannelUtils::getCountry()` to `LanguageAndLocaleUtils::getCountry()`
 - **Breaking** Moved `SalesChannelUtils::getSnippetSet()` to `LanguageAndLocaleUtils::getSnippetSet()`
+- **Breaking** Moved `SalesChannelUtils::getCurrencyEuro()` to `CurrencyUtils::getCurrencyEuro()`
 
 ### Removed
 - Dropped support for PHP 8.1
