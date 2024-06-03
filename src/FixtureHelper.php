@@ -7,6 +7,7 @@ namespace Basecom\FixturePlugin;
 use Basecom\FixturePlugin\Utils\CategoryUtils;
 use Basecom\FixturePlugin\Utils\CmsUtils;
 use Basecom\FixturePlugin\Utils\DatabaseUtils;
+use Basecom\FixturePlugin\Utils\LanguageAndLocaleUtils;
 use Basecom\FixturePlugin\Utils\MediaUtils;
 use Basecom\FixturePlugin\Utils\PaymentMethodUtils;
 use Basecom\FixturePlugin\Utils\SalesChannelUtils;
@@ -24,6 +25,7 @@ readonly class FixtureHelper
         private ShippingMethodUtils $shippingMethodUtils,
         private SalutationUtils $salutationUtils,
         private DatabaseUtils $databaseUtils,
+        private LanguageAndLocaleUtils $languageAndLocaleUtils,
     ) {
     }
 
@@ -88,6 +90,15 @@ readonly class FixtureHelper
     public function ShippingMethod(): ShippingMethodUtils
     {
         return $this->shippingMethodUtils;
+    }
+
+    /**
+     * Use this to access the language & locale related features
+     * of the fixture helper class.
+     */
+    public function LanguageAndLocale(): LanguageAndLocaleUtils
+    {
+        return $this->languageAndLocaleUtils;
     }
 
     /**
