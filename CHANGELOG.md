@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - This option will prevent the fixtures from being executed but still prints all fixtures it would execute
 - Added new DatabaseUtils with a few helpful methods:
   - `deleteEntities` takes an entity name and criteria and deletes all entities which match the criteria
+- Added a small cache for all utilities. It prevents loading data twice within the same request / command execution
 
 ### Changed
 - Changed argument type on `SalesChannelUtils::getTax()` from `int` to `float`
@@ -28,6 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dropped support for PHP 8.1
 - Dropped support for Shopware 6.3 & 6.4
 - Removed FixtureBag
+- CategoryUtils
+  - Removed method `getFirst` on CategoryUtils
+  - Removed method `getByName` on CategoryUtils
 
 ## [2.4.0] - 2023-11-15
 ### Added

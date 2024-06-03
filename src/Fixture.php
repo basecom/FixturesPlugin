@@ -6,7 +6,7 @@ namespace Basecom\FixturePlugin;
 
 abstract class Fixture
 {
-    protected readonly FixtureHelper $helper;
+    protected FixtureHelper $helper;
 
     abstract public function load(): void;
 
@@ -28,9 +28,9 @@ abstract class Fixture
     }
 
     /**
-     * @internal This method should only be called from the FixtureLoader.
+     * @internal this method should only be called from the FixtureLoader
      */
-    public final function setHelper(FixtureHelper $helper): void
+    final public function setHelper(FixtureHelper $helper): void
     {
         $this->helper = $helper;
     }

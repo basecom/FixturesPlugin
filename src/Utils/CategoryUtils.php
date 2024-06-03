@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection ALL */
-
 declare(strict_types=1);
 
 namespace Basecom\FixturePlugin\Utils;
@@ -13,6 +11,15 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
+/**
+ * This class provides utility methods to work with categories. It has build in caching to prevent
+ * multiple database queries for the same data within one command execution / request.
+ *
+ * This class is designed to be used through the FixtureHelper, using:
+ * ```php
+ * $this->helper->Category()->……();
+ * ```
+ */
 readonly class CategoryUtils
 {
     /**
@@ -23,46 +30,24 @@ readonly class CategoryUtils
     ) {
     }
 
+    /**
+     * Gets the root category of the shop or.
+     */
     public function getRootCategory(): ?CategoryEntity
     {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('autoIncrement', 1))
-            ->addFilter(new EqualsFilter('level', 1))
-            ->setLimit(1);
+        return once(function () {
+            $criteria = (new Criteria())
+                ->addFilter(new EqualsFilter('autoIncrement', 1))
+                ->addFilter(new EqualsFilter('level', 1))
+                ->setLimit(1);
 
-        $category = $this->categoryRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
+            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
-        return $category instanceof CategoryEntity ? $category : null;
-    }
+            $category = $this->categoryRepository
+                ->search($criteria, Context::createDefaultContext())
+                ->first();
 
-    public function getFirst(): ?CategoryEntity
-    {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('level', '1'),
-        )->setLimit(1);
-
-        $category = $this->categoryRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
-
-        return $category instanceof CategoryEntity ? $category : null;
-    }
-
-    /**
-     * Gets the first found category with the provided name.
-     */
-    public function getByName(string $name): ?CategoryEntity
-    {
-        $criteria = new Criteria();
-        $criteria->addFilter(new EqualsFilter('name', $name));
-        $criteria->setLimit(1);
-
-        $category = $this->categoryRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
-
-        return $category instanceof CategoryEntity ? $category : null;
+            return $category instanceof CategoryEntity ? $category : null;
+        });
     }
 }
