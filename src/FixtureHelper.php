@@ -7,6 +7,7 @@ namespace Basecom\FixturePlugin;
 use Basecom\FixturePlugin\Utils\CategoryUtils;
 use Basecom\FixturePlugin\Utils\CmsUtils;
 use Basecom\FixturePlugin\Utils\CustomerUtils;
+use Basecom\FixturePlugin\Utils\DatabaseUtils;
 use Basecom\FixturePlugin\Utils\MediaUtils;
 use Basecom\FixturePlugin\Utils\PaymentMethodUtils;
 use Basecom\FixturePlugin\Utils\SalesChannelUtils;
@@ -22,6 +23,7 @@ readonly class FixtureHelper
         private PaymentMethodUtils $paymentMethodUtils,
         private ShippingMethodUtils $shippingMethodUtils,
         private CustomerUtils $customerUtils,
+        private DatabaseUtils $databaseUtils,
     ) {
     }
 
@@ -86,5 +88,14 @@ readonly class FixtureHelper
     public function ShippingMethod(): ShippingMethodUtils
     {
         return $this->shippingMethodUtils;
+    }
+
+    /**
+     * Use this to access the general database helper functions
+     * of the fixture helper class.
+     */
+    public function Database(): DatabaseUtils
+    {
+        return $this->databaseUtils;
     }
 }
