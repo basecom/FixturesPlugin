@@ -9,16 +9,32 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\System\Country\CountryCollection;
 use Shopware\Core\System\Country\CountryEntity;
+use Shopware\Core\System\Currency\CurrencyCollection;
 use Shopware\Core\System\Currency\CurrencyEntity;
+use Shopware\Core\System\Language\LanguageCollection;
 use Shopware\Core\System\Language\LanguageEntity;
+use Shopware\Core\System\Locale\LocaleCollection;
 use Shopware\Core\System\Locale\LocaleEntity;
+use Shopware\Core\System\SalesChannel\SalesChannelCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelEntity;
+use Shopware\Core\System\Snippet\Aggregate\SnippetSet\SnippetSetCollection;
 use Shopware\Core\System\Snippet\Aggregate\SnippetSet\SnippetSetEntity;
+use Shopware\Core\System\Tax\TaxCollection;
 use Shopware\Core\System\Tax\TaxEntity;
 
 readonly class SalesChannelUtils
 {
+    /**
+     * @param EntityRepository<SalesChannelCollection> $salesChannelRepository
+     * @param EntityRepository<SnippetSetCollection>   $snippetSetRepository
+     * @param EntityRepository<TaxCollection>          $taxRepository
+     * @param EntityRepository<CountryCollection>      $countryRepository
+     * @param EntityRepository<LanguageCollection>     $languageRepository
+     * @param EntityRepository<CurrencyCollection>     $currencyRepository
+     * @param EntityRepository<LocaleCollection>       $localeRepository
+     */
     public function __construct(
         private EntityRepository $salesChannelRepository,
         private EntityRepository $snippetSetRepository,
