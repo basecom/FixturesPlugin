@@ -6,11 +6,11 @@ namespace Basecom\FixturePlugin;
 
 use Basecom\FixturePlugin\Utils\CategoryUtils;
 use Basecom\FixturePlugin\Utils\CmsUtils;
-use Basecom\FixturePlugin\Utils\CustomerUtils;
 use Basecom\FixturePlugin\Utils\DatabaseUtils;
 use Basecom\FixturePlugin\Utils\MediaUtils;
 use Basecom\FixturePlugin\Utils\PaymentMethodUtils;
 use Basecom\FixturePlugin\Utils\SalesChannelUtils;
+use Basecom\FixturePlugin\Utils\SalutationUtils;
 use Basecom\FixturePlugin\Utils\ShippingMethodUtils;
 
 readonly class FixtureHelper
@@ -22,7 +22,7 @@ readonly class FixtureHelper
         private CmsUtils $cmsUtils,
         private PaymentMethodUtils $paymentMethodUtils,
         private ShippingMethodUtils $shippingMethodUtils,
-        private CustomerUtils $customerUtils,
+        private SalutationUtils $salutationUtils,
         private DatabaseUtils $databaseUtils,
     ) {
     }
@@ -55,12 +55,12 @@ readonly class FixtureHelper
     }
 
     /**
-     * Use this to access the customer related features
+     * Use this to access the salutation related features
      * of the fixture helper class.
      */
-    public function Customer(): CustomerUtils
+    public function Salutation(): SalutationUtils
     {
-        return $this->customerUtils;
+        return $this->salutationUtils;
     }
 
     /**

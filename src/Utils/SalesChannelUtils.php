@@ -24,6 +24,15 @@ use Shopware\Core\System\Snippet\Aggregate\SnippetSet\SnippetSetEntity;
 use Shopware\Core\System\Tax\TaxCollection;
 use Shopware\Core\System\Tax\TaxEntity;
 
+/**
+ * This class provides utility methods to work with sales channels. It has build in caching to prevent
+ * multiple database queries for the same data within one command execution / request.
+ *
+ * This class is designed to be used through the FixtureHelper, using:
+ * ```php
+ * $this->helper->SalesChannel()->……();
+ * ```
+ */
 readonly class SalesChannelUtils
 {
     /**
@@ -46,16 +55,25 @@ readonly class SalesChannelUtils
     ) {
     }
 
+    /**
+     * Return the first sales channel with type "Storefront" or null if non was found.
+     */
     public function getStorefrontSalesChannel(): ?SalesChannelEntity
     {
         return $this->getSalesChannelByType(Defaults::SALES_CHANNEL_TYPE_STOREFRONT);
     }
 
+    /**
+     * Return the first sales channel with type "headless" or null if non was found.
+     */
     public function getHeadlessSalesChannel(): ?SalesChannelEntity
     {
         return $this->getSalesChannelByType(Defaults::SALES_CHANNEL_TYPE_API);
     }
 
+    /**
+     * Return the first sales channel with type "Product Comparison" or null if non was found.
+     */
     public function getProductComparisonSalesChannel(): ?SalesChannelEntity
     {
         return $this->getSalesChannelByType(Defaults::SALES_CHANNEL_TYPE_PRODUCT_COMPARISON);
@@ -63,17 +81,22 @@ readonly class SalesChannelUtils
 
     public function getSalesChannelByType(string $salesChannelType): ?SalesChannelEntity
     {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('typeId', $salesChannelType))
-            ->setLimit(1);
+        return once(function () use ($salesChannelType): ?SalesChannelEntity {
+            $criteria = (new Criteria())
+                ->addFilter(new EqualsFilter('typeId', $salesChannelType))
+                ->setLimit(1);
 
-        $salesChannel = $this->salesChannelRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
+            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
-        return $salesChannel instanceof SalesChannelEntity ? $salesChannel : null;
+            $salesChannel = $this->salesChannelRepository
+                ->search($criteria, Context::createDefaultContext())
+                ->first();
+
+            return $salesChannel instanceof SalesChannelEntity ? $salesChannel : null;
+        });
     }
 
+    // TODO: Move to CurrencyUtils
     public function getCurrencyEuro(): ?CurrencyEntity
     {
         $criteria = (new Criteria())
@@ -87,6 +110,7 @@ readonly class SalesChannelUtils
         return $currency instanceof CurrencyEntity ? $currency : null;
     }
 
+    // TODO: Move to LanguageAndLocaleUtils
     public function getLanguage(string $languageName): ?LanguageEntity
     {
         $criteria = (new Criteria())->addFilter(
@@ -100,6 +124,7 @@ readonly class SalesChannelUtils
         return $language instanceof LanguageEntity ? $language : null;
     }
 
+    // TODO: Move to LanguageAndLocaleUtils
     public function getLocale(string $code): ?LocaleEntity
     {
         $criteria = (new Criteria())->addFilter(
@@ -113,6 +138,7 @@ readonly class SalesChannelUtils
         return $locale instanceof LocaleEntity ? $locale : null;
     }
 
+    // TODO: Move to LanguageAndLocaleUtils
     public function getCountry(string $countryIso): ?CountryEntity
     {
         $criteria = (new Criteria())->addFilter(
@@ -120,12 +146,15 @@ readonly class SalesChannelUtils
         )->setLimit(1);
 
         $country = $this->countryRepository
-            ->search($criteria, Context::createDefaultContext(),
+            ->search(
+                $criteria,
+                Context::createDefaultContext(),
             )->first();
 
         return $country instanceof CountryEntity ? $country : null;
     }
 
+    // TODO: Move to LanguageAndLocaleUtils
     public function getSnippetSet(string $countryCodeIso): ?SnippetSetEntity
     {
         $criteria = (new Criteria())->addFilter(
@@ -139,6 +168,7 @@ readonly class SalesChannelUtils
         return $snippetSet instanceof SnippetSetEntity ? $snippetSet : null;
     }
 
+    // TODO: Move to TaxUtils
     public function getTax19(): ?TaxEntity
     {
         $criteria = (new Criteria())
@@ -152,6 +182,7 @@ readonly class SalesChannelUtils
         return $tax instanceof TaxEntity ? $tax : null;
     }
 
+    // TODO: Move to TaxUtils
     public function getTax(float $taxValue): ?TaxEntity
     {
         $criteria = (new Criteria())

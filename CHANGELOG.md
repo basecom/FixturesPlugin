@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CategoryUtils
   - Removed method `getFirst` on CategoryUtils
   - Removed method `getByName` on CategoryUtils
+- Renamed `CategoryUtils` to `SalutationUtils`
 
 ## [2.4.0] - 2023-11-15
 ### Added

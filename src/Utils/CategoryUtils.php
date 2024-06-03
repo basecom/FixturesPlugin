@@ -35,7 +35,7 @@ readonly class CategoryUtils
      */
     public function getRootCategory(): ?CategoryEntity
     {
-        return once(function () {
+        return once(function (): ?CategoryEntity {
             $criteria = (new Criteria())
                 ->addFilter(new EqualsFilter('autoIncrement', 1))
                 ->addFilter(new EqualsFilter('level', 1))
