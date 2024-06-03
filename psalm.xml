@@ -14,10 +14,12 @@
     </projectFiles>
 
     <issueHandlers>
-        <LessSpecificReturnType errorLevel="info" />
+        <!-- This is ignored until we drop support for Shopware 6.5 -->
+        <TooManyTemplateParams errorLevel="suppress" />
 
         <LessSpecificImplementedReturnType errorLevel="suppress" />
 
+        <LessSpecificReturnType errorLevel="info" />
         <DeprecatedMethod errorLevel="info" />
         <DeprecatedProperty errorLevel="info" />
         <DeprecatedClass errorLevel="info" />
