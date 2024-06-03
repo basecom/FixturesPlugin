@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Changed argument type on `SalesChannelUtils::getTax()` from `int` to `float`
+- **Breaking** By default no fixtures in the vendor directory are loaded. Added option `--vendor` to load them
 
 ### Removed
 - Dropped support for PHP 8.1

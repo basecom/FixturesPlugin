@@ -18,7 +18,7 @@ readonly class MediaUtils
         private EntityRepository $mediaRepository,
         private EntityRepository $mediaFolderRepository,
         private FileSaver $fileSaver,
-        private FileFetcher $fileFetcher
+        private FileFetcher $fileFetcher,
     ) {
     }
 
@@ -49,20 +49,20 @@ readonly class MediaUtils
                 'mediaFolderId' => $folderId,
             ],
         ],
-            $ctx
+            $ctx,
         );
 
         $uploadedFile = $this->fileFetcher->fetchBlob(
             (string) file_get_contents($filename),
             $extension,
-            $contentType
+            $contentType,
         );
 
         $this->fileSaver->persistFileToMedia(
             $uploadedFile,
             basename($filename, '.'.$extension),
             $mediaId,
-            $ctx
+            $ctx,
         );
     }
 }

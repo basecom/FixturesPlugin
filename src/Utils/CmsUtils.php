@@ -14,7 +14,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 readonly class CmsUtils
 {
     public function __construct(
-        private EntityRepository $cmsPageRepository
+        private EntityRepository $cmsPageRepository,
     ) {
     }
 

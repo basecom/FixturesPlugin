@@ -26,7 +26,7 @@ readonly class SalesChannelUtils
         private EntityRepository $countryRepository,
         private EntityRepository $languageRepository,
         private EntityRepository $currencyRepository,
-        private EntityRepository $localeRepository
+        private EntityRepository $localeRepository,
     ) {
     }
 
@@ -74,7 +74,7 @@ readonly class SalesChannelUtils
     public function getLanguage(string $languageName): ?LanguageEntity
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('name', $languageName)
+            new EqualsFilter('name', $languageName),
         )->setLimit(1);
 
         $language = $this->languageRepository
@@ -87,7 +87,7 @@ readonly class SalesChannelUtils
     public function getLocale(string $code): ?LocaleEntity
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('code', $code)
+            new EqualsFilter('code', $code),
         )->setLimit(1);
 
         $locale = $this->localeRepository
@@ -100,11 +100,11 @@ readonly class SalesChannelUtils
     public function getCountry(string $countryIso): ?CountryEntity
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('iso', $countryIso)
+            new EqualsFilter('iso', $countryIso),
         )->setLimit(1);
 
         $country = $this->countryRepository
-            ->search($criteria, Context::createDefaultContext()
+            ->search($criteria, Context::createDefaultContext(),
             )->first();
 
         return $country instanceof CountryEntity ? $country : null;
@@ -113,7 +113,7 @@ readonly class SalesChannelUtils
     public function getSnippetSet(string $countryCodeIso): ?SnippetSetEntity
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('iso', $countryCodeIso)
+            new EqualsFilter('iso', $countryCodeIso),
         )->setLimit(1);
 
         $snippetSet = $this->snippetSetRepository

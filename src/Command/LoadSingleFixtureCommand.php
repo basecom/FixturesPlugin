@@ -18,7 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class LoadSingleFixtureCommand extends Command
 {
     public function __construct(
-        private readonly FixtureLoader $loader
+        private readonly FixtureLoader $loader,
     ) {
         parent::__construct();
     }
@@ -27,6 +27,7 @@ class LoadSingleFixtureCommand extends Command
     {
         $this->addOption('with-dependencies', 'w', InputOption::VALUE_NONE, 'Run fixture with dependencies')
             ->addOption('dry', description: 'Only list fixtures that would run without executing them')
+            ->addOption('vendor', description: 'Include fixtures from vendor packages')
             ->addArgument('fixtureName', InputArgument::REQUIRED, 'Name of Fixture to load');
     }
 
@@ -38,6 +39,7 @@ class LoadSingleFixtureCommand extends Command
         $fixtureName      = $input->getArgument('fixtureName');
         $dry              = (bool) ($input->getOption('dry') ?? false);
         $withDependencies = (bool) ($input->getOption('with-dependencies') ?? false);
+        $vendor           = (bool) ($input->getOption('vendor') ?? false);
 
         if (!\is_string($fixtureName)) {
             $io->error('Please make sure that your argument is of type string');
@@ -51,10 +53,15 @@ class LoadSingleFixtureCommand extends Command
             $io->note('[INFO] Dry run mode enabled. No fixtures will be executed.');
         }
 
+        if ($vendor) {
+            $io->note('[INFO] Including fixtures from vendor packages.');
+        }
+
         $options = new FixtureOption(
             dryMode: $dry,
             fixtureNames: [$fixtureName],
-            withDependencies: $withDependencies
+            withDependencies: $withDependencies,
+            withVendor: $vendor,
         );
 
         if (!$this->loader->run($options, $io)) {

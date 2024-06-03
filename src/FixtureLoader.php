@@ -20,10 +20,11 @@ class FixtureLoader
      * can be configured using the FixtureOption object.
      *
      * Generally speaking the following options are available:
-     * - $dryMode: If set to true, the fixtures will not be executed (only printed)
-     * - $groupName: If set, only fixtures with the given group name will be executed
-     * - $fixtureNames: If set, only fixtures with the given class name will be executed
-     * - $withDependencies: If set to true, all dependencies of the fixtures will be executed as well
+     * - `$dryMode`: If set to true, the fixtures will not be executed (only printed)
+     * - `$groupName`: If set, only fixtures with the given group name will be executed
+     * - `$fixtureNames`: If set, only fixtures with the given class name will be executed
+     * - `$withDependencies`: If set to true, all dependencies of the fixtures will be executed as well
+     * - `$withVendor`: If set to true, all fixtures found in vendor directory will be executed as well
      */
     public function run(FixtureOption $option, ?SymfonyStyle $io = null): bool
     {
@@ -66,7 +67,7 @@ class FixtureLoader
         if (!empty($group)) {
             $fixtures = array_filter(
                 $fixtures,
-                static fn (Fixture $fixture) => \in_array(strtolower($group), array_map('strtolower', $fixture->groups()), true)
+                static fn (Fixture $fixture) => \in_array(strtolower($group), array_map('strtolower', $fixture->groups()), true),
             );
         }
 
@@ -78,7 +79,18 @@ class FixtureLoader
                     $className = substr(strrchr($fqcn, '\\') ?: '', 1);
 
                     return \in_array($className, $option->fixtureNames, true);
-                }
+                },
+            );
+        }
+
+        if (!$option->withVendor) {
+            $fixtures = array_filter(
+                $fixtures,
+                static function (Fixture $fixture) {
+                    $reflectionClass = new \ReflectionClass($fixture::class);
+
+                    return !str_contains($reflectionClass->getFileName() ?: '', '/vendor/');
+                },
             );
         }
 
@@ -98,7 +110,7 @@ class FixtureLoader
     private function checkThatAllDependenciesAreInGroup(
         array $fixtureReferences,
         string $groupName,
-        ?SymfonyStyle $io = null
+        ?SymfonyStyle $io = null,
     ): bool {
         foreach ($fixtureReferences as $fixture) {
             if (\count($fixture->dependsOn()) <= 0) {
@@ -120,7 +132,7 @@ class FixtureLoader
         Fixture $fixture,
         array $references,
         string $groupName,
-        ?SymfonyStyle $io = null
+        ?SymfonyStyle $io = null,
     ): bool {
         $dependencies = $fixture->dependsOn();
         $inGroup      = array_map('strtolower', array_keys($references));
@@ -189,8 +201,8 @@ class FixtureLoader
             $fixtures,
             array_map(
                 static fn (string $key) => $allFixtures[$key],
-                $keys
-            )
+                $keys,
+            ),
         );
     }
 
@@ -239,7 +251,7 @@ class FixtureLoader
     {
         uasort(
             $fixtures,
-            static fn (Fixture $fixture1, Fixture $fixture2): int => $fixture2->priority() <=> $fixture1->priority()
+            static fn (Fixture $fixture1, Fixture $fixture2): int => $fixture2->priority() <=> $fixture1->priority(),
         );
 
         return $fixtures;
@@ -255,10 +267,7 @@ class FixtureLoader
      */
     private function buildDependencyTree(array $fixtures): array
     {
-        uasort(
-            $fixtures,
-            fn (Fixture $a, Fixture $b) => $this->compareDependencies($a, $b)
-        );
+        uasort($fixtures, $this->compareDependencies(...));
 
         return $fixtures;
     }

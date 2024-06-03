@@ -2,7 +2,7 @@ version: "3"
 
 services:
   shopware:
-    image: 'dockware/dev:6.6.0.1'
+    image: 'dockware/dev:6.6.1.1'
     ports:
       - "80:80"       # Webserver / Apache
       - "3306:3306"   # MySQL database

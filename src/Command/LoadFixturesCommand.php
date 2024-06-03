@@ -16,21 +16,23 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class LoadFixturesCommand extends Command
 {
     public function __construct(
-        private readonly FixtureLoader $loader
+        private readonly FixtureLoader $loader,
     ) {
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this->addOption('dry', description: 'Only list fixtures that would run without executing them');
+        $this->addOption('dry', description: 'Only list fixtures that would run without executing them')
+            ->addOption('vendor', description: 'Include fixtures from vendor packages');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
-        $dry = (bool) ($input->getOption('dry') ?? false);
+        $dry    = (bool) ($input->getOption('dry') ?? false);
+        $vendor = (bool) ($input->getOption('vendor') ?? false);
 
         $io->title('Running all fixtures');
 
@@ -38,8 +40,13 @@ class LoadFixturesCommand extends Command
             $io->note('[INFO] Dry run mode enabled. No fixtures will be executed.');
         }
 
+        if ($vendor) {
+            $io->note('[INFO] Including fixtures from vendor packages.');
+        }
+
         $option = new FixtureOption(
-            dryMode: $dry
+            dryMode: $dry,
+            withVendor: $vendor,
         );
 
         if (!$this->loader->run($option, $io)) {

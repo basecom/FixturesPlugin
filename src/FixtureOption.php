@@ -11,6 +11,7 @@ readonly class FixtureOption
         public ?string $groupName = null,
         public array $fixtureNames = [],
         public bool $withDependencies = false,
+        public bool $withVendor = false,
     ) {
     }
 }

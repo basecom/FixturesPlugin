@@ -13,14 +13,14 @@ use Shopware\Core\System\Salutation\SalutationEntity;
 readonly class CustomerUtils
 {
     public function __construct(
-        private EntityRepository $salutationRepository
+        private EntityRepository $salutationRepository,
     ) {
     }
 
     public function getNotSpecifiedSalutation(): ?SalutationEntity
     {
         $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('salutationKey', 'not_specified')
+            new EqualsFilter('salutationKey', 'not_specified'),
         )->setLimit(1);
 
         $salutation = $this->salutationRepository

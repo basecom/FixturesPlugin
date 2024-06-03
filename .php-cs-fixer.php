@@ -42,5 +42,6 @@ return (new Config())
         'object_operator_without_whitespace' => false,
         'multiline_whitespace_before_semicolons' => [
             'strategy' => 'no_multi_line',
-        ]
+        ],
+        'trailing_comma_in_multiline' => ['elements' => ['arrays', 'arguments', 'parameters', 'match']],
     ]);
