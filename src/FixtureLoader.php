@@ -8,8 +8,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class FixtureLoader
 {
+    /** @var array<Fixture> */
     private readonly array $fixtures;
 
+    /**
+     * @param \Traversable<Fixture> $fixtures
+     */
     public function __construct(\Traversable $fixtures)
     {
         $this->fixtures = iterator_to_array($fixtures);
@@ -127,6 +131,8 @@ class FixtureLoader
 
     /**
      * Check if dependencies of fixture are also in the same group. If not, show error and stop process.
+     *
+     * @param array<string, Fixture> $references
      */
     private function checkDependenciesAreInSameGroup(
         Fixture $fixture,
