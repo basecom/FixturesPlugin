@@ -14,6 +14,7 @@ use Basecom\FixturePlugin\Utils\PaymentMethodUtils;
 use Basecom\FixturePlugin\Utils\SalesChannelUtils;
 use Basecom\FixturePlugin\Utils\SalutationUtils;
 use Basecom\FixturePlugin\Utils\ShippingMethodUtils;
+use Basecom\FixturePlugin\Utils\TaxUtils;
 
 readonly class FixtureHelper
 {
@@ -28,6 +29,7 @@ readonly class FixtureHelper
         private DatabaseUtils $databaseUtils,
         private LanguageAndLocaleUtils $languageAndLocaleUtils,
         private CurrencyUtils $currencyUtils,
+        private TaxUtils $taxUtils,
     ) {
     }
 
@@ -110,6 +112,15 @@ readonly class FixtureHelper
     public function Currency(): CurrencyUtils
     {
         return $this->currencyUtils;
+    }
+
+    /**
+     * Use this to access the tax related features
+     * of the fixture helper class.
+     */
+    public function Tax(): TaxUtils
+    {
+        return $this->taxUtils;
     }
 
     /**

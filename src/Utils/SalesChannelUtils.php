@@ -11,8 +11,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelEntity;
-use Shopware\Core\System\Tax\TaxCollection;
-use Shopware\Core\System\Tax\TaxEntity;
 
 /**
  * This class provides utility methods to work with sales channels. It has build in caching to prevent
@@ -27,11 +25,9 @@ readonly class SalesChannelUtils
 {
     /**
      * @param EntityRepository<SalesChannelCollection> $salesChannelRepository
-     * @param EntityRepository<TaxCollection>          $taxRepository
      */
     public function __construct(
         private EntityRepository $salesChannelRepository,
-        private EntityRepository $taxRepository,
     ) {
     }
 
@@ -74,33 +70,5 @@ readonly class SalesChannelUtils
 
             return $salesChannel instanceof SalesChannelEntity ? $salesChannel : null;
         });
-    }
-
-    // TODO: Move to TaxUtils
-    public function getTax19(): ?TaxEntity
-    {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('taxRate', 19))
-            ->setLimit(1);
-
-        $tax = $this->taxRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
-
-        return $tax instanceof TaxEntity ? $tax : null;
-    }
-
-    // TODO: Move to TaxUtils
-    public function getTax(float $taxValue): ?TaxEntity
-    {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('taxRate', $taxValue))
-            ->setLimit(1);
-
-        $tax = $this->taxRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
-
-        return $tax instanceof TaxEntity ? $tax : null;
     }
 }
