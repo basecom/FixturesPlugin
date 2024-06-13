@@ -16,7 +16,7 @@ class FixtureLoader
      */
     public function __construct(
         \Traversable $fixtures,
-        private readonly FixtureHelper $helper,
+        private FixtureHelper $helper,
     )
     {
         $this->fixtures = iterator_to_array($fixtures);
