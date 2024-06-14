@@ -9,7 +9,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class FixtureLoader
 {
     /** @var array<Fixture> */
-    /** @var array<Fixture> */
     private readonly array $fixtures;
 
     /**
@@ -135,7 +134,6 @@ class FixtureLoader
     /**
      * Check if dependencies of fixture are also in the same group. If not, show error and stop process.
      *
-     * @param array<string, Fixture> $references
      * @param array<string, Fixture> $references
      */
     private function checkDependenciesAreInSameGroup(
