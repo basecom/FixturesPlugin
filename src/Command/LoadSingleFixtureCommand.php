@@ -34,7 +34,7 @@ class LoadSingleFixtureCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $now = new \DateTime();
-        $io = new SymfonyStyle($input, $output);
+        $io  = new SymfonyStyle($input, $output);
 
         /** @var string $fixtureName */
         $fixtureName      = $input->getArgument('fixtureName');
@@ -69,9 +69,9 @@ class LoadSingleFixtureCommand extends Command
             return Command::FAILURE;
         }
 
-        $interval = $now->diff(new \DateTime());
+        $interval    = $now->diff(new \DateTime());
         $tookSeconds = $interval->s + $interval->i * 60 + $interval->h * 3600 + $interval->d * 86400 + $interval->m * 2592000 + $interval->y * 31536000;
-        $io->success('Done! Took ' . $tookSeconds . 's');
+        $io->success('Done! Took '.$tookSeconds.'s');
 
         return Command::SUCCESS;
     }
