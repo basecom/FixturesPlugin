@@ -6,6 +6,8 @@ namespace Basecom\FixturePlugin;
 
 abstract class Fixture
 {
+    protected FixtureHelper $helper;
+
     abstract public function load(): void;
 
     /** @return string[] */
@@ -23,5 +25,13 @@ abstract class Fixture
     public function groups(): array
     {
         return [];
+    }
+
+    /**
+     * @internal this method should only be called from the FixtureLoader
+     */
+    final public function setHelper(FixtureHelper $helper): void
+    {
+        $this->helper = $helper;
     }
 }
