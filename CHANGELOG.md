@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added new DatabaseUtils with a few helpful methods:
   - `deleteEntities` takes an entity name and criteria and deletes all entities which match the criteria
 - Added a small cache for all utilities. It prevents loading data twice within the same request / command execution
+- Added small helper function: `$fixtureHelper->ensureNotEmpty` which throws an exception if something is empty (using the PHP empty function)
 
 ### Changed
 - Changed argument type on `SalesChannelUtils::getTax()` from `int` to `float`
@@ -29,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking** Moved `SalesChannelUtils::getCountry()` to `LanguageAndLocaleUtils::getCountry()`
 - **Breaking** Moved `SalesChannelUtils::getSnippetSet()` to `LanguageAndLocaleUtils::getSnippetSet()`
 - **Breaking** Moved `SalesChannelUtils::getCurrencyEuro()` to `CurrencyUtils::getCurrencyEuro()`
+- **Breaking** Moved `SalesChannelUtils::getTax19()` to `TaxUtils::getTax19()`
+- **Breaking** Moved `SalesChannelUtils::getTax()` to `TaxUtils::getTax()`
 
 ### Removed
 - Dropped support for PHP 8.1

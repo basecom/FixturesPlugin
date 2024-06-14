@@ -34,6 +34,16 @@ readonly class FixtureHelper
     }
 
     /**
+     * @phpstan-assert !empty $something
+     */
+    public function ensureNotEmpty(mixed $something): void
+    {
+        if (empty($something)) {
+            throw new \LogicException('Expected parameter not to be empty, but it was.');
+        }
+    }
+
+    /**
      * Use this to access the media related features
      * of the fixture helper class.
      */
