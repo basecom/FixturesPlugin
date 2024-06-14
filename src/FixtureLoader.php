@@ -9,6 +9,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class FixtureLoader
 {
     /** @var array<Fixture> */
+    /** @var array<Fixture> */
     private readonly array $fixtures;
 
     /**
