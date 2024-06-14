@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin\Utils;
 
+use Shopware\Core\Content\Cms\CmsPageCollection;
 use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -13,6 +14,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 readonly class CmsUtils
 {
+    /**
+     * @param EntityRepository<CmsPageCollection> $cmsPageRepository
+     */
     public function __construct(
         private EntityRepository $cmsPageRepository,
     ) {

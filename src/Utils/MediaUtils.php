@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin\Utils;
 
+use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderCollection;
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
 use Shopware\Core\Content\Media\File\FileFetcher;
 use Shopware\Core\Content\Media\File\FileSaver;
+use Shopware\Core\Content\Media\MediaCollection;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -14,6 +16,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
 readonly class MediaUtils
 {
+    /**
+     * @param EntityRepository<MediaCollection>       $mediaRepository
+     * @param EntityRepository<MediaFolderCollection> $mediaFolderRepository
+     */
     public function __construct(
         private EntityRepository $mediaRepository,
         private EntityRepository $mediaFolderRepository,

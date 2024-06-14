@@ -4,69 +4,54 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin;
 
-use Shopware\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Shopware\Core\Framework\DependencyInjection\DependencyInjectionException;
+use Shopware\Core\Framework\Test\TestCaseBase\IntegrationTestBehaviour;
 
 trait FixtureTrait
 {
-    private function runFixtures(?array $fixtures = []): void
+    use IntegrationTestBehaviour;
+
+    private function runFixtures(FixtureOption $options): void
     {
-        if (empty($fixtures)) {
-            $application    = new Application(KernelLifecycleManager::getKernel());
-            $fixtureCommand = $application->find('fixture:load');
+        $fixtureLoader = $this->getContainer()->get(FixtureLoader::class);
 
-            $returnCode = $fixtureCommand->run(
-                new ArrayInput(
-                    $fixtures,
-                    $fixtureCommand->getDefinition(),
-                ),
-                new BufferedOutput(), // use new ConsoleOutput() if you don't want to hide output, new BufferedOutput()
-            );
-
-            if ($returnCode !== 0) {
-                throw new \RuntimeException('fixture:load');
-            }
-
-            return;
+        if (!$fixtureLoader instanceof FixtureLoader) {
+            throw new DependencyInjectionException(404, 'FIXTURE_LOADER_NOT_FOUND', 'Fixture Loader not found in container');
         }
 
-        foreach ($fixtures as $fixture) {
-            $application = new Application(KernelLifecycleManager::getKernel());
-
-            $fixtureCommand = $application->find('fixture:load:single');
-
-            $returnCode = $fixtureCommand->run(
-                new ArrayInput(
-                    ['fixtureName' => $fixture],
-                    $fixtureCommand->getDefinition(),
-                ),
-                new BufferedOutput(), // use new ConsoleOutput() if you don't want to hide output, new BufferedOutput()
-            );
-            if ($returnCode !== 0) {
-                throw new \RuntimeException('fixture:single');
-            }
-        }
+        $fixtureLoader->run($options);
     }
 
-    private function runSingleFixtureWithDependencies(string $fixture): void
+    /**
+     * @param array<string> $fixtures
+     */
+    private function runSpecificFixtures(array $fixtures = [], bool $withDependencies = false): void
     {
-        $application = new Application(KernelLifecycleManager::getKernel());
-
-        $fixtureCommand = $application->find('fixture:load:single');
-
-        $returnCode = $fixtureCommand->run(
-            new ArrayInput(
-                ['fixtureName' => $fixture, '--with-dependencies' => true],
-                $fixtureCommand->getDefinition(),
-            ),
-            new BufferedOutput(),
+        $options = new FixtureOption(
+            fixtureNames: $fixtures,
+            withDependencies: $withDependencies,
         );
 
-        if ($returnCode !== 0) {
-            throw new \RuntimeException('fixture:single');
-        }
+        $this->runFixtures($options);
+    }
+
+    private function runSingleFixture(string $fixture, bool $withDependencies = false): void
+    {
+        $options = new FixtureOption(
+            fixtureNames: [$fixture],
+            withDependencies: $withDependencies,
+        );
+
+        $this->runFixtures($options);
+    }
+
+    private function runFixtureGroup(string $group, bool $withDependencies = false): void
+    {
+        $options = new FixtureOption(
+            groupName: $group,
+            withDependencies: $withDependencies,
+        );
+
+        $this->runFixtures($options);
     }
 }

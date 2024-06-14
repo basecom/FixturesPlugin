@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Changed argument type on `SalesChannelUtils::getTax()` from `int` to `float`
 - **Breaking** By default no fixtures in the vendor directory are loaded. Added option `--vendor` to load them
+- Refactored `FixtureTrait` to not use command anymore but direct Fixture Loader
+  - `FixtureTrait::loadFixtures` now takes in a FixtureOption parameter
+  - `FixtureTrait::runSpecificFixtures` is an alias to run specific fixtures with optionally dependencies
+  - `FixtureTrait::runSingleFixture` (before `FixtureTrait::runSingleFixtureWithDependencies`) with dependencies can now be configured as the second parameter
+  - `FixtureTrait::runFixtureGroup` is a new function to execute whole fixture groups with optionally dependencies
 
 ### Removed
 - Dropped support for PHP 8.1
