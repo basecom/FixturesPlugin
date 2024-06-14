@@ -17,9 +17,8 @@ class FixtureLoader
      */
     public function __construct(
         \Traversable $fixtures,
-        private FixtureHelper $helper,
-    )
-    {
+        private readonly FixtureHelper $helper,
+    ) {
         $this->fixtures = iterator_to_array($fixtures);
     }
 
@@ -136,6 +135,7 @@ class FixtureLoader
     /**
      * Check if dependencies of fixture are also in the same group. If not, show error and stop process.
      *
+     * @param array<string, Fixture> $references
      * @param array<string, Fixture> $references
      */
     private function checkDependenciesAreInSameGroup(
