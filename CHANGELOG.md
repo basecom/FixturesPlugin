@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - This option will prevent the fixtures from being executed but still prints all fixtures it would execute
 - Added new DatabaseUtils with a few helpful methods:
   - `deleteEntities` takes an entity name and criteria and deletes all entities which match the criteria
+- Added a small cache for all utilities. It prevents loading data twice within the same request / command execution
+- Added small helper function: `$fixtureHelper->ensureNotEmpty` which throws an exception if something is empty (using the PHP empty function)
 
 ### Changed
 - Changed argument type on `SalesChannelUtils::getTax()` from `int` to `float`
@@ -23,11 +25,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `FixtureTrait::runFixtureGroup` is a new function to execute whole fixture groups with optionally dependencies
 - Each fixture now has direct access to the FixtureHelper using `$this->helper`
   - **Breaking** If you have the helper (or any other helper) previously assigned to `$this->helper` it will either fail or override the FixturePlugin helper
+- **Breaking** Moved `SalesChannelUtils::getLanguage()` to `LanguageAndLocaleUtils::getLanguage()`
+- **Breaking** Moved `SalesChannelUtils::getLocale()` to `LanguageAndLocaleUtils::getLocale()`
+- **Breaking** Moved `SalesChannelUtils::getCountry()` to `LanguageAndLocaleUtils::getCountry()`
+- **Breaking** Moved `SalesChannelUtils::getSnippetSet()` to `LanguageAndLocaleUtils::getSnippetSet()`
+- **Breaking** Moved `SalesChannelUtils::getCurrencyEuro()` to `CurrencyUtils::getCurrencyEuro()`
+- **Breaking** Moved `SalesChannelUtils::getTax19()` to `TaxUtils::getTax19()`
+- **Breaking** Moved `SalesChannelUtils::getTax()` to `TaxUtils::getTax()`
 
 ### Removed
 - Dropped support for PHP 8.1
 - Dropped support for Shopware 6.3 & 6.4
-- Removed FixtureBag
+- **Breaking** Removed FixtureBag
+- **Breaking** CategoryUtils
+  - Removed method `getFirst` on CategoryUtils
+  - Removed method `getByName` on CategoryUtils
+- **Breaking** Renamed `CategoryUtils` to `SalutationUtils`
 
 ## [2.4.0] - 2023-11-15
 ### Added

@@ -32,7 +32,7 @@ class CustomerFixture extends Fixture
             'defaultPaymentMethodId' => $this->helper->PaymentMethod()->getInvoicePaymentMethod()->getId(),
             'defaultBillingAddress'  => [
                 'id'           => self::ADDRESS_ID,
-                'salutationId' => $this->helper->Customer()->getNotSpecifiedSalutation()->getId(),
+                'salutationId' => $this->helper->Salutation()->getNotSpecifiedSalutation()->getId(),
                 'firstName'    => 'John',
                 'lastName'     => 'Doe',
                 'zipcode'      => '1234',
@@ -41,7 +41,7 @@ class CustomerFixture extends Fixture
                 'countryId'    => $this->helper->SalesChannel()->getCountry('DE')->getId(),
             ],
             'defaultShippingAddressId' => self::ADDRESS_ID,
-            'salutationId'             => $this->helper->Customer()->getNotSpecifiedSalutation()->getId(),
+            'salutationId'             => $this->helper->Salutation()->getNotSpecifiedSalutation()->getId(),
             'customerNumber'           => '1122',
             'firstName'                => 'John',
             'lastName'                 => 'Doe',

@@ -14,6 +14,15 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
+/**
+ * This class provides utility methods to work with media assets. It has build in caching to prevent
+ * multiple database queries for the same data within one command execution / request.
+ *
+ * This class is designed to be used through the FixtureHelper, using:
+ * ```php
+ * $this->helper->Media()->……();
+ * ```
+ */
 readonly class MediaUtils
 {
     /**
@@ -30,31 +39,41 @@ readonly class MediaUtils
 
     /**
      * Copied from "vendor/shopware/core/Content/Media/MediaService.php".
+     *
+     * Extended it to include simple cache
      */
     public function getDefaultFolder(string $folderName): ?MediaFolderEntity
     {
-        $criteria = (new Criteria())
-            ->addFilter(new EqualsFilter('media_folder.defaultFolder.entity', $folderName))
-            ->addAssociation('defaultFolder')
-            ->setLimit(1);
+        return once(function () use ($folderName): ?MediaFolderEntity {
+            $criteria = (new Criteria())
+                ->addFilter(new EqualsFilter('media_folder.defaultFolder.entity', $folderName))
+                ->addAssociation('defaultFolder')
+                ->setLimit(1);
 
-        $mediaFolder = $this->mediaFolderRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
+            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
-        return $mediaFolder instanceof MediaFolderEntity ? $mediaFolder : null;
+            $mediaFolder = $this->mediaFolderRepository
+                ->search($criteria, Context::createDefaultContext())
+                ->first();
+
+            return $mediaFolder instanceof MediaFolderEntity ? $mediaFolder : null;
+        });
     }
 
+    /**
+     * "Upload" a file within shopware. It takes a real file path ($filename) and uploads it as a full media.
+     */
     public function upload(string $mediaId, string $folderId, string $filename, string $extension, string $contentType): void
     {
         $ctx = Context::createDefaultContext();
 
-        $this->mediaRepository->upsert([
+        $this->mediaRepository->upsert(
             [
-                'id'            => $mediaId,
-                'mediaFolderId' => $folderId,
+                [
+                    'id'            => $mediaId,
+                    'mediaFolderId' => $folderId,
+                ],
             ],
-        ],
             $ctx,
         );
 
