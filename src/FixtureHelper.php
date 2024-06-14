@@ -6,12 +6,15 @@ namespace Basecom\FixturePlugin;
 
 use Basecom\FixturePlugin\Utils\CategoryUtils;
 use Basecom\FixturePlugin\Utils\CmsUtils;
-use Basecom\FixturePlugin\Utils\CustomerUtils;
+use Basecom\FixturePlugin\Utils\CurrencyUtils;
 use Basecom\FixturePlugin\Utils\DatabaseUtils;
+use Basecom\FixturePlugin\Utils\LanguageAndLocaleUtils;
 use Basecom\FixturePlugin\Utils\MediaUtils;
 use Basecom\FixturePlugin\Utils\PaymentMethodUtils;
 use Basecom\FixturePlugin\Utils\SalesChannelUtils;
+use Basecom\FixturePlugin\Utils\SalutationUtils;
 use Basecom\FixturePlugin\Utils\ShippingMethodUtils;
+use Basecom\FixturePlugin\Utils\TaxUtils;
 
 readonly class FixtureHelper
 {
@@ -22,9 +25,22 @@ readonly class FixtureHelper
         private CmsUtils $cmsUtils,
         private PaymentMethodUtils $paymentMethodUtils,
         private ShippingMethodUtils $shippingMethodUtils,
-        private CustomerUtils $customerUtils,
+        private SalutationUtils $salutationUtils,
         private DatabaseUtils $databaseUtils,
+        private LanguageAndLocaleUtils $languageAndLocaleUtils,
+        private CurrencyUtils $currencyUtils,
+        private TaxUtils $taxUtils,
     ) {
+    }
+
+    /**
+     * @phpstan-assert !empty $something
+     */
+    public function ensureNotEmpty(mixed $something): void
+    {
+        if (empty($something)) {
+            throw new \LogicException('Expected parameter not to be empty, but it was.');
+        }
     }
 
     /**
@@ -55,12 +71,12 @@ readonly class FixtureHelper
     }
 
     /**
-     * Use this to access the customer related features
+     * Use this to access the salutation related features
      * of the fixture helper class.
      */
-    public function Customer(): CustomerUtils
+    public function Salutation(): SalutationUtils
     {
-        return $this->customerUtils;
+        return $this->salutationUtils;
     }
 
     /**
@@ -88,6 +104,33 @@ readonly class FixtureHelper
     public function ShippingMethod(): ShippingMethodUtils
     {
         return $this->shippingMethodUtils;
+    }
+
+    /**
+     * Use this to access the language & locale related features
+     * of the fixture helper class.
+     */
+    public function LanguageAndLocale(): LanguageAndLocaleUtils
+    {
+        return $this->languageAndLocaleUtils;
+    }
+
+    /**
+     * Use this to access the currency related features
+     * of the fixture helper class.
+     */
+    public function Currency(): CurrencyUtils
+    {
+        return $this->currencyUtils;
+    }
+
+    /**
+     * Use this to access the tax related features
+     * of the fixture helper class.
+     */
+    public function Tax(): TaxUtils
+    {
+        return $this->taxUtils;
     }
 
     /**

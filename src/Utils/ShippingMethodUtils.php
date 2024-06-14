@@ -11,6 +11,15 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 
+/**
+ * This class provides utility methods to work with shipping methods. It has build in caching
+ * to prevent multiple database queries for the same data within one command execution / request.
+ *
+ * This class is designed to be used through the FixtureHelper, using:
+ * ```php
+ * $this->helper->ShippingMethod()->……();
+ * ```
+ */
 readonly class ShippingMethodUtils
 {
     /**
@@ -21,16 +30,23 @@ readonly class ShippingMethodUtils
     ) {
     }
 
+    /**
+     * Returns the first active shipping method or null if none exists.
+     */
     public function getFirstShippingMethod(): ?ShippingMethodEntity
     {
-        $criteria = (new Criteria())->addFilter(
-            new EqualsFilter('active', '1'),
-        )->setLimit(1);
+        return once(function (): ?ShippingMethodEntity {
+            $criteria = (new Criteria())->addFilter(
+                new EqualsFilter('active', '1'),
+            )->setLimit(1);
 
-        $shippingMethod = $this->shippingMethodRepository
-            ->search($criteria, Context::createDefaultContext())
-            ->first();
+            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
-        return $shippingMethod instanceof ShippingMethodEntity ? $shippingMethod : null;
+            $shippingMethod = $this->shippingMethodRepository
+                ->search($criteria, Context::createDefaultContext())
+                ->first();
+
+            return $shippingMethod instanceof ShippingMethodEntity ? $shippingMethod : null;
+        });
     }
 }

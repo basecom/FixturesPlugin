@@ -4,50 +4,46 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin\Utils;
 
-use Shopware\Core\Content\Category\CategoryCollection;
-use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\System\Currency\CurrencyCollection;
+use Shopware\Core\System\Currency\CurrencyEntity;
 
 /**
- * This class provides utility methods to work with categories. It has build in caching to prevent
+ * This class provides utility methods to work with currencies. It has build in caching to prevent
  * multiple database queries for the same data within one command execution / request.
  *
  * This class is designed to be used through the FixtureHelper, using:
  * ```php
- * $this->helper->Category()->……();
+ * $this->helper->Currency()->……();
  * ```
  */
-readonly class CategoryUtils
+class CurrencyUtils
 {
     /**
-     * @param EntityRepository<CategoryCollection> $categoryRepository
+     * @param EntityRepository<CurrencyCollection> $currencyRepository
      */
     public function __construct(
-        private EntityRepository $categoryRepository,
+        private EntityRepository $currencyRepository,
     ) {
     }
 
-    /**
-     * Gets the root category of the shop or.
-     */
-    public function getRootCategory(): ?CategoryEntity
+    public function getCurrencyEuro(): ?CurrencyEntity
     {
-        return once(function (): ?CategoryEntity {
+        return once(function (): ?CurrencyEntity {
             $criteria = (new Criteria())
-                ->addFilter(new EqualsFilter('autoIncrement', 1))
-                ->addFilter(new EqualsFilter('level', 1))
+                ->addFilter(new EqualsFilter('isoCode', 'EUR'))
                 ->setLimit(1);
 
             $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
-            $category = $this->categoryRepository
+            $currency = $this->currencyRepository
                 ->search($criteria, Context::createDefaultContext())
                 ->first();
 
-            return $category instanceof CategoryEntity ? $category : null;
+            return $currency instanceof CurrencyEntity ? $currency : null;
         });
     }
 }
