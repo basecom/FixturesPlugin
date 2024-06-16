@@ -29,6 +29,8 @@ export default defineConfig({
         items: [
           { text: 'Your first fixture', link: '/writing/first-fixture' },
           { text: 'Dependencies & Prioritization', link: '/writing/dependencies-prioritization' },
+          { text: 'Grouping', link: '/writing/groups' },
+          { text: 'Available commands', link: '/writing/available-commands' },
           { text: 'Fixture Helper', link: '/writing/fixture-helper' },
           { text: 'PHPUnit & Tests', link: '/writing/phpunit-tests' },
         ]
@@ -49,6 +51,15 @@ export default defineConfig({
           { text: 'Tax Helpers', link: '/helpers/tax' },
           { text: 'Database Helpers', link: '/helpers/database' },
         ]
+      },
+      {
+        text: 'Examples',
+        items: [
+          { text: 'Overview', link: '/examples/' },
+          { text: 'Create a customer', link: '/examples/customer' },
+          { text: 'Create a product', link: '/examples/product' },
+          { text: 'Create an e-mail template type', link: '/examples/email-template' },
+        ],
       },
       {
         text: 'Contributing',
