@@ -58,16 +58,15 @@ export default defineConfig({
           { text: 'Overview', link: '/examples/' },
           { text: 'Create a customer', link: '/examples/customer' },
           { text: 'Create a product', link: '/examples/product' },
-          { text: 'Create an e-mail template type', link: '/examples/email-template' },
         ],
       },
-      {
-        text: 'Contributing',
-        items: [
-          { text: 'Internals', link: '/contributing/internals' },
-          { text: 'Contribution guide', link: '/contributing/guide' },
-        ]
-      }
+      //{
+      //  text: 'Contributing',
+      //  items: [
+      //    { text: 'Internals', link: '/contributing/internals' },
+      //    { text: 'Contribution guide', link: '/contributing/guide' },
+      //  ]
+      //}
     ],
 
     socialLinks: [

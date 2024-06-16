@@ -1,6 +1,7 @@
 {
   "name": "sw6-fixture-plugin",
   "private": true,
+  "type": "module",
   "devDependencies": {
     "prettier": "^3.2.5",
     "vitepress": "^1.2.3"
