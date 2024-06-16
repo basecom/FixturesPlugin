@@ -19,7 +19,7 @@ export default defineConfig({
         items: [
           { text: 'Getting started', link: '/getting-started' },
           { text: 'Installation', link: '/installation' },
-          { text: 'Support matrix', link: '/support-matrix' },
+          { text: 'Supported versions', link: '/supported-versions' },
           { text: 'UPGRADE guide', link: '/upgrade' },
           { text: 'Changelog', link: 'https://github.com/basecom/FixturesPlugin/blob/main/CHANGELOG.md' },
         ]
