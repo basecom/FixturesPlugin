@@ -2,15 +2,13 @@
 
 ## v2.x -> v3.x
 ### See changelog
-First have a look at the changes in the CHANGELOG.md
+First, review the changes documented in CHANGELOG.md.
 
 ### Support for older versions (Impact: High)
-Release V3 dropped support for PHP8.1 and Shopware 6.3 & 6.4.
-Now supported are PHP8.2, PHP8.3 and Shopware 6.5 and 6.6
+Release V3 has dropped support for PHP 8.1 and Shopware 6.3 & 6.4. The supported versions are now PHP 8.2, PHP 8.3, and Shopware 6.5 and 6.6.
 
 ### Dropped FixtureBag (Impact: High)
-We have dropped support for the FixtureBag which was given as a parameter in every `load` method. 
-This means every Fixture needs to be updated:
+Support for the FixtureBag parameter in every `load` method has been removed. Each fixture needs to be updated accordingly:
 
 #### Before
 ```php
@@ -35,10 +33,9 @@ class CustomerFixture extends Fixture
 ```
 
 ### Vendor Fixtures (Impact: Low)
-In Version 2 fixtures within the `vendor` folder run aswell, as project-specific fixtures. This behaviour has changed
-in V3. Now only direct fixtures will be executed (that are no within the `vendor` folder).
+In version 2, fixtures within the `vendor` folder were executed alongside project-specific fixtures. This behavior has changed in V3. Now, only direct fixtures (those not within the `vendor` folder) will be executed.
 
-Every fixture command now supports an additional flag `--vendor` to load vendor fixtures aswell:
+Every fixture command now supports an additional flag `--vendor` to include vendor fixtures:
 ```shell
 bin/console fixture:load --vendor
 bin/console fixture:load:single --vendor MyFixture
@@ -46,11 +43,9 @@ bin/console fixture:load:group --vendor MyGroup
 ```
 
 ### Fixture Loader (Impact: Low)
-All fixture are loaded from a `FixtureLoader` service. If you never directly accessed the loader and only used
-the build in trait and commands, you can ignore this section.
+All fixture are loaded from a `FixtureLoader` service. If you never directly accessed the loader and only used the built-in trait and commands, you can ignore this section.
 
-We have completly rewrote the logic to define which fixtures are running. The fixture loader now takes in one
-argument: `$options`. Within this options object you can specify exactly how the fixture plugin loads fixtures:
+We have completely rewritten the logic to define which fixtures are executed. The fixture loader now accepts a single argument: `$options`. Within this options object, you can specify exactly how the fixture plugin loads fixtures:
 
 ```php
 readonly class FixtureOption
@@ -66,15 +61,12 @@ readonly class FixtureOption
 }
 ```
 
-All of the options are combinable. The internal commands and traits use this options object aswell.
+All options are combinable, and the internal commands and traits also use this options object.
 
 ### FixtureTrait
-The `FixtureTrait` used for testing was rewritten to use the new FixtureOptions structure. 
+The `FixtureTrait` used for testing has been rewritten to use the new `FixtureOption` structure.
 
-The `runFixtures` method which previously took an array of fixture names, now takes a `FixtureOption` class.
-To get the original logic back, you can either provide a `FixtureOption` class with the `$fixtureNames` parameter
-filled out or use our new alias method: `runSpecificFixtures` which works like the previous `runFixtures`.
-The new method has a parameter aswell to load all dependencies of those fixtures aswell.
+The `runFixtures` method, which previously took an array of fixture names, now takes a `FixtureOption` class. To achieve the original behavior, you can either provide a `FixtureOption` class with the `$fixtureNames` parameter filled out or use our new alias method: `runSpecificFixtures`, which works like the previous `runFixtures`. The new method also includes a parameter to load all dependencies of those fixtures.
 
 ```php
 // Either:
@@ -84,8 +76,7 @@ $this->runFixtures(new FixtureOption(fixtureNames: ['MyFixture', 'AnotherFixture
 $this->runSpecificFixtures(['MyFixture', 'AnotherFixture']);
 ```
 
-The `runSingleFixtureWithDependencies` was dropped and replaced with `runSingleFixture`. The first argument takes
-the name of the fixture and the second one takes a bool to determine if dependencies should be loaded.
+The `runSingleFixtureWithDependencies` method has been replaced with `runSingleFixture`. The first argument is the name of the fixture, and the second argument is a boolean to determine if dependencies should be loaded.
 
 ```php
 // Before:
@@ -96,8 +87,7 @@ $this->runSingleFixture('MyFixture', true);
 ```
 
 ### Helper methods moved / deleted
-We updated a lot of our helper methods. Below you find any method which is affected. All not-mentioned helpers are still
-working like V2:
+Many of our helper methods have been updated. Below is a list of affected methods. All not mentioned helpers still work like in V2:
 
 - `$this->helper->Category()->getFirst()` is removed. No replacement is available
 - `$this->helper->Category()->getByName()` is removed. No replacement is available
@@ -110,11 +100,9 @@ working like V2:
 - `$this->helper->SalesChannel()->getTax19()` has moved to `$this->helper->Tax()->getTax19()`
 - `$this->helper->SalesChannel()->getTax()` has moved to `$this->helper->Tax()->getTax()`
 
-
 ### Recommendation: Fixture Helper is now given to any fixture
-While not strictly a breaking change, but a recommendation: In V3 every fixtures has access to the fixture helper
-by default using `$this->helper`. So our recommandation is to not load the fixture helper manually within dependency
-injection and instead use the given helper.
+In V3, every fixture has access to the fixture helper by default using $this->helper.
+Therefore, while not strictly a breaking change, we advise against manually loading the fixture helper via dependency injection and instead using the provided helper.
 
 
 ## v1.x -> v2.x
