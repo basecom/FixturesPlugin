@@ -6,7 +6,6 @@ namespace Basecom\FixturePlugin;
 
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 
 class CustomerFixture extends Fixture
 {

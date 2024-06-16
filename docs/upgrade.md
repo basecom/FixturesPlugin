@@ -15,7 +15,7 @@ See the [Supported versions](#todo) page for all supported shopware & php versio
 ### Removed FixtureBag <Badge type="danger">Impact: High</Badge>
 Support for the FixtureBag parameter in every `load` method has been removed. Each fixture needs to be updated accordingly:
 
-```php::no-line-numbers
+```php:no-line-numbers
 class CustomerFixture extends Fixture
 {
     public function load(FixtureBag $bag): void  // [!code --]
@@ -125,7 +125,7 @@ Instead of calling the helper methods like `$helper->getInvoicePaymentMethod()`,
 sub util class: `$helper->PaymentMethod()->getInvoicePaymentMethod()`.
 
 The following util classes have been added:
-```php
+```php:no-line-numbers
 $fixtureHelper->Media()
 $fixtureHelper->Category()
 $fixtureHelper->SalesChannel()
