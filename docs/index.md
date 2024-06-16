@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Fixture Plugin"
   text: "for Shopware 6"
-  tagline: "The fixture plugin is really helpful if you want to create some static demo data"
+  tagline: "Made by basecom"
   actions:
     - theme: brand
       text: Getting started
