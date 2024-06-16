@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking** Moved `SalesChannelUtils::getCurrencyEuro()` to `CurrencyUtils::getCurrencyEuro()`
 - **Breaking** Moved `SalesChannelUtils::getTax19()` to `TaxUtils::getTax19()`
 - **Breaking** Moved `SalesChannelUtils::getTax()` to `TaxUtils::getTax()`
+- Show time it took in seconds to run the fixture commands
 
 ### Removed
 - Dropped support for PHP 8.1

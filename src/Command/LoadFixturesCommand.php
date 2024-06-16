@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin\Command;
 
+use Basecom\FixturePlugin\DurationCalculator;
 use Basecom\FixturePlugin\FixtureLoader;
 use Basecom\FixturePlugin\FixtureOption;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -29,7 +30,8 @@ class LoadFixturesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $now = new \DateTimeImmutable();
+        $io  = new SymfonyStyle($input, $output);
 
         $dry    = (bool) ($input->getOption('dry') ?? false);
         $vendor = (bool) ($input->getOption('vendor') ?? false);
@@ -53,7 +55,8 @@ class LoadFixturesCommand extends Command
             return Command::FAILURE;
         }
 
-        $io->success('Done!');
+        $tookSeconds = DurationCalculator::calculateSeconds($now, new \DateTimeImmutable());
+        $io->success('Done! Took '.$tookSeconds.'s');
 
         return Command::SUCCESS;
     }
