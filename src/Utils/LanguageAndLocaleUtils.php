@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin\Utils;
 
-use Doctrine\Inflector\Language;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -107,11 +106,11 @@ readonly class LanguageAndLocaleUtils
     /**
      * Return a specific snippet set by its country's ISO code or null if its was not found.
      */
-    public function getSnippetSet(string $countryCodeIso): ?SnippetSetEntity
+    public function getSnippetSet(string $localeIsoCode): ?SnippetSetEntity
     {
-        return once(function () use ($countryCodeIso): ?SnippetSetEntity {
+        return once(function () use ($localeIsoCode): ?SnippetSetEntity {
             $criteria = (new Criteria())->addFilter(
-                new EqualsFilter('iso', $countryCodeIso),
+                new EqualsFilter('iso', $localeIsoCode),
             )->setLimit(1);
 
             $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
