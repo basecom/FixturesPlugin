@@ -20,8 +20,8 @@ export default defineConfig({
           { text: 'Getting started', link: '/getting-started' },
           { text: 'Installation', link: '/installation' },
           { text: 'Support matrix', link: '/support-matrix' },
-          { text: 'Changelog', link: '/changelog' },
           { text: 'UPGRADE guide', link: '/upgrade' },
+          { text: 'Changelog', link: 'https://github.com/basecom/FixturesPlugin/blob/main/CHANGELOG.md' },
         ]
       },
       {
@@ -60,7 +60,23 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+      { icon: 'github', link: 'https://github.com/basecom/FixturesPlugin' },
+      { icon: 'instagram', link: 'https://www.instagram.com/basecom.de/?hl=en' },
+      { icon: 'linkedin', link: 'https://www.linkedin.com/company/basecom-gmbh-&-co.-kg/' },
+    ],
+
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2021-2024 basecom GmbH & Co. KG'
+    },
+
+    editLink: {
+      pattern: 'https://github.com/basecom/FixturesPlugin/edit/main/docs/:path',
+      text: 'Edit this page on GitHub'
+    },
+
+    search: {
+      provider: 'local'
+    }
   }
 })
