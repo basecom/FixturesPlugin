@@ -89,5 +89,8 @@ export default defineConfig({
     search: {
       provider: 'local'
     }
+  },
+  markdown: {
+    lineNumbers: true
   }
 })

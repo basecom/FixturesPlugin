@@ -15,7 +15,7 @@ created from the admin area.
 ## Installation
 The plugin can simply be installed via composer into any existing Shopware shop:
 
-```shell
+```shell:no-line-numbers
 # Install plugin via composer
 composer require basecom/sw6-fixtures-plugin
 
@@ -27,7 +27,7 @@ bin/console plugin:install --activate BasecomFixturePlugin
 Alternatively you can download the newest release version from Github as a ZIP file and
 install it via Admin into your shop: [All releases](https://github.com/basecom/FixturesPlugin/releases)
 
-:::info
+:::tip
 To see a more in-depth tutorial about installing, see the dedicated [Installation](#todo) chapter.
 :::
 
@@ -89,7 +89,7 @@ class CustomerFixture extends Fixture
 }
 ```
 
-:::info
+:::tip
 See the [Writing first fixture](#todo) chapter to get a more in-depth guide on how to write fixtures.
 :::
 
@@ -106,7 +106,7 @@ services:
 
 Finally you can run the fixture by executing the following [Symfony Command](#todo):
 
-```shell
+```shell:no-line-numbers
 bin/console fixture:load
 ```
 
