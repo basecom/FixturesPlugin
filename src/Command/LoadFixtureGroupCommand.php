@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Basecom\FixturePlugin\Command;
 
+use Basecom\FixturePlugin\DurationCalculator;
 use Basecom\FixturePlugin\FixtureLoader;
 use Basecom\FixturePlugin\FixtureOption;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -31,7 +32,7 @@ class LoadFixtureGroupCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $now = new \DateTime();
+        $now = new \DateTimeImmutable();
         $io  = new SymfonyStyle($input, $output);
 
         /** @var string $groupNameInput */
@@ -65,8 +66,7 @@ class LoadFixtureGroupCommand extends Command
             return Command::FAILURE;
         }
 
-        $interval    = $now->diff(new \DateTime());
-        $tookSeconds = $interval->s + $interval->i * 60 + $interval->h * 3600 + $interval->d * 86400 + $interval->m * 2592000 + $interval->y * 31536000;
+        $tookSeconds = DurationCalculator::calculateSeconds($now, new \DateTimeImmutable());
         $io->success('Done! Took '.$tookSeconds.'s');
 
         return Command::SUCCESS;
