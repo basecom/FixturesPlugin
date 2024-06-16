@@ -1,8 +1,14 @@
+---
+prev:
+  text: 'Upgrade guide'
+  link: '/upgrade'
+---
+
 # Your first fixture
 
 Each fixture must extend the abstract `Basecom\FixturePlugin\Fixture` class. It has one abstract method which needs to be implemented: `load` and a few optional methods. See the next chapters for more details on them.
 
-Let's begin by creating a simple fixture together to create a new tax rate (90%). Fixtures can either be part of another Plugin, Bundle or in the shop itself.
+Let's begin by creating a simple fixture together to create a new tax rate (90%). Fixtures can either be part of another Plugin, Bundle or of the shop itself.
 
 For the sake of the tutorial I assume you already have a plugin or theme for your project. If not, please follow the [offical Shopware documentation](#todo) to create a new plugin.
 
@@ -98,7 +104,7 @@ bin/console fixture:load
 After successfully executing the command, you now should have an additional tax rate of 90%!
 
 ## Better use upsert instead of create
-We have one problem with our fixtures. Try to run the fixtures again:
+We have one problem with our fixture. Try to run the fixtures again:
 
 ```shell:no-line-numbers
 bin/console fixture:load

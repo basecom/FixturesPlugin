@@ -1,3 +1,9 @@
+---
+next:
+  text: 'Your first fixture'
+  link: '/writing/first-fixture'
+---
+
 # Upgrade Guide
 
 [[toc]]
