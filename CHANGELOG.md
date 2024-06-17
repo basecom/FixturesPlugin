@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `deleteEntities` takes an entity name and criteria and deletes all entities which match the criteria
 - Added a small cache for all utilities. It prevents loading data twice within the same request / command execution
 - Added small helper function: `$fixtureHelper->ensureNotEmpty` which throws an exception if something is empty (using the PHP empty function)
+- Added command `fixture:uuid` which just prints a random UUID
 
 ### Changed
 - Changed argument type on `SalesChannelUtils::getTax()` from `int` to `float`

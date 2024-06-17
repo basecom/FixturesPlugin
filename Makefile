@@ -44,7 +44,7 @@ shell:
 ## Install all dependencies
 dependencies:
 	make docker COMMAND="composer install --no-interaction --optimize-autoloader"
-	make docker COMMAND="npm ci"
+	make docker COMMAND="npm install"
 
 ## Install all dependencies and prepare everything
 install:

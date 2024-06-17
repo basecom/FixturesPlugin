@@ -107,8 +107,10 @@ jobs:
             -   name: Check out code
                 uses: actions/checkout@v4
 
+            - uses: oven-sh/setup-bun@v1
+
             -   name: Install dependencies
-                run: npm ci
+                run: bun install
 
             -   name: Run Prettier
                 run: './node_modules/.bin/prettier --check "src/**/*.{js,scss,yaml,yml,json,md,ts}"'

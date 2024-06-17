@@ -8,3 +8,6 @@
 /src/Resources/app/storefront/node_modules/
 composer.lock
 src/Examples
+/docs/.vitepress/dist
+/docs/.vitepress/cache
+package-lock.json

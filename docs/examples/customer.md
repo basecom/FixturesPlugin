@@ -1,11 +1,19 @@
+---
+example: 'Create a customer'
+---
+
+# Create a customer
+
+Here is an example fixture on how to create a new shopware customer. This fixture creates the customer, the associated addresses and sets a password (to `password`):
+
+```php
 <?php
 
-declare(strict_types=1);
-
-namespace Basecom\FixturePlugin;
+namespace YourVendor\YourPlugin\Fixtures;
 
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Basecom\FixturePlugin\Fixture;
 
 class CustomerFixture extends Fixture
 {
@@ -47,3 +55,12 @@ class CustomerFixture extends Fixture
         ]], Context::createDefaultContext());
     }
 }
+```
+
+## Used in this example:
+- [Command to generate the UUIDs](/writing/available-commands#get-random-uuid)
+- [`getStorefrontSalesChannel` helper method](/helpers/sales-channel#getstorefrontsaleschannel)
+- [`ensureNotEmpty` helper method](/helpers/utility#ensurenotempty)
+- [`getInvoicePaymentMethod` helper method](/helpers/payment-method#getinvoicepaymentmethod)
+- [`getNotSpecifiedSalutation` helper method](/helpers/salutation#getnotspecifiedsalutation)
+- [`getCountry` helper method](/helpers/language-locale#getcountry)
