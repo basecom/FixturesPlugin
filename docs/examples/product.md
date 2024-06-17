@@ -63,9 +63,9 @@ class ProductFixture extends Fixture
 ```
 
 ## Used in this example:
-- [Command to generate the UUIDs](#todo)
-- [`getStorefrontSalesChannel` helper method](#todo)
-- [`ensureNotEmpty` helper method](#todo)
-- [`getRootCategory` helper method](#todo)
-- [`getTax19` helper method](#todo)
-- [`getCurrencyEuro` helper method](#todo)
+- [Command to generate the UUIDs](/writing/available-commands#get-random-uuid)
+- [`getStorefrontSalesChannel` helper method](/helpers/sales-channel#getstorefrontsaleschannel)
+- [`ensureNotEmpty` helper method](/helpers/utility#ensurenotempty)
+- [`getRootCategory` helper method](/helpers/category#getrootcategory)
+- [`getTax19` helper method](/helpers/tax.html#gettax19)
+- [`getCurrencyEuro` helper method](/helpers/currency#getcurrencyeuro)

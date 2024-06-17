@@ -58,9 +58,9 @@ class CustomerFixture extends Fixture
 ```
 
 ## Used in this example:
-- [Command to generate the UUIDs](#todo)
-- [`getStorefrontSalesChannel` helper method](#todo)
-- [`ensureNotEmpty` helper method](#todo)
-- [`getInvoicePaymentMethod` helper method](#todo)
-- [`getNotSpecifiedSalutation` helper method](#todo)
-- [`getCountry` helper method](#todo)
+- [Command to generate the UUIDs](/writing/available-commands#get-random-uuid)
+- [`getStorefrontSalesChannel` helper method](/helpers/sales-channel#getstorefrontsaleschannel)
+- [`ensureNotEmpty` helper method](/helpers/utility#ensurenotempty)
+- [`getInvoicePaymentMethod` helper method](/helpers/payment-method#getinvoicepaymentmethod)
+- [`getNotSpecifiedSalutation` helper method](/helpers/salutation#getnotspecifiedsalutation)
+- [`getCountry` helper method](/helpers/language-locale#getcountry)

@@ -44,19 +44,19 @@ class MyExampleService {
 ## Available helpers
 Below is a list of all available helper categories. Please refer to the documentation for each category to see all the available methods:
 
-| Helper            | Description                                             | Documentation                      |
-| ----------------- | ------------------------------------------------------- | ---------------------------------- |
-| Utility Methods   | Some general methods to help writing fixtures           | [Utility Methods](#todo)           |
-| Media             | Methods to interact with the media entities             | [Media Helpers](#todo)             |
-| Category          | Methods to interact with the categoriy entities         | [Category Helpers](#todo)          |
-| Sales Channel     | Methods to interact with the sales channel entities     | [Sales Channel Helpers](#todo)     |
-| Salutation        | Methods to interact with the salutation entities        | [Salutation Helpers](#todo)        |
-| CMS               | Methods to interact with the cms page entities          | [CMS Helpers](#todo)               |
-| Payment Method    | Methods to interact with the payment method entities    | [Payment Method Helpers](#todo)    |
-| Shipping Method   | Methods to interact with the shipping method entities   | [Shipping Method Helpers](#todo)   |
-| Language & Locale | Methods to interact with the language & locale entities | [Language & Locale Helpers](#todo) |
-| Currency          | Methods to interact with the currency entities          | [Currency Helpers](#todo)          |
-| Tax               | Methods to interact with the tax entities               | [Tax Helpers](#todo)               |
-| Database          | Methods to interact with the database itself            | [Database Helpers](#todo)          |
+| Helper            | Description                                             | Documentation                                         |
+| ----------------- | ------------------------------------------------------- | ----------------------------------------------------- |
+| Utility Methods   | Some general methods to help writing fixtures           | [Utility Methods](/helpers/utility)                   |
+| Media             | Methods to interact with the media entities             | [Media Helpers](/helpers/media)                       |
+| Category          | Methods to interact with the categoriy entities         | [Category Helpers](/helpers/category)                 |
+| Sales Channel     | Methods to interact with the sales channel entities     | [Sales Channel Helpers](/helpers/sales-channel)       |
+| Salutation        | Methods to interact with the salutation entities        | [Salutation Helpers](/helpers/salutation)             |
+| CMS               | Methods to interact with the cms page entities          | [CMS Helpers](/helpers/cms)                           |
+| Payment Method    | Methods to interact with the payment method entities    | [Payment Method Helpers](/helpers/payment-method)     |
+| Shipping Method   | Methods to interact with the shipping method entities   | [Shipping Method Helpers](/helpers/shipping-method)   |
+| Language & Locale | Methods to interact with the language & locale entities | [Language & Locale Helpers](/helpers/language-locale) |
+| Currency          | Methods to interact with the currency entities          | [Currency Helpers](/helpers/currency)                 |
+| Tax               | Methods to interact with the tax entities               | [Tax Helpers](/helpers/tax)                           |
+| Database          | Methods to interact with the database itself            | [Database Helpers](/helpers/database)                 |
 
 Each helper category provides specialized methods to make working with different aspects of your Shopware setup easier and more efficient.
