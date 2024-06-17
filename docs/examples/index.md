@@ -13,6 +13,6 @@ In the following pages, you'll find a few examples of how to build fixtures. If 
 
 <ul>
     <li v-for="item in examples">
-        <a :href="'/fixturesplugin' + item.url">{{item.frontmatter.example}}</a>
+        <a :href="'/FixturesPlugin' + item.url">{{item.frontmatter.example}}</a>
     </li>
 </ul>

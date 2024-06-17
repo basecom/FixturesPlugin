@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Shopware 6 Fixture Plugin",
   description: "The fixture plugin is really helpful if you want to create some static demo data",
-  base: "/fixturesplugin",
+  base: "/FixturesPlugin",
   lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
