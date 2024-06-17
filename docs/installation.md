@@ -1,16 +1,16 @@
 # Installation
 
-There are multiple ways to install the plugin. The recommended way is to use [Composer](#todo) for the installation.
+There are multiple ways to install the plugin. The recommended method is to use [Composer](https://getcomposer.org/) for the installation.
 
 ## Install via composer <Badge type="tip" text="Recommended" />
 
-The plugin can be installed via composer by requiring it. It follow all of the shopware best-practices to be easly installable:
+You can install the plugin via Composer by requiring it. This method follows all of Shopware's best practices for easy installation:
 
 ```shell:no-line-numbers
 composer require basecom/sw6-fixtures-plugin
 ```
 
-After the plugin is installed via composer, you'll need to tell shopware to load the plugin. For that we need to refresh the plugin table and install/activate it afterwards. This can be done with following commands (in your shopware instance): 
+After installing the plugin via Composer, you'll need to instruct Shopware to load the plugin. To do this, refresh the plugin table and then install and activate the plugin with the following commands (in your Shopware instance):
 
 ```shell:no-line-numbers
 bin/console plugin:refresh
@@ -18,16 +18,16 @@ bin/console plugin:install --activate BasecomFixturePlugin
 ```
 
 :::warning NEXT STEPS
-After the installation, you'll need to modify the service container configuration. See [Tag the fixtures](#todo) for the next steps.
+After the installation, you'll need to modify the service container configuration. See [Tag the fixtures](#tag-the-fixtures) for the next steps.
 :::
 
 ## Install via ZIP file
 
-Alternatively you can install the package via ZIP file. Github automatically provides downloads for each tagged version. You can find all downloads on the [Github Releases Page](#todo).
+Alternatively, you can install the package via a ZIP file. GitHub automatically provides downloads for each tagged version. You can find all downloads on the [Github Releases Page](https://github.com/basecom/FixturesPlugin/releases).
 
-After you download the ZIP file, either upload it via the Admin area (Admin > Extensions) or put the contents of the ZIP file within your `custom/plugins` directory on your shopware installation.
+After downloading the ZIP file, either upload it via the Admin area (Admin > Extensions) or place the contents of the ZIP file in the `custom/plugins` directory of your Shopware installation.
 
-After the plugin is installed, you'll need to tell shopware to load the plugin. For that we need to refresh the plugin table and install/activate it afterwards. This can be done either in the admin extensions page or with following commands (in your shopware instance):
+Once the plugin is installed, you'll need to instruct Shopware to load the plugin. To do this, refresh the plugin table and then install and activate the plugin. This can be done either through the admin extensions page or by using the following commands (in your Shopware instance):
 
 ```shell:no-line-numbers
 bin/console plugin:refresh
@@ -35,14 +35,14 @@ bin/console plugin:install --activate BasecomFixturePlugin
 ```
 
 :::warning NEXT STEPS
-After the installation, you'll need to modify the service container configuration. See [Tag the fixtures](#todo) for the next steps.
+After the installation, you'll need to modify the service container configuration. See [Tag the fixtures](#tag-the-fixtures) for the next steps.
 :::
 
 ## Tag the fixtures
-The fixture plugin automatically finds all fixtures within your project. For this we are using [Symfony Container Tags](#todo). That means each fixture you write must be tagged within the service container.
+The FixturePlugin automatically finds all fixtures within your project using [Symfony Container Tags](https://symfony.com/doc/current/service_container/tags.html). This means that each fixture you write must be tagged within the service container.
 
 ### Tag all fixtures automatically <Badge type="tip" text="Recommended" />
-The recommended way is to tell Symfony to tag all classes which extend the `Fixture` class automatically. For this navigate to your `services.yaml` (either in your specific plugin / bundle or the shop itself) and add the following lines to it:
+The recommended approach is to configure Symfony to automatically tag all classes that extend the `Fixture` class. To do this, navigate to your `services.yaml` file (either within your specific plugin/bundle or the shop itself) and add the following lines:
 
 ```yaml
 services:
@@ -51,10 +51,10 @@ services:
             tags: ['basecom.fixture']
 ```
 
-This will detect any class that inherits the `Basecom\FixturePlugin\Fixture` class and add the `basecom.fixture` tag automatically. See the [Symfony Documentation](#todo) for more in-depth information.
+This configuration will automatically detect any class that inherits from the `Basecom\FixturePlugin\Fixture` class and add the `basecom.fixture` tag. For more detailed information, refer to the [Symfony Documentation](https://symfony.com/doc/current/service_container/tags.html).
 
 ### Tag each fixture individually
-Alternatively you can also tag each fixture class individually. In this case the steps are quite similar. After you [create your fixture](#todo), you'll need to add the Fixture to your `services.yaml` file (either in your specific plugin / bundle or the shop itself) and add the tag `basecom.fixture` to it:
+Alternatively, you can tag each fixture class individually. The steps are similar to the automatic tagging method. After you [create your fixture](/writing/first-fixture), you'll need to add the fixture to your `services.yaml` file (either within your specific plugin/bundle or the shop itself) and add the `basecom.fixture` tag to it:
 
 ```yaml
 services:
@@ -65,9 +65,9 @@ services:
 ## Use a specific or non-stable version
 
 ### Specific version
-If you want to install a specific version, you'll need to provide the version number. See the [CHANGELOG](#todo) for all versions.
+If you want to install a specific version, you'll need to provide the version number. Refer to the [CHANGELOG](https://github.com/basecom/FixturesPlugin/blob/main/CHANGELOG.md) for a list of all versions.
 
-In composer you can just specify the version in the `composer.json` file or via the install command:
+With Composer, you can specify the version either in the `composer.json` file or directly via the install command:
 
 ```shell:no-line-numbers
 # This will install version 2:
@@ -77,23 +77,23 @@ composer require basecom/sw6-fixtures-plugin:^2.0
 composer require basecom/sw6-fixtures-plugin:2.2.1
 ```
 
-For the zip download just choose the ZIP file for the correct version.
+For the ZIP download, simply choose the ZIP file for the desired version.
 
 ### In-development version
-If you want to install the in-development version, you can install the `main` branch version. For this you'll need to specify the version `dev-main` for the composer command:
+If you want to install the in-development version, you can install the `main` branch version. To do this, specify the version `dev-main` in the Composer command:
 
 ```shell:no-line-numbers
 composer require basecom/sw6-fixtures-plugin:dev-main
 ```
 
 :::danger
-The in-development version can contain non-documentated breaking changes or bugs! Please use with caution!
+The in-development version may contain undocumented breaking changes or bugs! Please use with caution.
 :::
 
 ## Next Steps
-Here are more useful resources:
-- [A detailed explanation about how to write fixtures](#todo)
-- [All of our helper methods to make your life easier](#todo)
-- [A lot of example fixture to help you get started](#todo)
+Here are some more useful resources to help you continue:
+- [A detailed explanation about how to write fixtures](/writing/first-fixture)
+- [All of our helper methods to make your life easier](/writing/fixture-helper)
+- [A lot of example fixture to help you get started](/examples)
 
 Happy Coding!

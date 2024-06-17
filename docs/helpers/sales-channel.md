@@ -4,7 +4,7 @@ This helper provides utility methods to work with sales channels.
 
 ## getStorefrontSalesChannel
 
-The `getStorefrontSalesChannel` method returns the first sales channel of type `Storefront` or null if it does not exists.
+The `getStorefrontSalesChannel` method returns the first sales channel of type `Storefront`, or null if it does not exist.
 
 ```php
 <?php
@@ -18,7 +18,7 @@ class MyFixture extends Fixture {
 
 ## getHeadlessSalesChannel
 
-The `getHeadlessSalesChannel` method returns the first sales channel of type `Headless` or null if it does not exists.
+The `getHeadlessSalesChannel` method returns the first sales channel of type `Headless`, or null if it does not exist.
 
 ```php
 <?php
@@ -32,7 +32,7 @@ class MyFixture extends Fixture {
 
 ## getProductComparisonSalesChannel
 
-The `getProductComparisonSalesChannel` method returns the first sales channel of type `Product Comparison` (in admin it is called Product Feed) or null if it does not exists.
+The `getProductComparisonSalesChannel` method returns the first sales channel of type `Product Comparison` (in the admin it is called Product Feed), or null if it does not exist.
 
 ```php
 <?php
@@ -46,7 +46,7 @@ class MyFixture extends Fixture {
 
 ## getSalesChannelByType
 
-The `getSalesChannelByType` method takes a type parameter and returns the first sales channel of that specific type or null if it does not exists.
+The `getSalesChannelByType` method takes a type parameter and returns the first sales channel of that specific type, or null if it does not exist.
 
 ```php
 <?php

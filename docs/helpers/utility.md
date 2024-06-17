@@ -1,8 +1,8 @@
 # Utility Methods
 ## ensureNotEmpty
-The `ensureNotEmpty` method on the fixture helper checks that any given variable is not [empty](#todo). If it is, it will throw a `LogicException`.
+The `ensureNotEmpty` method on the `FixtureHelper` checks that any given variable is not [empty](https://www.php.net/manual/en/function.empty.php). If it is, it will throw a `LogicException`.
 
-This method also includes the needed annotations, so that [PHPstan](#todo) and [Psalm](#todo) don't throw any errors afterwards:
+This method also includes the necessary annotations so that [PHPStan](https://phpstan.org/) and [Psalm](https://psalm.dev/) don't throw any errors afterward:
 
 ```php
 <?php

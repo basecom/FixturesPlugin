@@ -4,7 +4,7 @@ This helper provides utility methods to work with salutations.
 
 ## getNotSpecifiedSalutation
 
-The `getNotSpecifiedSalutation` method return the salutation "Not specified" or null if it doesn't exists.
+The `getNotSpecifiedSalutation` method returns the salutation "Not specified", or null if it doesn't exist.
 
 ```php
 <?php

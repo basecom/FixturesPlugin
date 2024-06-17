@@ -1,10 +1,10 @@
 # Language & Locale Helpers
 
-This helper provides utility methods to work with languages, locales, snippet sets and countries.
+This helper provides utility methods to work with languages, locales, snippet sets, and countries.
 
 ## getLanguage
 
-The `getLanguage` method takes the name of any language as parameter and returns the language entity that belongs to that name or null if none was found.
+The `getLanguage` method takes the name of any language as a parameter and returns the language entity that corresponds to that name, or null if none is found.
 
 ```php
 <?php
@@ -18,7 +18,7 @@ class MyFixture extends Fixture {
 
 ## getLocale
 
-The `getLocale` method takes the ISO code of any locale as parameter and returns the locale entity that belongs to that code or null if none was found.
+The `getLocale` method takes the ISO code of any locale as a parameter and returns the locale entity that corresponds to that code, or null if none is found.
 
 ```php
 <?php
@@ -32,7 +32,7 @@ class MyFixture extends Fixture {
 
 ## getCountry
 
-The `getCountry` method takes the ISO code of any country as parameter and returns the country entity that belongs to that code or null if none was found.
+The `getCountry` method takes the ISO code of any country as a parameter and returns the country entity that corresponds to that code, or null if none is found.
 
 ```php
 <?php
@@ -46,7 +46,7 @@ class MyFixture extends Fixture {
 
 ## getSnippetSet
 
-The `getSnippetSet` method takes the ISO code of any locale as parameter and returns the snippet set entity that is associated to that locale or null if none was found.
+The `getSnippetSet` method takes the ISO code of any locale as a parameter and returns the snippet set entity that is associated with that locale, or null if none is found.
 
 ```php
 <?php

@@ -1,6 +1,6 @@
 # PHPUnit & Tests
 
-In addition to running fixtures via [console command](#todo), you can also execute fixtures within your PHPUnit tests. For this we provide a trait `FixtureTrait` which has all the needed methods to run fixtures.
+In addition to running fixtures via [console command](https://symfony.com/doc/current/console.html), you can also execute fixtures within your PHPUnit tests. For this purpose, we provide a trait called `FixtureTrait`, which contains all the necessary methods to run fixtures.
 
 ## Run specific fixtures
 To run specific fixtures, simply add the trait to your test and call the `runSpecificFixtures` method:
@@ -17,7 +17,7 @@ class MyTest extends TestCase {
 }
 ```
 
-Optionally you can also specify that all [dependencies](#todo) of the given fixtures will be loaded aswell by setting the second argument to `true`:
+Optionally, you can also specify that all [dependencies](/writing/dependencies-prioritization) of the given fixtures should be loaded as well by setting the second argument to `true`:
 
 ```php
 use Basecom\FixturePlugin\FixtureTrait;
@@ -47,7 +47,7 @@ class MyTest extends TestCase {
 }
 ```
 
-Optionally you can also specify that all [dependencies](#todo) of the given fixture will be loaded aswell by setting the second argument to `true`:
+Optionally, you can also specify that all [dependencies](/writing/dependencies-prioritization) of the given fixture should be loaded as well by setting the second argument to `true`:
 
 ```php
 use Basecom\FixturePlugin\FixtureTrait;
@@ -63,7 +63,7 @@ class MyTest extends TestCase {
 ```
 
 ## Run a fixture group
-To run a whole fixture groups, simply add the trait to your test and call the `runFixtureGroup` method:
+To run a whole fixture group, simply add the trait to your test and call the `runFixtureGroup` method:
 
 ```php
 use Basecom\FixturePlugin\FixtureTrait; // [!code focus]
@@ -77,7 +77,7 @@ class MyTest extends TestCase {
 }
 ```
 
-Optionally you can also specify that all [dependencies](#todo) of the given fixture group will be loaded aswell by setting the second argument to `true`:
+Optionally, you can also specify that all [dependencies](/writing/dependencies-prioritization) of the given fixture group should be loaded as well by setting the second argument to `true`:
 
 ```php
 use Basecom\FixturePlugin\FixtureTrait;
@@ -93,8 +93,7 @@ class MyTest extends TestCase {
 ```
 
 ## More complex scenarios
-If you want or need more fine-control over which fixtures run you can use the `runFixtures` method. This methods takes a `FixtureOption` parameter
-which can be freely configured:
+If you want or need more fine control over which fixtures run, you can use the `runFixtures` method. This method takes a `FixtureOption` parameter, which can be freely configured:
 
 ```php
 use Basecom\FixturePlugin\FixtureTrait; // [!code focus]
@@ -114,5 +113,4 @@ class MyTest extends TestCase {
 }
 ```
 
-All these parameters are combinable and allow for a very specific execution of fixtures. All other methods are simply alias methods for
-this one method with preconfigured options.
+All these parameters are combinable and allow for a very specific execution of fixtures. All other methods are simply alias methods for this one method with preconfigured options.

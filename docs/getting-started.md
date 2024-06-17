@@ -1,42 +1,36 @@
 # Getting started
 
-The FixturePlugin for Shopware 6 provides convient commands and structure to create and manage
-Fixture for your Shop Project or Plugin.
+The FixturePlugin for Shopware 6 offers convenient commands and structures to create and manage fixtures for your shop project or plugin.
 
 ## What are Fixtures?
-Summarized fixtures are a way to generate demo / example data for any given system. We borrowed
-the term and general idea behind it from the [Symfony Fixtures](#todo). Generally speaking
-you create a bunch of Fixtures on your shop which create products, customers, categories
-and really anything else you need to run your shop locally.   
+Fixtures are a method to generate demo or example data for any given system. We borrowed the concept and terminology from [DoctrineFixturesBundle](https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html). Essentially, fixtures allow you to create a set of predefined data for your shop, such as products, customers, categories, and anything else you need to run your shop locally.   
    
-Of course fixtures can also be used in staging or review environments. We, at [basecom](https://basecom.de) even use it sometimes for production data, like e-mail template types, which can't be
-created from the admin area.
+Fixtures can also be used in staging or review environments. At [basecom](https://basecom.de), we even use them sometimes for production data, such as email template types, which cannot be created from the admin area.
 
 ## Installation
-The plugin can simply be installed via composer into any existing Shopware shop:
+You can easily install the plugin via Composer in any existing Shopware shop:
 
 ```shell:no-line-numbers
-# Install plugin via composer
+# Install the plugin via Composer
 composer require basecom/sw6-fixtures-plugin
 
-# Reload the plugin table and install/activate the plugin
+# Refresh the plugin list and install/activate the plugin
 bin/console plugin:refresh
 bin/console plugin:install --activate BasecomFixturePlugin
 ```
 
-Alternatively you can download the newest release version from Github as a ZIP file and
-install it via Admin into your shop: [All releases](https://github.com/basecom/FixturesPlugin/releases)
+Alternatively, you can download the latest release version from GitHub as a ZIP file and install it via the Admin interface in your shop: [All releases](https://github.com/basecom/FixturesPlugin/releases)
 
 :::tip
-To see a more in-depth tutorial about installing, see the dedicated [Installation](#todo) chapter.
+For a more detailed tutorial on installation, please see the dedicated [Installation](/installation) chapter.
 :::
 
 ## Your first fixture
-After installing the plugin you can begin writing your own fixtures. In this Getting started guide we will begin with a simple fixture, which creates a new customer. See the [Examples](#todo) page for inspiration.
+After installing the plugin, you can start writing your own fixtures. In this getting started guide, we will begin with a simple fixture that creates a new customer. For more inspiration, see the [Examples](/examples) page.
 
-Each fixture must extend the abstract `Fixture` class. You'll need to implement only one method: `load`. This would be a full example of how you can create a new customer.
+Each fixture must extend the abstract `Fixture` class and implement the `load` method. Below is a complete example of how to create a new customer.
 
-Create a new file, located in an `Fixtures` subdirectory of your shop or plugin called: `CustomerFixture`:
+Create a new file in the Fixtures subdirectory of your shop or plugin and name it `CustomerFixture.php`:
 
 ```php
 <?php
@@ -90,12 +84,12 @@ class CustomerFixture extends Fixture
 ```
 
 :::tip
-See the [Writing first fixture](#todo) chapter to get a more in-depth guide on how to write fixtures.
+For a more detailed guide on writing fixtures, see the [Writing first fixture](/writing/first-fixture) chapter.
 :::
 
-Each fixture must be [tagged](#todo) in the [symfony container](#todo) to be found by the FixturePlugin. We recommend to add a generic service definition which tags all classes which extend the `Fixture` class.
+Each fixture must be [tagged](https://symfony.com/doc/current/service_container/tags.html) in the [symfony container](https://symfony.com/doc/current/service_container.html) to be recognized by the FixturePlugin. We recommend adding a generic service definition that tags all classes extending the `Fixture` class.
 
-For this add this part to your services.yaml file:
+Add the following to your `services.yaml` file:
 
 ```yaml
 services:
@@ -104,18 +98,18 @@ services:
             tags: ['basecom.fixture']
 ```
 
-Finally you can run the fixture by executing the following [Symfony Command](#todo):
+Finally, you can run the fixture by executing the following [Symfony Command](https://symfony.com/doc/current/console.html):
 
 ```shell:no-line-numbers
 bin/console fixture:load
 ```
 
 ## Next Steps
-Congratulations! You just wrote your first fixture :tada: 
+Congratulations! You've written your first fixture :tada: 
 
-Here are more useful resources:
-- [A more detailed explanation about how to write fixtures](#todo)
-- [All of our helper methods to make your life easier](#todo)
-- [A lot of example fixture to help you get started](#todo)
+Here are some more useful resources to help you continue:
+- [A more detailed explanation about how to write fixtures](/writing/first-fixture)
+- [All of our helper methods to make your life easier](/writing/fixture-helper)
+- [A lot of example fixture to help you get started](/examples)
 
 Happy Coding!

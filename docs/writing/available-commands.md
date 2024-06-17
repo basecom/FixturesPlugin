@@ -1,6 +1,6 @@
 # Available commands
 
-The fixture plugin provides a few [symfony commands](#todo) you can execute.
+The FixturePlugin provides a few [symfony commands](https://symfony.com/doc/current/console.html) that you can execute.
 
 ## Running fixtures
 ### Run all fixtures

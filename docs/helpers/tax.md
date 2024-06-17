@@ -4,7 +4,7 @@ This helper provides utility methods to work with taxes.
 
 ## getTax19
 
-The `getTax19` method returns the tax entity with a tax rate of 19% or null if it doesn't exists.
+The `getTax19` method returns the tax entity with a tax rate of 19%, or null if it doesn't exist.
 
 ```php
 <?php
@@ -18,7 +18,7 @@ class MyFixture extends Fixture {
 
 ## getTax
 
-The `getTax` method takes a tax rate as parameter and returns the tax entity with that given tax rate or null if it doesn't exists.
+The `getTax` method takes a tax rate as a parameter and returns the tax entity with that given tax rate, or null if it doesn't exist.
 
 ```php
 <?php

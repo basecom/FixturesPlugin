@@ -1,9 +1,9 @@
 # Database Helpers
 
-The database helpers provide a more generic way of handling with the database in comparision to the other helper methods.
+The database helpers provide a more generic way of handling the database compared to the other helper methods.
 
 ## deleteEntities
-The `deleteEntities` method allows a fixture to delete all entities which match a given criteria. It takes the entity name and criteria as parameter and deletes all found entities.
+The `deleteEntities` method allows a fixture to delete all entities that match a given criteria. It takes the entity name and criteria as parameters and deletes all found entities.
 
 ```php
 <?php
@@ -18,4 +18,4 @@ class MyFixture extends Fixture {
 }
 ```
 
-This example would remove all products which have the name: "Example".
+This example would remove all products that have the name "Example."

@@ -4,7 +4,7 @@ This helper provides utility methods to work with currencies.
 
 ## getCurrencyEuro
 
-The `getCurrencyEuro` method return the EURO currency or null if it doesn't exists.
+The `getCurrencyEuro` method returns the EURO currency, or null if it doesn't exist.
 
 ```php
 <?php

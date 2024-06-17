@@ -6,15 +6,15 @@ prev:
 
 # Your first fixture
 
-Each fixture must extend the abstract `Basecom\FixturePlugin\Fixture` class. It has one abstract method which needs to be implemented: `load` and a few optional methods. See the next chapters for more details on them.
+Each fixture must extend the abstract `Basecom\FixturePlugin\Fixture` class. This class has one abstract method, `load`, which needs to be implemented, along with a few optional methods. See the following chapters for more details on these optional methods.
 
-Let's begin by creating a simple fixture together to create a new tax rate (90%). Fixtures can either be part of another Plugin, Bundle or of the shop itself.
+Let's start by creating a simple fixture that will create a new tax rate (90%). Fixtures can be part of another plugin, bundle, or the shop itself.
 
-For the sake of the tutorial I assume you already have a plugin or theme for your project. If not, please follow the [offical Shopware documentation](#todo) to create a new plugin.
+For the sake of this tutorial, we assume you already have a plugin or theme for your project. If not, please follow the [offical Shopware documentation](https://developer.shopware.com/docs/guides/plugins/plugins/plugin-base-guide.html) to create a new plugin.
 
 ## Empty fixture
 
-After you've created your plugin, we can begin to implement the fixture. For this create a new directory within the `src` directory of your plugin called: `Fixtures`.
+After you've created your plugin, we can begin to implement the fixture. Create a new directory within the `src` directory of your plugin called `Fixtures`.
 
 A bare minimum fixture looks like this:
 ```php
@@ -31,22 +31,22 @@ class TaxFixture extends Fixture {
 }
 ```
 
-If you followed the [Installation instructions] you'll already have a `services.yaml` file configured. If not, revisit the installation page and add the needed service definition.
+If you followed the [Installation instructions](/installation) you'll already have a `services.yaml` file configured. If not, revisit the installation page and add the necessary service definition.
 
-After creating the fixture, we can execute it using the following command:
+After creating the fixture, you can execute it using the following command:
 ```shell:no-line-numbers
 bin/console fixture:load
 ```
 
-It should print the just created fixture and run successfully. Of course the fixture does not do anything at the moment.
+This should print the newly created fixture and run it successfully. Of course, the fixture does not do anything at the moment.
 
 :::tip
-Fixtures are bascially just normal classes. You can execute whatever logic you want within the `load` method of your fixture. That means you can interact with repositories to create or manipulate entites, run importer scripts or even create media files on the fly. See all of [our examples](#todo) to get more ideas of how to use Fixtures!
+Fixtures are basically just normal classes. You can execute whatever logic you want within the `load` method of your fixture. This means you can interact with repositories to create or manipulate entities, run importer scripts, or even create media files on the fly. See all of [our examples](/examples) to get more ideas on how to use fixtures!
 :::
 
 ## Create a simple entity
 
-To create a new tax rate, we can use the `$taxRepository` from shopware. Fixture are normal [Symfony services](#todo), so we can use Dependency Injection to get an instance of the repository:
+To create a new tax rate, we can use the `$taxRepository` from Shopware. Fixtures are normal [Symfony services](https://symfony.com/doc/current/service_container.html), so we can use Dependency Injection to get an instance of the repository:
 
 ```php
 <?php
@@ -67,7 +67,7 @@ class TaxFixture extends Fixture {
 }
 ```
 
-Awesome! Now we can use the [default shopware logic](#todo) to create our entity:
+Awesome! Now we can use the [default shopware logic](https://developer.shopware.com/docs/guides/plugins/plugins/framework/data-handling/writing-data.html) to create our entity:
 
 ```php
 <?php
@@ -101,7 +101,7 @@ Execute the fixtures again:
 bin/console fixture:load
 ```
 
-After successfully executing the command, you now should have an additional tax rate of 90%!
+After successfully executing the command, you should now have an additional tax rate of 90%!
 
 ## Better use upsert instead of create
 We have one problem with our fixture. Try to run the fixtures again:
@@ -110,13 +110,13 @@ We have one problem with our fixture. Try to run the fixtures again:
 bin/console fixture:load
 ```
 
-We now have two tax entities with each a rate of 90%. Meaning everytime we execute the fixtures, we get create a fully new tax entity without cleaning the old one!
+We now have two tax entities, each with a rate of 90%. This means that every time we execute the fixtures, a new tax entity is created without cleaning the old one!
 
-We now have multiple possibilities of handling that. We could, for example, remove the old tax rate and then create a new. Or we could first check if it exists and then update it instead. Fortunately shopware already has a build in method to handling these kind of cases: [upsert](#todo)!
+We have multiple ways to handle this situation. For example, we could remove the old tax rate before creating a new one, or check if it exists and then update it. Fortunately, Shopware already has a built-in method for handling these cases: [upsert](https://developer.shopware.com/docs/guides/plugins/plugins/framework/data-handling/writing-data.html#upserting-data)!
 
-`upsert` requires a fixed ID. Then it will check if an entity with the same ID exists and update it. If it does not yet exists it will create a new entity with the ID.
+The `upsert` method requires a fixed ID. It will check if an entity with the same ID exists and update it. If it does not exist, it will create a new entity with that ID.
 
-If we apply this our fixture new will look something like this:
+Applying this to our fixture, it will look something like this:
 
 ```php
 <?php
@@ -148,11 +148,10 @@ class TaxFixture extends Fixture {
 ```
 
 :::tip
-To get a random UUID which can be used for these cases, you can use the    
-`bin/console fixture:uuid` command which just prints a random UUID in the console.
+To get a random UUID that can be used for these cases, you can use the `bin/console fixture:uuid` command, which prints a random UUID in the console.
 :::
 
-If we now manually remove the old tax rates and execute the fixtures multiple times again, we only have on additional tax rate of 90% :tada:
+If we now manually remove the old tax rates and execute the fixtures multiple times, we will only have one additional tax rate of 90% :tada:
 
 ```shell:no-line-numbers
 bin/console fixture:load
@@ -160,9 +159,9 @@ bin/console fixture:load
 ```
 
 ## Next Steps
-Congratulations! You just wrote your first fixture :tada: 
+Congratulations! You've written your first fixture :tada: 
 
-Here are more useful resources:
-- [See dependencies & prioritization to even better manage your fixtures](#todo)
-- [All of our helper methods to make your life easier](#todo)
-- [A lot of example fixture to help you get started](#todo)
+Here are some more useful resources to help you continue:
+- [See dependencies & prioritization to even better manage your fixtures](/writing/dependencies-prioritization.html)
+- [All of our helper methods to make your life easier](/writing/fixture-helper)
+- [A lot of example fixture to help you get started](/examples)

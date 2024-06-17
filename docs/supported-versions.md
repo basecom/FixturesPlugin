@@ -1,6 +1,6 @@
 # Supported versions
 
-Please use the following table to check which version can be used for your PHP and shopware version
+Please use the following table to check which version of the FixturePlugin can be used with your PHP and Shopware versions:
 
 | Shopware Version | PHP Versions | Newest FixturePlugin version | Supported |
 |------------------|--------------|------------------------------|-----------|
@@ -11,5 +11,5 @@ Please use the following table to check which version can be used for your PHP a
 | 6.3.*            | v8.1, v8.2   | v2.0.*                       | ❌         |
 
 :::info
-We try to support new Shopware and PHP versions as fast as possible. If there is a new version out and no support yet, feel free to [contribute](#todo) and help us do the update faster!
+We strive to support new Shopware and PHP versions as quickly as possible. If there is a new version out and it is not yet supported, feel free to contribute and help us expedite the update process!
 :::

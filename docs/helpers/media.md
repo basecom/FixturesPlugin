@@ -4,9 +4,9 @@ This helper provides utility methods to work with media assets.
 
 ## getDefaultFolder
 
-The `getDefaultFolder` method is originally copied from [shopwares core](#todo) itself and made public for use in fixtures.
+The `getDefaultFolder` method is originally copied from [shopwares core](https://github.com/shopware/shopware/blob/6.5.x/src/Core/Content/Media/MediaService.php#L132) and made public for use in fixtures.
 
-It searches the default folder for any given entity (for example product) and return the media folder entity or null, if not found.
+It searches for the default folder for any given entity (e.g., product) and returns the media folder entity or null if not found.
 
 ```php
 <?php
@@ -19,7 +19,7 @@ class MyFixture extends Fixture {
 ```
 
 ## upload
-This methods "uploads" a real file within shopware. It takes a real file path and uploads it as a full media entity:
+This method "uploads" a real file within Shopware. It takes a real file path and uploads it as a complete media entity:
 
 ```php
 <?php

@@ -4,7 +4,7 @@ This helper provides utility methods to work with shipping methods.
 
 ## getFirstShippingMethod
 
-The `getFirstShippingMethod` method simply returns the first active shipping method or null if none exists.
+The `getFirstShippingMethod` method returns the first active shipping method, or null if none exists.
 
 ```php
 <?php
