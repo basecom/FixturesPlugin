@@ -26,7 +26,7 @@ For a more detailed tutorial on installation, please see the dedicated [Installa
 :::
 
 ## Your first fixture
-After installing the plugin, you can start writing your own fixtures. In this getting started guide, we will begin with a simple fixture that creates a new customer. For more inspiration, see the [Examples](/examples) page.
+After installing the plugin, you can start writing your own fixtures. In this getting started guide, we will begin with a simple fixture that creates a new customer. For more inspiration, see the [Examples](/examples/index) page.
 
 Each fixture must extend the abstract `Fixture` class and implement the `load` method. Below is a complete example of how to create a new customer.
 
@@ -110,6 +110,6 @@ Congratulations! You've written your first fixture :tada:
 Here are some more useful resources to help you continue:
 - [A more detailed explanation about how to write fixtures](/writing/first-fixture)
 - [All of our helper methods to make your life easier](/writing/fixture-helper)
-- [A lot of example fixture to help you get started](/examples)
+- [A lot of example fixture to help you get started](/examples/index)
 
 Happy Coding!

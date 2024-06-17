@@ -94,6 +94,6 @@ The in-development version may contain undocumented breaking changes or bugs! Pl
 Here are some more useful resources to help you continue:
 - [A detailed explanation about how to write fixtures](/writing/first-fixture)
 - [All of our helper methods to make your life easier](/writing/fixture-helper)
-- [A lot of example fixture to help you get started](/examples)
+- [A lot of example fixture to help you get started](/examples/index)
 
 Happy Coding!

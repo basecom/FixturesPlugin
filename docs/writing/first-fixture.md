@@ -41,7 +41,7 @@ bin/console fixture:load
 This should print the newly created fixture and run it successfully. Of course, the fixture does not do anything at the moment.
 
 :::tip
-Fixtures are basically just normal classes. You can execute whatever logic you want within the `load` method of your fixture. This means you can interact with repositories to create or manipulate entities, run importer scripts, or even create media files on the fly. See all of [our examples](/examples) to get more ideas on how to use fixtures!
+Fixtures are basically just normal classes. You can execute whatever logic you want within the `load` method of your fixture. This means you can interact with repositories to create or manipulate entities, run importer scripts, or even create media files on the fly. See all of [our examples](/examples/index) to get more ideas on how to use fixtures!
 :::
 
 ## Create a simple entity
@@ -164,4 +164,4 @@ Congratulations! You've written your first fixture :tada:
 Here are some more useful resources to help you continue:
 - [See dependencies & prioritization to even better manage your fixtures](/writing/dependencies-prioritization.html)
 - [All of our helper methods to make your life easier](/writing/fixture-helper)
-- [A lot of example fixture to help you get started](/examples)
+- [A lot of example fixture to help you get started](/examples/index)
