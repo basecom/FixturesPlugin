@@ -2,7 +2,7 @@ name: Deploy documentation
 
 on:
     push:
-        branches: [main, feature/docs]
+        branches: [main]
 
 permissions:
     contents: read
