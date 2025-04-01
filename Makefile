@@ -62,7 +62,6 @@ install:
 lint:
 	make lint-php-cs-fixer
 	make lint-phpstan
-	make lint-psalm
 	make lint-prettier
 
 ## PHP CS fixer
@@ -72,10 +71,6 @@ lint-php-cs-fixer:
 ## PHPStan
 lint-phpstan:
 	make docker COMMAND="./vendor/bin/phpstan analyse --memory-limit=1G"
-
-## Psaml
-lint-psalm:
-	make docker COMMAND="./vendor/bin/psalm --show-info=false"
 
 ## Prettier
 lint-prettier:

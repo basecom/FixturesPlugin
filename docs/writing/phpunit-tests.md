@@ -3,7 +3,8 @@
 In addition to running fixtures via [console command](https://symfony.com/doc/current/console.html), you can also execute fixtures within your PHPUnit tests. For this purpose, we provide a trait called `FixtureTrait`, which contains all the necessary methods to run fixtures.
 
 ## Run specific fixtures
-To run specific fixtures, simply add the trait to your test and call the `runSpecificFixtures` method:
+To run specific fixtures, simply add the trait to your test and call the `runSpecificFixtures` method. This method accepts
+both base class names, aswell as the FQCN:
 
 ```php
 use Basecom\FixturePlugin\FixtureTrait; // [!code focus]
@@ -12,7 +13,7 @@ class MyTest extends TestCase {
     use FixtureTrait; // [!code focus]
 
     public function testThatSomethingWorks(): void {
-        $this->runSpecificFixtures(['CustomerFixture', 'ProductFixture']); // [!code focus]
+        $this->runSpecificFixtures(['CustomerFixture', ProductFixture::class]); // [!code focus]
     }
 }
 ```
@@ -43,6 +44,9 @@ class MyTest extends TestCase {
 
     public function testThatSomethingWorks(): void {
         $this->runSingleFixture('CustomerFixture'); // [!code focus]
+        
+        // Alternatively: // [!code focus]
+        $this->runSingleFixture(CustomerFixture::class); // [!code focus]
     }
 }
 ```
