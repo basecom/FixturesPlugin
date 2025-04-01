@@ -28,7 +28,7 @@ class FixtureLoader
      * Generally speaking the following options are available:
      * - `$dryMode`: If set to true, the fixtures will not be executed (only printed)
      * - `$groupName`: If set, only fixtures with the given group name will be executed
-     * - `$fixtureNames`: If set, only fixtures with the given class name will be executed
+     * - `$fixtureNames`: If set, only fixtures with the given class name will be executed. Can be the FCQN or just the class base name
      * - `$withDependencies`: If set to true, all dependencies of the fixtures will be executed as well
      * - `$withVendor`: If set to true, all fixtures found in vendor directory will be executed as well
      */
@@ -84,7 +84,7 @@ class FixtureLoader
                     $fqcn      = $fixture::class;
                     $className = substr(strrchr($fqcn, '\\') ?: '', 1);
 
-                    return \in_array($className, $option->fixtureNames, true);
+                    return \in_array($className, $option->fixtureNames, true) || \in_array($fqcn, $option->fixtureNames, true);
                 },
             );
         }
