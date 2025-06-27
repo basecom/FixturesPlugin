@@ -37,7 +37,6 @@ class LoadSingleFixtureCommand extends Command
         $now = new \DateTimeImmutable();
         $io  = new SymfonyStyle($input, $output);
 
-        /** @var string $fixtureName */
         $fixtureName      = $input->getArgument('fixtureName');
         $dry              = (bool) ($input->getOption('dry') ?? false);
         $withDependencies = (bool) ($input->getOption('with-dependencies') ?? false);

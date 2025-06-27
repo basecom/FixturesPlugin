@@ -9,3 +9,4 @@ parameters:
         # This is ignored until we drop support for Shopware 6.5
         - message: '#Shopware\\Core\\Framework\\DataAbstractionLayer\\EntityRepository is not generic\.#'
           reportUnmatched: false
+        - '#Trait Basecom\\FixturePlugin\\FixtureTrait is used zero times and is not analysed#'
