@@ -1,0 +1,20 @@
+services:
+  shopware:
+    image: 'dockware/dev:6.7.0.0'
+    ports:
+      - "82:80"       # Webserver / Apache
+      - "3308:3306"   # MySQL database
+#      - "22:22"       # SSH
+#      - "8888:8888"   # Admin watcher
+#      - "9999:9999"   # Storefront watcher (background)
+#      - "9998:9998"   # Storefront watcher (background)
+    environment:
+      - 'XDEBUG_ENABLED=0'
+      - 'PHP_VERSION=8.3'
+    volumes:
+      - "./:/var/www/html/custom/static-plugins/plugin"
+      - "db:/var/lib/mysql"
+
+volumes:
+  db:
+    driver: local
