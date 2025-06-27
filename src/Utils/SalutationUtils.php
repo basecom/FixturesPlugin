@@ -37,7 +37,7 @@ readonly class SalutationUtils
                 new EqualsFilter('salutationKey', 'not_specified'),
             )->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $salutation = $this->salutationRepository
                 ->search($criteria, Context::createDefaultContext())

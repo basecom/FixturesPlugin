@@ -62,7 +62,7 @@ readonly class SalesChannelUtils
                 ->addFilter(new EqualsFilter('typeId', $salesChannelType))
                 ->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $salesChannel = $this->salesChannelRepository
                 ->search($criteria, Context::createDefaultContext())

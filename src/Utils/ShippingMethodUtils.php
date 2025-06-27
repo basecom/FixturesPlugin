@@ -40,7 +40,7 @@ readonly class ShippingMethodUtils
                 new EqualsFilter('active', '1'),
             )->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $shippingMethod = $this->shippingMethodRepository
                 ->search($criteria, Context::createDefaultContext())

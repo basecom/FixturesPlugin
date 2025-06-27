@@ -41,7 +41,7 @@ readonly class PaymentMethodUtils
                 new EqualsFilter('handlerIdentifier', InvoicePayment::class),
             )->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $paymentMethod = $this->paymentMethodRepository
                 ->search($criteria, Context::createDefaultContext())

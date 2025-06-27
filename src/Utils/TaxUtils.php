@@ -48,7 +48,7 @@ class TaxUtils
                 ->addFilter(new EqualsFilter('taxRate', $taxRate))
                 ->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $tax = $this->taxRepository
                 ->search($criteria, Context::createDefaultContext())

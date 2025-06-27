@@ -147,7 +147,7 @@ class FixtureLoader
 
         foreach ($dependencies as $dependency) {
             if (!\in_array(strtolower($dependency), $inGroup, true)) {
-                $io?->error(sprintf("Dependency '%s' of fixture '%s' is not in group '%s'", $dependency, $fixture::class, $groupName));
+                $io?->error(\sprintf("Dependency '%s' of fixture '%s' is not in group '%s'", $dependency, $fixture::class, $groupName));
 
                 return false;
             }
