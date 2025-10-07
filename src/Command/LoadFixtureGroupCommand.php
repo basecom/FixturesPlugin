@@ -35,7 +35,6 @@ class LoadFixtureGroupCommand extends Command
         $now = new \DateTimeImmutable();
         $io  = new SymfonyStyle($input, $output);
 
-        /** @var string $groupNameInput */
         $groupNameInput = $input->getArgument('groupName');
         $dry            = (bool) ($input->getOption('dry') ?? false);
         $vendor         = (bool) ($input->getOption('vendor') ?? false);

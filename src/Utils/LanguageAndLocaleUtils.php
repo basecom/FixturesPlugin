@@ -53,7 +53,7 @@ readonly class LanguageAndLocaleUtils
                 new EqualsFilter('name', $languageName),
             )->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $language = $this->languageRepository
                 ->search($criteria, Context::createDefaultContext())
@@ -73,7 +73,7 @@ readonly class LanguageAndLocaleUtils
                 new EqualsFilter('code', $code),
             )->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $locale = $this->localeRepository
                 ->search($criteria, Context::createDefaultContext())
@@ -93,7 +93,7 @@ readonly class LanguageAndLocaleUtils
                 new EqualsFilter('iso', $countryIso),
             )->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $country = $this->countryRepository
                 ->search($criteria, Context::createDefaultContext())
@@ -113,7 +113,7 @@ readonly class LanguageAndLocaleUtils
                 new EqualsFilter('iso', $localeIsoCode),
             )->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $snippetSet = $this->snippetSetRepository
                 ->search($criteria, Context::createDefaultContext())

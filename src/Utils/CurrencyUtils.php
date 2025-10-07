@@ -37,7 +37,7 @@ class CurrencyUtils
                 ->addFilter(new EqualsFilter('isoCode', 'EUR'))
                 ->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $currency = $this->currencyRepository
                 ->search($criteria, Context::createDefaultContext())

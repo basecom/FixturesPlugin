@@ -39,7 +39,7 @@ readonly class CmsUtils
                 ->addFilter(new EqualsAnyFilter('translations.name', ['Default category layout', 'Default listing layout']))
                 ->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $cmsPage = $this->cmsPageRepository
                 ->search($criteria, Context::createDefaultContext())

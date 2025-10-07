@@ -50,7 +50,7 @@ readonly class MediaUtils
                 ->addAssociation('defaultFolder')
                 ->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $mediaFolder = $this->mediaFolderRepository
                 ->search($criteria, Context::createDefaultContext())

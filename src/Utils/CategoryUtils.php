@@ -41,7 +41,7 @@ readonly class CategoryUtils
                 ->addFilter(new EqualsFilter('level', 1))
                 ->setLimit(1);
 
-            $criteria->setTitle(sprintf('%s::%s()', __CLASS__, __FUNCTION__));
+            $criteria->setTitle(\sprintf('%s::%s()', __CLASS__, __FUNCTION__));
 
             $category = $this->categoryRepository
                 ->search($criteria, Context::createDefaultContext())

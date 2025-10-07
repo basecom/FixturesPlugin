@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "prettier": "^3.2.5",
-    "vitepress": "^1.2.3"
+    "prettier": "^3.6.2",
+    "vitepress": "^1.6.3"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
