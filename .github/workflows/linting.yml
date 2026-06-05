@@ -1,83 +1,83 @@
 name: Linting
 on: [push]
 jobs:
-    php-cs-fixer:
-        name: PHP-CS-Fixer
-        runs-on: ubuntu-latest
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                php-version: [ 8.2, 8.3 , 8.4]
+    strategy:
+      matrix:
+        php-version: [8.2, 8.3, 8.4, 8.5]
 
-        steps:
-            -   name: Set up PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php-version }}
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
 
-            -   name: Check out code
-                uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
 
-            -   name: Cache Composer packages
-                id: composer-cache
-                uses: actions/cache@v4
-                with:
-                    path: vendor
-                    key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-php-
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-            -   name: Install dependencies
-                run: 'composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader'
+      - name: Install dependencies
+        run: "composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader"
 
-            -   name: Run PHP CS Fixer
-                run: 'PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer check'
+      - name: Run PHP CS Fixer
+        run: "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer check"
 
-    phpstan:
-        name: PHPStan
-        runs-on: ubuntu-latest
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-                php-version: [ 8.2, 8.3, 8.4 ]
-                composer-strategy: [ lowest, stable ]
+    strategy:
+      matrix:
+        php-version: [8.2, 8.3, 8.4, 8.5]
+        composer-strategy: [lowest, stable]
 
-        steps:
-            -   name: Set up PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php-version }}
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
 
-            -   name: Check out code
-                uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
 
-            -   name: Cache Composer packages
-                id: composer-cache
-                uses: actions/cache@v4
-                with:
-                    path: vendor
-                    key: ${{ runner.os }}-php-strategy-${{ matrix.composer-strategy }}-${{ hashFiles('**/composer.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-php-strategy-${{ matrix.composer-strategy }}-
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-strategy-${{ matrix.composer-strategy }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-strategy-${{ matrix.composer-strategy }}-
 
-            -   name: Install dependencies
-                run: 'composer update -W --prefer-${{ matrix.composer-strategy }} --no-ansi --no-interaction --no-progress --optimize-autoloader'
+      - name: Install dependencies
+        run: "composer update -W --prefer-${{ matrix.composer-strategy }} --no-ansi --no-interaction --no-progress --optimize-autoloader"
 
-            -   name: Run PHPStan
-                run: './vendor/bin/phpstan analyse --memory-limit=1G'
+      - name: Run PHPStan
+        run: "./vendor/bin/phpstan analyse --memory-limit=1G"
 
-    prettier:
-        name: Prettier
-        runs-on: ubuntu-latest
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
 
-        steps:
-            -   name: Check out code
-                uses: actions/checkout@v4
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
 
-            - uses: oven-sh/setup-bun@v1
+      - uses: oven-sh/setup-bun@v1
 
-            -   name: Install dependencies
-                run: bun install
+      - name: Install dependencies
+        run: bun install
 
-            -   name: Run Prettier
-                run: './node_modules/.bin/prettier --check "src/**/*.{js,scss,yaml,yml,json,md,ts}"'
+      - name: Run Prettier
+        run: './node_modules/.bin/prettier --check "src/**/*.{js,scss,yaml,yml,json,md,ts}"'

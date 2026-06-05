@@ -1,53 +1,53 @@
 {
-    "name": "basecom/sw6-fixtures-plugin",
-    "description": "basecom Fixtures Plugin",
-    "type": "shopware-platform-plugin",
-    "license": "proprietary",
-    "authors": [
-        {
-            "name": "basecom GmbH & Co. KG",
-            "email": "info@basecom.de",
-            "homepage": "https://basecom.de",
-            "role": "Manufacturer"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Basecom\\FixturePlugin\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Basecom\\FixturePlugin\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "shopware-plugin-class": "Basecom\\FixturePlugin\\BasecomFixturePlugin",
-        "label": {
-            "de-DE": "basecom Fixture Plugin",
-            "en-GB": "basecom Fixture Plugin"
-        },
-        "copyright": "(c) basecom GmbH & Co. KG",
-        "plugin-icon": "src/Resources/config/plugin.png",
-        "description": {
-            "de-DE": "Erlaubt das Generieren von Demo-Daten",
-            "en-GB": "Allows the generation of demo data"
-        }
-    },
-    "require": {
-        "php": "^8.2 || ^8.3 ||^8.4",
-        "shopware/core": "6.5.*|6.6.*|6.7.*",
-        "shopware/administration": "6.5.*|6.6.*|6.7.*",
-        "shopware/storefront": "6.5.*|6.6.*|6.7.*",
-        "spatie/once": "^3.1"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "3.93.0",
-        "phpstan/phpstan": "^2.1.17"
-    },
-    "config": {
-        "allow-plugins": {
-            "symfony/runtime": true
-        }
-    }
+	"name": "basecom/sw6-fixtures-plugin",
+	"description": "basecom Fixtures Plugin",
+	"type": "shopware-platform-plugin",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "basecom GmbH & Co. KG",
+			"email": "info@basecom.de",
+			"homepage": "https://basecom.de",
+			"role": "Manufacturer"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Basecom\\FixturePlugin\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Basecom\\FixturePlugin\\Tests\\": "tests/"
+		}
+	},
+	"extra": {
+		"shopware-plugin-class": "Basecom\\FixturePlugin\\BasecomFixturePlugin",
+		"label": {
+			"de-DE": "basecom Fixture Plugin",
+			"en-GB": "basecom Fixture Plugin"
+		},
+		"copyright": "(c) basecom GmbH & Co. KG",
+		"plugin-icon": "src/Resources/config/plugin.png",
+		"description": {
+			"de-DE": "Erlaubt das Generieren von Demo-Daten",
+			"en-GB": "Allows the generation of demo data"
+		}
+	},
+	"require": {
+		"php": "^8.2 || ^8.3 || ^8.4 || ^8.5",
+		"shopware/core": "6.5.*|6.6.*|6.7.*",
+		"shopware/administration": "6.5.*|6.6.*|6.7.*",
+		"shopware/storefront": "6.5.*|6.6.*|6.7.*",
+		"spatie/once": "^3.1"
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "3.93.0",
+		"phpstan/phpstan": "^2.1.17"
+	},
+	"config": {
+		"allow-plugins": {
+			"symfony/runtime": true
+		}
+	}
 }
